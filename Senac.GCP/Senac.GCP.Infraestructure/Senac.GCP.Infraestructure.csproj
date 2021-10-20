@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Database\DatabaseContext.cs~RF38b1d7f2.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Database\Scripts\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.11" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.13" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Senac.GCP.Domain\Senac.GCP.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
