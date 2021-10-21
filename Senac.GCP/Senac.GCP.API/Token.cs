@@ -6,6 +6,8 @@ namespace Senac.GCP.API
     {
         public long IdUsuario { get; set; }
 
+        public string NomeUsuario { get; set; }
+
         public bool Administrador { get; set; }
 
         public DateTime DataExpiracao { get; set; }

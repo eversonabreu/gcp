@@ -21,13 +21,14 @@ namespace Senac.GCP.API.Controllers
         [Route("login")]
         public string Login([FromBody] LoginModel loginModel)
         {
-            var usuario = usuarioService.GetRepository().FirstOrDefault(item => item.Email.ToUpper() == loginModel.Email.ToUpper() && item.Ativo);
+            var usuario = usuarioService.GetRepository().SingleOrDefault(item => item.Email.ToUpper() == loginModel.Email.ToUpper() && item.Ativo);
 
             if (usuario != null && usuario.Senha == loginModel.Senha.Encrypt())
             {
                 var token = new Token
                 {
                     IdUsuario = usuario.Id,
+                    NomeUsuario = usuario.Nome,
                     Administrador = usuario.Administrador,
                     DataExpiracao = DateTime.Now.AddHours(12)
                 };

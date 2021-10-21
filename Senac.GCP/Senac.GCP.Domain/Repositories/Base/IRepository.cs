@@ -7,9 +7,11 @@ namespace Senac.GCP.Domain.Repositories.Base
 {
     public interface IRepository<TEntity> where TEntity : Entity
     {
-        TEntity GetById(long id, bool loadDependencies = true);
+        TEntity GetById(long id, bool loadDependencies = false);
 
-        TEntity FirstOrDefault(Expression<Func<TEntity, bool>> expression, TEntity defaultResult = null, bool loadDependencies = true);
+        TEntity FirstOrDefault(Expression<Func<TEntity, bool>> expression, TEntity defaultResult = null, bool loadDependencies = false);
+
+        TEntity SingleOrDefault(Expression<Func<TEntity, bool>> expression, TEntity defaultResult = null, bool loadDependencies = false);
 
         IEnumerable<TEntity> Filter(Expression<Func<TEntity, bool>> expression, bool loadDependencies = false);
 

@@ -49,7 +49,7 @@ namespace Senac.GCP.Infraestructure.Database.Repositories.Base
             }
         }
 
-        public TEntity GetById(long id, bool loadDependencies = true)
+        public TEntity GetById(long id, bool loadDependencies = false)
         {
             var entity = dbSet.FirstOrDefault($"Id == {id}");
 
@@ -67,9 +67,25 @@ namespace Senac.GCP.Infraestructure.Database.Repositories.Base
             return entity;
         }
 
-        public TEntity FirstOrDefault(Expression<Func<TEntity, bool>> expression, TEntity defaultResult = null, bool loadDependencies = true)
+        public TEntity FirstOrDefault(Expression<Func<TEntity, bool>> expression, TEntity defaultResult = null, bool loadDependencies = false)
         {
             var entity = dbSet.FirstOrDefault(expression);
+            if (entity is null)
+            {
+                return defaultResult;
+            }
+
+            if (loadDependencies)
+            {
+                LoadPropertiesEntities(entity);
+            }
+
+            return entity;
+        }
+
+        public TEntity SingleOrDefault(Expression<Func<TEntity, bool>> expression, TEntity defaultResult = null, bool loadDependencies = false)
+        {
+            var entity = dbSet.SingleOrDefault(expression);
             if (entity is null)
             {
                 return defaultResult;

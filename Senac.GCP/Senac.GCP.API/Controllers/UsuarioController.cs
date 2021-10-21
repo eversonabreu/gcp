@@ -11,8 +11,11 @@ namespace Senac.GCP.API.Controllers
     [Route("usuario")]
     public sealed class UsuarioController : Controller<UsuarioModel, UsuarioEntity>
     {
+        private readonly IUsuarioService usuarioService;
+
         public UsuarioController(IUsuarioService usuarioService) : base (usuarioService)
         {
+            this.usuarioService = usuarioService;
         }
 
         public override long Post([FromBody] UsuarioModel model)
@@ -20,7 +23,22 @@ namespace Senac.GCP.API.Controllers
             string senhaAutomatica = Guid.NewGuid().ToString().Replace("-", string.Empty);
             model.Senha = senhaAutomatica.Encrypt();
             model.DataCadastramento = DateTime.Now;
-            return base.Post(model);
+            long id = base.Post(model);
+
+            if (!usuarioService.EnviarEmailUsuarioParaConfirmacaoDeCadasatro(model.Nome, model.Email, senhaAutomatica))
+            {
+                Delete(id);
+                throw new Exception("Não foi possível inserir este usuário porque ocorreu um problema no envio de e-mail de sua senha");
+            }
+
+            return id;
+        }
+
+        public override void Put([FromBody] UsuarioModel model)
+        {
+            var usuario = GetById(model.Id.Value);
+            model.Senha = usuario.Senha;
+            base.Put(model);
         }
     }
 }

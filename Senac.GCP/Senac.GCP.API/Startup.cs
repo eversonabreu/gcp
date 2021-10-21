@@ -8,11 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Senac.GCP.API.IoC;
-using Senac.GCP.Domain.Repositories;
-using Senac.GCP.Domain.Services.Implementatios;
-using Senac.GCP.Domain.Services.Interfaces;
 using Senac.GCP.Infraestructure.Database;
-using Senac.GCP.Infraestructure.Database.Repositories;
 using System;
 
 namespace Senac.GCP.API
@@ -83,6 +79,8 @@ namespace Senac.GCP.API
             }
 
             //app.UseHttpsRedirection();
+
+            app.UseMiddleware<Middleware>();
 
             app.UseRouting();
 
