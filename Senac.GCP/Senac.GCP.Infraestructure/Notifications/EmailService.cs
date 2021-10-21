@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Senac.GCP.Domain.Services.Interfaces;
+using Senac.GCP.Domain.Notifications;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,7 +8,7 @@ using System.Net.Mail;
 using System.Net.Mime;
 using System.Threading.Tasks;
 
-namespace Senac.GCP.Domain.Services.Implementations
+namespace Senac.GCP.Infraestructure.Notifications
 {
     public sealed class EmailService : IEmailService
     {

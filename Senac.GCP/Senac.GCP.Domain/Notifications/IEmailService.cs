@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Senac.GCP.Domain.Services.Interfaces
+namespace Senac.GCP.Domain.Notifications
 {
     public interface IEmailService
     {
