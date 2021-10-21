@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Senac.GCP.Domain.Entities;
+using System;
 
 namespace Senac.GCP.Infraestructure.Database
 {
