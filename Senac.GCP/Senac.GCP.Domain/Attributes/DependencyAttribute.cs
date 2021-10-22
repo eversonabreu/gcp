@@ -3,7 +3,7 @@
 namespace Senac.GCP.Domain.Attributes
 {
     [AttributeUsage(AttributeTargets.Property)]
-    public sealed class LoadEntityAttribute : Attribute
+    public sealed class DependencyAttribute : Attribute
     {
         public string NameForeignKey { get; set; }
     }

@@ -24,13 +24,7 @@ namespace Senac.GCP.API.Controllers
             model.Senha = senhaAutomatica.Encrypt();
             model.DataCadastramento = DateTime.Now;
             long id = base.Post(model);
-
-            if (!usuarioService.EnviarEmailUsuarioParaConfirmacaoDeCadasatro(model.Nome, model.Email, senhaAutomatica))
-            {
-                Delete(id);
-                throw new Exception("Não foi possível inserir este usuário porque ocorreu um problema no envio de e-mail de sua senha");
-            }
-
+            usuarioService.EnviarEmailUsuarioParaConfirmacaoDeCadasatro(id, model.Nome, model.Email, senhaAutomatica);
             return id;
         }
 

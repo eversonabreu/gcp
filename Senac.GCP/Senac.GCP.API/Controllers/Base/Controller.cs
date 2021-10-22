@@ -64,7 +64,7 @@ namespace Senac.GCP.API.Controllers.Base
         }
 
         [HttpDelete]
-        public virtual void Delete(long id)
+        public virtual void DeleteById(long id)
         {
             repository.DeleteById(id);
         }

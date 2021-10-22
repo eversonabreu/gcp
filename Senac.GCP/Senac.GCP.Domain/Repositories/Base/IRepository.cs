@@ -9,9 +9,9 @@ namespace Senac.GCP.Domain.Repositories.Base
     {
         TEntity GetById(long id, bool loadDependencies = false);
 
-        TEntity FirstOrDefault(Expression<Func<TEntity, bool>> expression, TEntity defaultResult = null, bool loadDependencies = false);
+        TEntity FirstOrDefault(Expression<Func<TEntity, bool>> expression, bool loadDependencies = false);
 
-        TEntity SingleOrDefault(Expression<Func<TEntity, bool>> expression, TEntity defaultResult = null, bool loadDependencies = false);
+        TEntity SingleOrDefault(Expression<Func<TEntity, bool>> expression, bool loadDependencies = false);
 
         IEnumerable<TEntity> Filter(Expression<Func<TEntity, bool>> expression, bool loadDependencies = false);
 

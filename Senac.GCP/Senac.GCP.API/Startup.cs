@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Senac.GCP.API.IoC;
+using Senac.GCP.Domain.Repositories.Base;
 using Senac.GCP.Infraestructure.Database;
 using System;
 
@@ -65,6 +66,7 @@ namespace Senac.GCP.API
             string connection = Configuration.GetSection("DatabaseConnection").Value;
             services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(connection));
             services.AddHttpContextAccessor();
+            services.AddScoped<ITransactionScoped, TransactionScoped>();
             services.RegisterServices();
             services.RegisterRepositories();
         }

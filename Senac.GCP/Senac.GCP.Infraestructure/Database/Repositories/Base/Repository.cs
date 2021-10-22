@@ -22,12 +22,12 @@ namespace Senac.GCP.Infraestructure.Database.Repositories.Base
             dbSet = databaseContext.Set<TEntity>();
         }
 
-        private void LoadPropertiesEntities(object entity)
+        private void LoadDependencies(object entity)
         {
             var properties = entity.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
             foreach (var property in properties)
             {
-                var attribute = property.GetCustomAttribute<LoadEntityAttribute>();
+                var attribute = property.GetCustomAttribute<DependencyAttribute>();
                 if (attribute != null && !string.IsNullOrWhiteSpace(attribute.NameForeignKey))
                 {
                     var foreignKey = entity.GetType().GetProperty(attribute.NameForeignKey);
@@ -37,7 +37,8 @@ namespace Senac.GCP.Infraestructure.Database.Repositories.Base
                         if (valueObject != null)
                         {
                             long idLoad = (long)valueObject;
-                            var queryable = (IQueryable<object>)databaseContext.GetType().GetMethods().First(item => item.Name == "Set" && item.GetParameters().Length == 0).MakeGenericMethod(property.PropertyType).Invoke(databaseContext, null);
+                            var queryable = (IQueryable<object>)databaseContext.GetType().GetMethods().First(item => item.Name == "Set" 
+                                && item.GetParameters().Length == 0).MakeGenericMethod(property.PropertyType).Invoke(databaseContext, null);
                             var entityObject = queryable.FirstOrDefault($"Id == {idLoad}");
                             if (entityObject != null)
                             {
@@ -61,39 +62,39 @@ namespace Senac.GCP.Infraestructure.Database.Repositories.Base
 
             if (loadDependencies)
             {
-                LoadPropertiesEntities(entity);
+                LoadDependencies(entity);
             }
 
             return entity;
         }
 
-        public TEntity FirstOrDefault(Expression<Func<TEntity, bool>> expression, TEntity defaultResult = null, bool loadDependencies = false)
+        public TEntity FirstOrDefault(Expression<Func<TEntity, bool>> expression, bool loadDependencies = false)
         {
             var entity = dbSet.FirstOrDefault(expression);
             if (entity is null)
             {
-                return defaultResult;
+                return null;
             }
 
             if (loadDependencies)
             {
-                LoadPropertiesEntities(entity);
+                LoadDependencies(entity);
             }
 
             return entity;
         }
 
-        public TEntity SingleOrDefault(Expression<Func<TEntity, bool>> expression, TEntity defaultResult = null, bool loadDependencies = false)
+        public TEntity SingleOrDefault(Expression<Func<TEntity, bool>> expression, bool loadDependencies = false)
         {
             var entity = dbSet.SingleOrDefault(expression);
             if (entity is null)
             {
-                return defaultResult;
+                return null;
             }
 
             if (loadDependencies)
             {
-                LoadPropertiesEntities(entity);
+                LoadDependencies(entity);
             }
 
             return entity;
@@ -107,7 +108,7 @@ namespace Senac.GCP.Infraestructure.Database.Repositories.Base
             {
                 foreach (var entity in entities)
                 {
-                    LoadPropertiesEntities(entity);
+                    LoadDependencies(entity);
                 }
             }
 
@@ -137,7 +138,7 @@ namespace Senac.GCP.Infraestructure.Database.Repositories.Base
                 {
                     foreach (var entity in dataList)
                     {
-                        LoadPropertiesEntities(entity);
+                        LoadDependencies(entity);
                     }
                 }
             }
@@ -147,45 +148,25 @@ namespace Senac.GCP.Infraestructure.Database.Repositories.Base
 
         public long Add(TEntity entity)
         {
-            BeforeAdd(entity);
             dbSet.Add(entity);
             databaseContext.SaveChanges();
-            AfterAdd(entity);
             return entity.Id;
         }
 
         public void Update(TEntity entity)
         {
-            TEntity entityDb = GetById(entity.Id, false);
-            string json = System.Text.Json.JsonSerializer.Serialize(entityDb);
-            BeforeUpdate(entityDb, entity);
+            TEntity entityDb = GetById(entity.Id);
             databaseContext.Entry(entityDb).State = EntityState.Modified;
             databaseContext.Entry(entityDb).CurrentValues.SetValues(entity);
             databaseContext.SaveChanges();
-            var oldEntity = System.Text.Json.JsonSerializer.Deserialize<TEntity>(json);
-            AfterUpdate(oldEntity, entity);
         }
 
         public void DeleteById(long id)
         {
-            TEntity entity = GetById(id, false);
-            BeforeDelete(entity);
+            TEntity entity = GetById(id);
             databaseContext.Entry(entity).State = EntityState.Deleted;
             dbSet.Remove(entity);
             databaseContext.SaveChanges();
-            AfterDelete(entity);
         }
-
-        protected virtual void BeforeAdd(TEntity entity) { }
-
-        protected virtual void AfterAdd(TEntity entity) { }
-
-        protected virtual void BeforeUpdate(TEntity oldValue, TEntity newValue) { }
-
-        protected virtual void AfterUpdate(TEntity oldValue, TEntity newValue) { }
-
-        protected virtual void BeforeDelete(TEntity entity) { }
-
-        protected virtual void AfterDelete(TEntity entity) { }
     }
 }
