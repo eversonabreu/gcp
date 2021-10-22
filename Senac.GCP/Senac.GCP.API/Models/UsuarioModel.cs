@@ -1,4 +1,5 @@
 ﻿using Senac.GCP.API.Models.Base;
+using Senac.GCP.Domain.Utils;
 using System;
 using System.ComponentModel.DataAnnotations;
 
@@ -30,15 +31,14 @@ namespace Senac.GCP.API.Models
 
         public override void AdditionalValidations()
         {
-            string CPFAuxiliar = string.Empty;
-            foreach (char ch in CPF)
-                if (char.IsDigit(ch))
-                    CPFAuxiliar += ch;
+            if (!ValidadorCPF.Validar(CPF, out string cpf))
+            {
+                throw new Exception("O CPF informado não é válido");
+            }
 
-            if (CPFAuxiliar.Length != 11)
-                throw new Exception("O CPF é inválido!");
-
-            CPF = CPFAuxiliar;
+            CPF = cpf;
+            Email = Email.Trim().ToUpper();
+            Nome = Nome.Trim();
         }
     }
 }

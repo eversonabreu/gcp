@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Senac.GCP.API.Models;
-using Senac.GCP.Domain.Entities;
 using Senac.GCP.Domain.Services.Interfaces;
 using Senac.GCP.Domain.Utils;
 using System;
@@ -21,7 +20,7 @@ namespace Senac.GCP.API.Controllers
         [Route("login")]
         public string Login([FromBody] LoginModel loginModel)
         {
-            var usuario = usuarioService.GetRepository().SingleOrDefault(item => item.Email.ToUpper() == loginModel.Email.ToUpper() && item.Ativo);
+            var usuario = usuarioService.GetRepository().SingleOrDefault(item => item.Email == loginModel.Email.ToUpper() && item.Ativo);
 
             if (usuario != null && usuario.Senha == loginModel.Senha.Encrypt())
             {

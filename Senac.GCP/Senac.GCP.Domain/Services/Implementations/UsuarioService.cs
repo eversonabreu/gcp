@@ -22,6 +22,44 @@ namespace Senac.GCP.Domain.Services.Implementations
             this.usuarioRepository = usuarioRepository;
         }
 
+        public void ValidarDuplicidadeEmailUsuario(string email, long? idUsuario = null)
+        {
+            var usuario = usuarioRepository.FirstOrDefault(item => item.Email == email);
+            if (usuario != null)
+            {
+                if (idUsuario.HasValue)
+                {
+                    if (usuario.Id != idUsuario.Value)
+                    {
+                        throw new Exception("Não é possível atualizar este usuário porque o e-mail informado já está sendo utilizado por outro registro");
+                    }
+                }
+                else
+                {
+                    throw new Exception("Não é possível inserir este usuário porque o e-mail informado já está sendo utilizado por outro registro");
+                }
+            }
+        }
+
+        public void ValidarDuplicidadeCPFUsuario(string cpf, long? idUsuario = null)
+        {
+            var usuario = usuarioRepository.FirstOrDefault(item => item.CPF == cpf);
+            if (usuario != null)
+            {
+                if (idUsuario.HasValue)
+                {
+                    if (usuario.Id != idUsuario.Value)
+                    {
+                        throw new Exception("Não é possível atualizar este usuário porque o CPF informado já está sendo utilizado por outro registro");
+                    }
+                }
+                else
+                {
+                    throw new Exception("Não é possível inserir este usuário porque o CPF informado já está sendo utilizado por outro registro");
+                }
+            }
+        }
+
         public void EnviarEmailUsuarioParaConfirmacaoDeCadasatro(long idUsuario, string nome, string email, string senha)
         {
             var envioEmail = emailService
