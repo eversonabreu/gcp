@@ -40,6 +40,7 @@ namespace Senac.GCP.API.Controllers
             usuarioService.ValidarDuplicidadeCPFUsuario(model.CPF, model.Id.Value);
             var usuario = GetById(model.Id.Value);
             model.Senha = usuario.Senha;
+            model.DataCadastramento = usuario.DataCadastramento;
             base.Put(model);
         }
 
