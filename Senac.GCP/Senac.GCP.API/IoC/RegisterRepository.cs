@@ -9,6 +9,7 @@ namespace Senac.GCP.API.IoC
         public static void RegisterRepositories(this IServiceCollection services)
         {
             services.AddTransient<IUsuarioRepository, UsuarioRepository>();
+            services.AddTransient<IEstadoRepository, EstadoRepository>();
         }
     }
 }

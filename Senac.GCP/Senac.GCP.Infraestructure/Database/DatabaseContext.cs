@@ -11,5 +11,7 @@ namespace Senac.GCP.Infraestructure.Database
         public DatabaseContext(DbContextOptions options) : base(options) { }
 
         public DbSet<UsuarioEntity> Usuario { get; set; }
+
+        public DbSet<EstadoEntity> Estado { get; set; }
     }
 }
