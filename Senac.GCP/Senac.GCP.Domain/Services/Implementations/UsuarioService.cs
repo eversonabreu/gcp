@@ -4,6 +4,7 @@ using Senac.GCP.Domain.Notifications;
 using Senac.GCP.Domain.Repositories;
 using Senac.GCP.Domain.Services.Base;
 using Senac.GCP.Domain.Services.Interfaces;
+using Senac.GCP.Domain.Utils;
 using System;
 
 namespace Senac.GCP.Domain.Services.Implementations
@@ -74,6 +75,18 @@ namespace Senac.GCP.Domain.Services.Implementations
                 usuarioRepository.DeleteById(idUsuario);
                 throw new Exception("Não foi possível inserir este usuário porque ocorreu um problema no envio de e-mail de sua senha");
             }
+        }
+
+        public void AlterarSenha(long idUsuario, string senhaAtual, string novaSenha)
+        {
+            var usuario = usuarioRepository.GetById(idUsuario);
+            if (usuario.Senha != senhaAtual.Encrypt())
+            {
+                throw new Exception("A senha atual não corresponde com a senha informada.");
+            }
+
+            usuario.Senha = novaSenha.Encrypt();
+            usuarioRepository.Update(usuario);
         }
     }
 }

@@ -47,15 +47,6 @@ namespace Senac.GCP.API.Controllers
         [HttpPut]
         [Route("alterar-senha/{idUsuario:long}/{senhaAtual}/{novaSenha}")]
         public void AlterarSenha(long idUsuario, string senhaAtual, string novaSenha)
-        {
-            var usuario = usuarioService.GetRepository().GetById(idUsuario);
-            if (usuario.Senha != senhaAtual.Encrypt())
-            {
-                throw new Exception("A senha atual não corresponde com a senha informada.");
-            }
-
-            usuario.Senha = novaSenha.Encrypt();
-            usuarioService.GetRepository().Update(usuario);
-        }
+            => usuarioService.AlterarSenha(idUsuario, senhaAtual, novaSenha);
     }
 }

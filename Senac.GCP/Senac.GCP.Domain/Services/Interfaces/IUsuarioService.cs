@@ -10,5 +10,7 @@ namespace Senac.GCP.Domain.Services.Interfaces
         void ValidarDuplicidadeCPFUsuario(string cpf, long? idUsuario = null);
 
         void EnviarEmailUsuarioParaConfirmacaoDeCadasatro(long idUsuario, string nome, string email, string senha);
+
+        void AlterarSenha(long idUsuario, string senhaAtual, string novaSenha);
     }
 }
