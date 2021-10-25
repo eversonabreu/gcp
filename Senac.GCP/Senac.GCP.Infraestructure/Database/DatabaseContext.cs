@@ -13,5 +13,8 @@ namespace Senac.GCP.Infraestructure.Database
         public DbSet<UsuarioEntity> Usuario { get; set; }
 
         public DbSet<EstadoEntity> Estado { get; set; }
+
+        public DbSet<MunicipioEntity> Municipio { get; set; }
+
     }
 }

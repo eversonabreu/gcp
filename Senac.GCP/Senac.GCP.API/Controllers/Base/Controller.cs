@@ -70,7 +70,7 @@ namespace Senac.GCP.API.Controllers.Base
         }
 
         [Route("id/{id:long}"), HttpGet]
-        public virtual TEntity GetById(long id) => repository.GetById(id);
+        public virtual TEntity GetById(long id) => repository.GetById(id, true);
 
         [HttpGet]
         public virtual ResultSet<TEntity> Get(string filter, string sort = null!, uint page = 0, uint limit = 10, bool loadDependencies = false)
