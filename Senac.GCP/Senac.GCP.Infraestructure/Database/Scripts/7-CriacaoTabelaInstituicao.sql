@@ -1,0 +1,20 @@
+CREATE TABLE Instituicao(
+	Id BIGINT NOT NULL IDENTITY (1,1),
+	Nome VARCHAR (255) NOT NULL,
+	CNPJ VARCHAR (14) NOT NULL,
+	EnderecoRua VARCHAR (150) NOT NULL,
+	EnderecoBairro VARCHAR (150) NOT NULL,
+	EnderecoComplemento VARCHAR (150),
+	EnderecoCEP VARCHAR (10) NOT NULL,
+	IdMunicipio BIGINT NOT NULL,
+	Ativo BIT NOT NULL,
+	Observacoes TEXT,
+	CONSTRAINT PkInstituicao PRIMARY KEY (Id),
+	CONSTRAINT UkInstituicao UNIQUE (CNPJ),
+	CONSTRAINT FkInstituicaoMunicipio FOREIGN KEY (IdMunicipio) REFERENCES Municipio(Id)
+);
+
+ALTER TABLE Instituicao ADD EnderecoNumero VARCHAR(20);
+ALTER TABLE Instituicao ADD Telefone VARCHAR(20) NOT NULL;
+ALTER TABLE Instituicao ADD Email VARCHAR(255) NOT NULL;
+

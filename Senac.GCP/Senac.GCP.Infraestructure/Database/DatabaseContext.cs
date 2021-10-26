@@ -16,5 +16,7 @@ namespace Senac.GCP.Infraestructure.Database
 
         public DbSet<MunicipioEntity> Municipio { get; set; }
 
+        public DbSet<InstituicaoEntity> Instituicao { get; set; }
+
     }
 }
