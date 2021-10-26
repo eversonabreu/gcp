@@ -4,6 +4,10 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702;2208</NoWarn>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Remove="Database\DatabaseContext.cs~RF38b1d7f2.TMP" />
   </ItemGroup>
