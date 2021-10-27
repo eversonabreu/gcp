@@ -47,6 +47,8 @@ namespace Senac.GCP.API.Controllers.Base
             }
         }
 
+        protected void ValidarModel(TModel model, bool validateId = false) => model.Validate(validateId);
+
         [HttpPost]
         public virtual long Post([FromBody] TModel model)
         {

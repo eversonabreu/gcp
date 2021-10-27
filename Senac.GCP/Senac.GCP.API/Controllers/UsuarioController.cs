@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Senac.GCP.API.Controllers.Base;
 using Senac.GCP.API.Models;
-using Senac.GCP.API.Models.Base;
 using Senac.GCP.Domain.Entities;
 using Senac.GCP.Domain.Services.Interfaces;
 using Senac.GCP.Domain.Utils;
@@ -21,7 +20,7 @@ namespace Senac.GCP.API.Controllers
 
         public override long Post([FromBody] UsuarioModel model)
         {
-            (model as Model).Validate();
+            ValidarModel(model);
             usuarioService.ValidarDuplicidadeEmailUsuario(model.Email);
             usuarioService.ValidarDuplicidadeCPFUsuario(model.CPF);
             string senhaAutomatica = Guid.NewGuid().ToString().Replace("-", string.Empty);
@@ -35,7 +34,7 @@ namespace Senac.GCP.API.Controllers
 
         public override void Put([FromBody] UsuarioModel model)
         {
-            (model as Model).Validate(true);
+            ValidarModel(model, true);
             usuarioService.ValidarDuplicidadeEmailUsuario(model.Email, model.Id.Value);
             usuarioService.ValidarDuplicidadeCPFUsuario(model.CPF, model.Id.Value);
             var usuario = GetById(model.Id.Value);

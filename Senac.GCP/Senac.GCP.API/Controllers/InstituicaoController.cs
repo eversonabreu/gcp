@@ -17,18 +17,18 @@ namespace Senac.GCP.API.Controllers
             this.instituicaoService = instituicaoService;
         }
 
-        public override long Post([FromBody] InstituicaoModel instituicao)
+        public override long Post([FromBody] InstituicaoModel model)
         {
-            (instituicao as Model).Validate();
-            instituicaoService.ValidarDuplicidadeCNPJ(instituicao.CNPJ);
-            return base.Post(instituicao);
+            ValidarModel(model);
+            instituicaoService.ValidarDuplicidadeCNPJ(model.CNPJ);
+            return base.Post(model);
         }
 
-        public override void Put([FromBody] InstituicaoModel instituicao)
+        public override void Put([FromBody] InstituicaoModel model)
         {
-            (instituicao as Model).Validate(true);
-            instituicaoService.ValidarDuplicidadeCNPJ(instituicao.CNPJ, instituicao.Id);
-            base.Put(instituicao);
+            ValidarModel(model, true);
+            instituicaoService.ValidarDuplicidadeCNPJ(model.CNPJ, model.Id);
+            base.Put(model);
         }
     }
 }
