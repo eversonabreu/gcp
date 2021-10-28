@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Senac.GCP.API.Models.Base;
+using Senac.GCP.Domain.Attributes;
 using Senac.GCP.Domain.Entities.Base;
 using Senac.GCP.Domain.Repositories.Base;
 using Senac.GCP.Domain.Services.Base;
 using Senac.GCP.Domain.Utils;
 using System;
+using System.Reflection;
 using System.Text.Json;
 
 namespace Senac.GCP.API.Controllers.Base
@@ -13,10 +15,12 @@ namespace Senac.GCP.API.Controllers.Base
     public class Controller<TModel, TEntity> : ControllerBase where TModel : Model where TEntity : Entity
     {
         protected Token Token { get; private set; }
+        private readonly IService<TEntity> service;
         private readonly IRepository<TEntity> repository;
 
         public Controller(IService<TEntity> service)
         {
+            this.service = service;
             repository = service.GetRepository();
             ValidarToken(service.GetHttpContext());
         }
@@ -47,14 +51,30 @@ namespace Senac.GCP.API.Controllers.Base
             }
         }
 
-        protected void ValidarModel(TModel model, bool validateId = false) => model.Validate(validateId);
+        private void SetPropertiesNotUpdated(TEntity entity)
+        {
+            var dbEntity = repository.GetById(entity.Id);
+            var properties = dbEntity.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            foreach (var property in properties)
+            {
+                var attribute = property.GetCustomAttribute<NotUpdatedAttribute>();
+                if (attribute != null)
+                {
+                    var value = property.GetValue(dbEntity);
+                    property.SetValue(obj: entity, value);
+                }
+            }
+        }
 
         [HttpPost]
         public virtual long Post([FromBody] TModel model)
         {
             model.Validate();
             var entity = model.ToEntity<TEntity>();
-            return repository.Add(entity);
+            service.BeforeSave(entity, false);
+            var id = repository.Add(entity);
+            service.AfterSave(entity, false);
+            return id;
         }
 
         [HttpPut]
@@ -62,14 +82,14 @@ namespace Senac.GCP.API.Controllers.Base
         {
             model.Validate(validateId: true);
             var entity = model.ToEntity<TEntity>(model.Id!.Value);
+            SetPropertiesNotUpdated(entity);
+            service.BeforeSave(entity, true);
             repository.Update(entity);
+            service.AfterSave(entity, true);
         }
 
         [HttpDelete]
-        public virtual void DeleteById(long id)
-        {
-            repository.DeleteById(id);
-        }
+        public virtual void DeleteById(long id) => repository.DeleteById(id);
 
         [Route("id/{id:long}"), HttpGet]
         public virtual TEntity GetById(long id) => repository.GetById(id, true);

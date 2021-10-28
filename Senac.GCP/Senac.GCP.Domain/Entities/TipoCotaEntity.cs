@@ -1,6 +1,4 @@
-﻿using Senac.GCP.Domain.Attributes;
-using Senac.GCP.Domain.Entities.Base;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using Senac.GCP.Domain.Entities.Base;
 
 namespace Senac.GCP.Domain.Entities
 {
@@ -9,6 +7,5 @@ namespace Senac.GCP.Domain.Entities
         public string Codigo { get; set; }
 
         public string Descricao { get; set; }
-
     }
 }

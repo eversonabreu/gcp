@@ -6,6 +6,7 @@ using Senac.GCP.Domain.Services.Base;
 using Senac.GCP.Domain.Services.Interfaces;
 using Senac.GCP.Domain.Utils;
 using System;
+using System.Linq;
 
 namespace Senac.GCP.Domain.Services.Implementations
 {
@@ -23,7 +24,33 @@ namespace Senac.GCP.Domain.Services.Implementations
             this.usuarioRepository = usuarioRepository;
         }
 
-        public void ValidarDuplicidadeEmailUsuario(string email, long? idUsuario = null)
+        public override void BeforeSave(UsuarioEntity entity, bool isUpdated)
+        {
+            if (isUpdated)
+            {
+                ValidarDuplicidadeEmailUsuario(entity.Email, entity.Id);
+                ValidarDuplicidadeCPFUsuario(entity.CPF, entity.Id);
+            }
+            else
+            {
+                ValidarDuplicidadeEmailUsuario(entity.Email);
+                ValidarDuplicidadeCPFUsuario(entity.CPF);
+                string senhaAutomatica = Guid.NewGuid().ToString().Split('-').First();
+                entity.Senha = senhaAutomatica.Encrypt();
+                entity.Ativo = true;
+                entity.DataCadastramento = DateTime.Now;
+            }
+        }
+
+        public override void AfterSave(UsuarioEntity entity, bool isUpdated)
+        {
+            if (!isUpdated)
+            {
+                EnviarEmailUsuarioParaConfirmacaoDeCadasatro(entity);
+            }
+        }
+
+        private void ValidarDuplicidadeEmailUsuario(string email, long? idUsuario = null)
         {
             var usuario = usuarioRepository.FirstOrDefault(item => item.Email == email);
             if (usuario != null)
@@ -42,7 +69,7 @@ namespace Senac.GCP.Domain.Services.Implementations
             }
         }
 
-        public void ValidarDuplicidadeCPFUsuario(string cpf, long? idUsuario = null)
+        private void ValidarDuplicidadeCPFUsuario(string cpf, long? idUsuario = null)
         {
             var usuario = usuarioRepository.FirstOrDefault(item => item.CPF == cpf);
             if (usuario != null)
@@ -61,18 +88,19 @@ namespace Senac.GCP.Domain.Services.Implementations
             }
         }
 
-        public void EnviarEmailUsuarioParaConfirmacaoDeCadasatro(long idUsuario, string nome, string email, string senha)
+        private void EnviarEmailUsuarioParaConfirmacaoDeCadasatro(UsuarioEntity entity)
         {
+            string senha = entity.Senha.Decrypt();
             var envioEmail = emailService
                              .WithTitle("GCP - Recebimento de senha automática para acesso ao sistema")
-                             .WithBody(@$"<h4>Prezado(a): <b>{nome}</b>, bem-vindo(a) ao sistema GCP.</h4><br/>
+                             .WithBody(@$"<h4>Prezado(a): <b>{entity.Nome}</b>, bem-vindo(a) ao sistema GCP.</h4><br/>
                                          <h5>Esta a sua senha de acesso (foi gerada automáticamente pelo sistema): {senha}</h5><br/><br/>
                                          <h6><i>Caso queira voçê poderá alterar a sua senha pelo sistema</i></h6>", true)
-                             .WithRecipient(email)
+                             .WithRecipient(entity.Email)
                              .Send();
             if (!envioEmail)
             {
-                usuarioRepository.DeleteById(idUsuario);
+                usuarioRepository.DeleteById(entity.Id);
                 throw new Exception("Não foi possível inserir este usuário porque ocorreu um problema no envio de e-mail de sua senha");
             }
         }

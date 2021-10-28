@@ -19,5 +19,9 @@ namespace Senac.GCP.Domain.Services.Base
         public IRepository<TEntity> GetRepository() => repository;
 
         public HttpContext GetHttpContext() => httpContextAccessor.HttpContext;
+
+        public virtual void BeforeSave(TEntity entity, bool isUpdated) { }
+
+        public virtual void AfterSave(TEntity entity, bool isUpdated) { }
     }
 }

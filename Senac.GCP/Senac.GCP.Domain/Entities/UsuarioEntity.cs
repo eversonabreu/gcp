@@ -1,4 +1,5 @@
-﻿using Senac.GCP.Domain.Entities.Base;
+﻿using Senac.GCP.Domain.Attributes;
+using Senac.GCP.Domain.Entities.Base;
 using System;
 
 namespace Senac.GCP.Domain.Entities
@@ -11,8 +12,10 @@ namespace Senac.GCP.Domain.Entities
 
         public string CPF { get; set; }
 
+        [NotUpdated]
         public string Senha { get; set; }
         
+        [NotUpdated]
         public DateTime DataCadastramento { get; set; }
         
         public bool Administrador { get; set; }

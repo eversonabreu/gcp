@@ -4,9 +4,8 @@ namespace Senac.GCP.Domain.Entities
 {
     public sealed class ClassificacaoDoencaEntity : Entity
     {
-        public string Cid { get; set; }
+        public string CID { get; set; }
 
         public string Descricao {get; set;}
-
     }
 }

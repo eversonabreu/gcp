@@ -16,7 +16,19 @@ namespace Senac.GCP.Domain.Services.Implementations
             this.instituicaoRepository = instituicaoRepository;
         }
 
-        public void ValidarDuplicidadeCNPJ(string cnpj, long? idInstituicao = null)
+        public override void BeforeSave(InstituicaoEntity entity, bool isUpdated)
+        {
+            if (isUpdated)
+            {
+                ValidarDuplicidadeCNPJ(entity.CNPJ, entity.Id);
+            }
+            else
+            {
+                ValidarDuplicidadeCNPJ(entity.CNPJ);
+            }
+        }
+
+        private void ValidarDuplicidadeCNPJ(string cnpj, long? idInstituicao = null)
         {
             var instituicao = instituicaoRepository.FirstOrDefault(x => x.CNPJ == cnpj);
             if (instituicao != null)

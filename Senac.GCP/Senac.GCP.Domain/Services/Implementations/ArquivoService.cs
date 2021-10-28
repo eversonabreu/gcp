@@ -3,6 +3,7 @@ using Senac.GCP.Domain.Entities;
 using Senac.GCP.Domain.Repositories;
 using Senac.GCP.Domain.Services.Base;
 using Senac.GCP.Domain.Services.Interfaces;
+using System;
 
 namespace Senac.GCP.Domain.Services.Implementations
 {
@@ -11,6 +12,14 @@ namespace Senac.GCP.Domain.Services.Implementations
         public ArquivoService(IArquivoRepository arquivoRepository, IHttpContextAccessor httpContextAccessor)
             : base (arquivoRepository, httpContextAccessor)
         {
+        }
+
+        public override void BeforeSave(ArquivoEntity entity, bool isUpdated)
+        {
+            if (!isUpdated)
+            {
+                entity.DataUpload = DateTime.Now;
+            }
         }
     }
 }
