@@ -6,7 +6,7 @@ namespace Senac.GCP.Infraestructure.Database.Repositories
 {
     public sealed class TipoCotaRepository : Repository<TipoCotaEntity>, ITipoCotaRepository
     {
-        public TipoCotaRepository(DatabaseContext databaseContext) : base (databaseContext)
+        public TipoCotaRepository(DatabaseContext databaseContext) : base(databaseContext)
         {
 
         }

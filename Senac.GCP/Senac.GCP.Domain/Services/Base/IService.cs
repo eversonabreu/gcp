@@ -10,8 +10,16 @@ namespace Senac.GCP.Domain.Services.Base
 
         HttpContext GetHttpContext();
 
-        void BeforeSave(TEntity entity, bool isUpdated);
+        void BeforePost(TEntity entity);
 
-        void AfterSave(TEntity entity, bool isUpdated);
+        void BeforePut(TEntity entity);
+
+        void BeforeDelete(long id);
+
+        void AfterPost(TEntity entity);
+
+        void AfterPut(TEntity entity);
+
+        void AfterDelete(long id);
     }
 }

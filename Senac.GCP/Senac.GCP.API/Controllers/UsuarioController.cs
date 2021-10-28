@@ -11,7 +11,7 @@ namespace Senac.GCP.API.Controllers
     {
         private readonly IUsuarioService usuarioService;
 
-        public UsuarioController(IUsuarioService usuarioService) : base (usuarioService)
+        public UsuarioController(IUsuarioService usuarioService) : base(usuarioService)
         {
             this.usuarioService = usuarioService;
         }

@@ -19,7 +19,7 @@ namespace Senac.GCP.Domain.Entities
         public string EnderecoComplemento { get; set; }
 
         public string EnderecoCEP { get; set; }
-        
+
         public bool Ativo { get; set; }
 
         public string Observacoes { get; set; }

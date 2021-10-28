@@ -11,21 +11,19 @@ namespace Senac.GCP.Domain.Services.Implementations
         private readonly IInstituicaoRepository instituicaoRepository;
 
         public InstituicaoService(IInstituicaoRepository instituicaoRepository, IHttpContextAccessor httpContextAccessor)
-            : base (instituicaoRepository, httpContextAccessor)
+            : base(instituicaoRepository, httpContextAccessor)
         {
             this.instituicaoRepository = instituicaoRepository;
         }
 
-        public override void BeforeSave(InstituicaoEntity entity, bool isUpdated)
+        public override void BeforePost(InstituicaoEntity entity)
         {
-            if (isUpdated)
-            {
-                ValidarDuplicidadeCNPJ(entity.CNPJ, entity.Id);
-            }
-            else
-            {
-                ValidarDuplicidadeCNPJ(entity.CNPJ);
-            }
+            ValidarDuplicidadeCNPJ(entity.CNPJ);
+        }
+
+        public override void BeforePut(InstituicaoEntity entity)
+        {
+            ValidarDuplicidadeCNPJ(entity.CNPJ, entity.Id);
         }
 
         private void ValidarDuplicidadeCNPJ(string cnpj, long? idInstituicao = null)

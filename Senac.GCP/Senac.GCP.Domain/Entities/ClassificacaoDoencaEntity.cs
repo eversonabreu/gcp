@@ -6,6 +6,6 @@ namespace Senac.GCP.Domain.Entities
     {
         public string CID { get; set; }
 
-        public string Descricao {get; set;}
+        public string Descricao { get; set; }
     }
 }

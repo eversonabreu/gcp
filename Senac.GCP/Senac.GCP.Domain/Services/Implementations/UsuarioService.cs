@@ -15,39 +15,34 @@ namespace Senac.GCP.Domain.Services.Implementations
         private readonly IEmailService emailService;
         private readonly IUsuarioRepository usuarioRepository;
 
-        public UsuarioService(IUsuarioRepository usuarioRepository, 
+        public UsuarioService(IUsuarioRepository usuarioRepository,
             IHttpContextAccessor httpContextAccessor,
             IEmailService emailService)
-            : base (usuarioRepository, httpContextAccessor) 
+            : base(usuarioRepository, httpContextAccessor)
         {
             this.emailService = emailService;
             this.usuarioRepository = usuarioRepository;
         }
 
-        public override void BeforeSave(UsuarioEntity entity, bool isUpdated)
+        public override void BeforePost(UsuarioEntity entity)
         {
-            if (isUpdated)
-            {
-                ValidarDuplicidadeEmailUsuario(entity.Email, entity.Id);
-                ValidarDuplicidadeCPFUsuario(entity.CPF, entity.Id);
-            }
-            else
-            {
-                ValidarDuplicidadeEmailUsuario(entity.Email);
-                ValidarDuplicidadeCPFUsuario(entity.CPF);
-                string senhaAutomatica = Guid.NewGuid().ToString().Split('-').First();
-                entity.Senha = senhaAutomatica.Encrypt();
-                entity.Ativo = true;
-                entity.DataCadastramento = DateTime.Now;
-            }
+            ValidarDuplicidadeEmailUsuario(entity.Email);
+            ValidarDuplicidadeCPFUsuario(entity.CPF);
+            string senhaAutomatica = Guid.NewGuid().ToString().Split('-').First();
+            entity.Senha = senhaAutomatica.Encrypt();
+            entity.Ativo = true;
+            entity.DataCadastramento = DateTime.Now;
         }
 
-        public override void AfterSave(UsuarioEntity entity, bool isUpdated)
+        public override void BeforePut(UsuarioEntity entity)
         {
-            if (!isUpdated)
-            {
-                EnviarEmailUsuarioParaConfirmacaoDeCadasatro(entity);
-            }
+            ValidarDuplicidadeEmailUsuario(entity.Email, entity.Id);
+            ValidarDuplicidadeCPFUsuario(entity.CPF, entity.Id);
+        }
+
+        public override void AfterPost(UsuarioEntity entity)
+        {
+            EnviarEmailUsuarioParaConfirmacaoDeCadasatro(entity);
         }
 
         private void ValidarDuplicidadeEmailUsuario(string email, long? idUsuario = null)

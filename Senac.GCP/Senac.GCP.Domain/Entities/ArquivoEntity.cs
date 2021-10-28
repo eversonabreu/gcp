@@ -12,7 +12,7 @@ namespace Senac.GCP.Domain.Entities
 
         public byte[] Conteudo { get; set; }
 
-        [NotUpdated]        
+        [NotUpdated]
         public DateTime DataUpload { get; set; }
     }
 }

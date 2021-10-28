@@ -10,16 +10,13 @@ namespace Senac.GCP.Domain.Services.Implementations
     public sealed class ArquivoService : Service<ArquivoEntity>, IArquivoService
     {
         public ArquivoService(IArquivoRepository arquivoRepository, IHttpContextAccessor httpContextAccessor)
-            : base (arquivoRepository, httpContextAccessor)
+            : base(arquivoRepository, httpContextAccessor)
         {
         }
 
-        public override void BeforeSave(ArquivoEntity entity, bool isUpdated)
+        public override void BeforePost(ArquivoEntity entity)
         {
-            if (!isUpdated)
-            {
-                entity.DataUpload = DateTime.Now;
-            }
+            entity.DataUpload = DateTime.Now;
         }
     }
 }

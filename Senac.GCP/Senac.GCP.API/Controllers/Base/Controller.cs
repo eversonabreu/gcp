@@ -67,35 +67,40 @@ namespace Senac.GCP.API.Controllers.Base
         }
 
         [HttpPost]
-        public virtual long Post([FromBody] TModel model)
+        public long Post([FromBody] TModel model)
         {
             model.Validate();
             var entity = model.ToEntity<TEntity>();
-            service.BeforeSave(entity, false);
+            service.BeforePost(entity);
             var id = repository.Add(entity);
-            service.AfterSave(entity, false);
+            service.AfterPost(entity);
             return id;
         }
 
         [HttpPut]
-        public virtual void Put([FromBody] TModel model)
+        public void Put([FromBody] TModel model)
         {
             model.Validate(validateId: true);
             var entity = model.ToEntity<TEntity>(model.Id!.Value);
             SetPropertiesNotUpdated(entity);
-            service.BeforeSave(entity, true);
+            service.BeforePut(entity);
             repository.Update(entity);
-            service.AfterSave(entity, true);
+            service.AfterPut(entity);
         }
 
         [HttpDelete]
-        public virtual void DeleteById(long id) => repository.DeleteById(id);
+        public void DeleteById(long id)
+        {
+            service.BeforeDelete(id);
+            repository.DeleteById(id);
+            service.AfterDelete(id);
+        }
 
         [Route("id/{id:long}"), HttpGet]
-        public virtual TEntity GetById(long id) => repository.GetById(id, true);
+        public TEntity GetById(long id) => repository.GetById(id, true);
 
         [HttpGet]
-        public virtual ResultSet<TEntity> Get(string filter, string sort = null!, uint page = 0, uint limit = 10, bool loadDependencies = false)
+        public ResultSet<TEntity> Get(string filter, string sort = null!, uint page = 0, uint limit = 10, bool loadDependencies = false)
         {
             if (string.IsNullOrWhiteSpace(filter))
             {

@@ -2,7 +2,6 @@
 using Senac.GCP.Domain.Extensions;
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.IO;
 
 namespace Senac.GCP.API.Models
 {
@@ -13,7 +12,7 @@ namespace Senac.GCP.API.Models
         public string Nome { get; set; }
 
         public string Extensao { get; set; }
- 
+
         [Required(ErrorMessage = "O Campo 'Conteudo' Deve Ser Informado Obrigatóriamente.")]
         public byte[] Conteudo { get; set; }
 

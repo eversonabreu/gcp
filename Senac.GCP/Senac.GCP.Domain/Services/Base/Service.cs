@@ -20,8 +20,16 @@ namespace Senac.GCP.Domain.Services.Base
 
         public HttpContext GetHttpContext() => httpContextAccessor.HttpContext;
 
-        public virtual void BeforeSave(TEntity entity, bool isUpdated) { }
+        public virtual void BeforePost(TEntity entity) { }
 
-        public virtual void AfterSave(TEntity entity, bool isUpdated) { }
+        public virtual void BeforePut(TEntity entity) { }
+
+        public virtual void BeforeDelete(long id) { }
+
+        public virtual void AfterPost(TEntity entity) { }
+
+        public virtual void AfterPut(TEntity entity) { }
+
+        public virtual void AfterDelete(long id) { }
     }
 }

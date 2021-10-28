@@ -5,9 +5,9 @@ using Senac.GCP.Domain.Repositories.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Linq.Dynamic.Core;
 
 namespace Senac.GCP.Infraestructure.Database.Repositories.Base
 {
@@ -37,7 +37,7 @@ namespace Senac.GCP.Infraestructure.Database.Repositories.Base
                         if (valueObject != null)
                         {
                             long idLoad = (long)valueObject;
-                            var queryable = (IQueryable<object>)databaseContext.GetType().GetMethods().First(item => item.Name == "Set" 
+                            var queryable = (IQueryable<object>)databaseContext.GetType().GetMethods().First(item => item.Name == "Set"
                                 && item.GetParameters().Length == 0).MakeGenericMethod(property.PropertyType).Invoke(databaseContext, null);
                             var entityObject = queryable.FirstOrDefault($"Id == {idLoad}");
                             if (entityObject != null)

@@ -14,10 +14,10 @@ namespace Senac.GCP.Domain.Entities
 
         [NotUpdated]
         public string Senha { get; set; }
-        
+
         [NotUpdated]
         public DateTime DataCadastramento { get; set; }
-        
+
         public bool Administrador { get; set; }
 
         public bool Ativo { get; set; }
