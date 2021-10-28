@@ -18,5 +18,7 @@ namespace Senac.GCP.Infraestructure.Database
 
         public DbSet<InstituicaoEntity> Instituicao { get; set; }
 
+        public DbSet<ClassificacaoDoencaEntity> ClassificacaoDoenca { get; set; }
+
     }
 }
