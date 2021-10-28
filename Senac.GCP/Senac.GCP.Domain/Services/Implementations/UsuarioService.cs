@@ -47,7 +47,7 @@ namespace Senac.GCP.Domain.Services.Implementations
 
         private void ValidarDuplicidadeEmailUsuario(string email, long? idUsuario = null)
         {
-            var usuario = usuarioRepository.FirstOrDefault(item => item.Email == email);
+            var usuario = usuarioRepository.SingleOrDefault(item => item.Email == email);
             if (usuario != null)
             {
                 if (idUsuario.HasValue)
@@ -66,7 +66,7 @@ namespace Senac.GCP.Domain.Services.Implementations
 
         private void ValidarDuplicidadeCPFUsuario(string cpf, long? idUsuario = null)
         {
-            var usuario = usuarioRepository.FirstOrDefault(item => item.CPF == cpf);
+            var usuario = usuarioRepository.SingleOrDefault(item => item.CPF == cpf);
             if (usuario != null)
             {
                 if (idUsuario.HasValue)

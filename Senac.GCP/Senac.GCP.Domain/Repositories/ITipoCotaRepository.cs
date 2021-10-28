@@ -5,6 +5,5 @@ namespace Senac.GCP.Domain.Repositories
 {
     public interface ITipoCotaRepository : IRepository<TipoCotaEntity>
     {
-
     }
 }

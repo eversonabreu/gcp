@@ -28,7 +28,7 @@ namespace Senac.GCP.Domain.Services.Implementations
 
         private void ValidarDuplicidadeCNPJ(string cnpj, long? idInstituicao = null)
         {
-            var instituicao = instituicaoRepository.FirstOrDefault(x => x.CNPJ == cnpj);
+            var instituicao = instituicaoRepository.SingleOrDefault(x => x.CNPJ == cnpj);
             if (instituicao != null)
             {
                 if (idInstituicao.HasValue)

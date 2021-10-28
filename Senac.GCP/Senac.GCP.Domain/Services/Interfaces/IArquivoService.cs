@@ -5,7 +5,5 @@ namespace Senac.GCP.Domain.Services.Interfaces
 {
     public interface IArquivoService : IService<ArquivoEntity>
     {
-
     }
-
 }
