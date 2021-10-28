@@ -12,6 +12,7 @@ namespace Senac.GCP.API.IoC
             services.AddTransient<IEstadoRepository, EstadoRepository>();
             services.AddTransient<IMunicipioRepository, MunicipioRepository>();
             services.AddTransient<IInstituicaoRepository, InstituicaoRepository>();
+            services.AddTransient<IArquivoRepository, ArquivoRepository>();
         }
     }
 }
