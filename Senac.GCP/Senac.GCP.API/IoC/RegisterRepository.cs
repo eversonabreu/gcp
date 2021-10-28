@@ -15,6 +15,7 @@ namespace Senac.GCP.API.IoC
             services.AddTransient<IClassificacaoDoencaRepository, ClassificacaoDoencaRepository>();
             services.AddTransient<IArquivoRepository, ArquivoRepository>();
             services.AddTransient<ITipoCotaRepository, TipoCotaRepository>();
+            services.AddTransient<INacionalidadeRepository, NacionalidadeRepository>();
         }
     }
 }
