@@ -14,7 +14,6 @@ namespace Senac.GCP.API.IoC
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IInstituicaoService, InstituicaoService>();
             services.AddScoped<IArquivoService, ArquivoService>();
-            services.AddScoped<INacionalidadeService, NacionalidadeService>();
         }
     }
 }
