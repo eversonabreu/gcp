@@ -12,12 +12,10 @@ namespace Senac.GCP.API.IoC
             services.AddTransient<IEstadoRepository, EstadoRepository>();
             services.AddTransient<IMunicipioRepository, MunicipioRepository>();
             services.AddTransient<IInstituicaoRepository, InstituicaoRepository>();
-<<<<<<< HEAD
             services.AddTransient<IClassificacaoDoencaRepository, ClassificacaoDoencaRepository>();
-
-=======
             services.AddTransient<IArquivoRepository, ArquivoRepository>();
->>>>>>> e3228b53c31f569a4b210918e54b0398807c5ac2
+            services.AddTransient<ITipoCotaRepository, TipoCotaRepository>();
+            services.AddTransient<INacionalidadeRepository, NacionalidadeRepository>();
         }
     }
 }

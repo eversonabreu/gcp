@@ -1,4 +1,5 @@
-﻿using Senac.GCP.Domain.Entities.Base;
+﻿using Senac.GCP.Domain.Attributes;
+using Senac.GCP.Domain.Entities.Base;
 using System;
 
 namespace Senac.GCP.Domain.Entities
@@ -10,8 +11,8 @@ namespace Senac.GCP.Domain.Entities
         public string Extensao { get; set; }
 
         public byte[] Conteudo { get; set; }
-        
-        public DateTime DataUpload { get; set; }
 
+        [NotUpdated]
+        public DateTime DataUpload { get; set; }
     }
 }

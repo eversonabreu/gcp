@@ -13,12 +13,7 @@ namespace Senac.GCP.API.IoC
             services.AddScoped<IUsuarioService, UsuarioService>();
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IInstituicaoService, InstituicaoService>();
-<<<<<<< HEAD
-            services.AddScoped<IClassificacaoDoencaService, ClassificacaoDoencaService>();
-
-=======
             services.AddScoped<IArquivoService, ArquivoService>();
->>>>>>> e3228b53c31f569a4b210918e54b0398807c5ac2
         }
     }
 }

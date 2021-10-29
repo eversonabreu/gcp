@@ -23,13 +23,13 @@ namespace Senac.GCP.API.Models
         public string EnderecoBairro { get; set; }
 
         [Required(ErrorMessage = "O Campo 'Id Municipio' Deve Ser Informado Obrigatóriamente.")]
-        [Range(minimum: 1, maximum: long.MaxValue, ErrorMessage ="O Campo 'Id Municipio' Está Inválido!")]
+        [Range(minimum: 1, maximum: long.MaxValue, ErrorMessage = "O Campo 'Id Municipio' Está Inválido!")]
         public long IdMunicipio { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "O Campo 'CEP' Deve Ser Informado Obrigatóriamente.")]
         [StringLength(maximumLength: 10, ErrorMessage = "O Tamanho do Campo 'CEP' Não Pode Superar 10 Caracteres.")]
         public string EnderecoCEP { get; set; }
-        
+
         [Required(ErrorMessage = "O Campo 'Ativo' Deve Ser Informado Obrigatóriamente.")]
         public bool Ativo { get; set; }
 
@@ -43,7 +43,7 @@ namespace Senac.GCP.API.Models
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "O Campo 'Email' Deve Ser Informado Obrigatóriamente.")]
         [StringLength(maximumLength: 255, ErrorMessage = "O Tamanho do Campo 'Email' Não Pode Superar 255 Caracteres.")]
-        [DataType(DataType.EmailAddress, ErrorMessage ="O 'Email' Informado Não é Valido.")]
+        [DataType(DataType.EmailAddress, ErrorMessage = "O 'Email' Informado Não é Valido.")]
         public string Email { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "O Campo 'Telefone' Deve Ser Informado Obrigatóriamente.")]
@@ -61,6 +61,6 @@ namespace Senac.GCP.API.Models
             Email = Email.Trim();
             Nome = Nome.Trim();
         }
- 
+
     }
 }

@@ -6,7 +6,7 @@ namespace Senac.GCP.Infraestructure.Database.Repositories
 {
     public sealed class EstadoRepository : Repository<EstadoEntity>, IEstadoRepository
     {
-        public EstadoRepository(DatabaseContext databaseContext) : base (databaseContext)
+        public EstadoRepository(DatabaseContext databaseContext) : base(databaseContext)
         {
 
         }

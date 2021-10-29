@@ -2,10 +2,8 @@
 
 namespace Senac.GCP.Domain.Entities
 {
-    public sealed class EstadoEntity : Entity
+    public sealed class NacionalidadeEntity : Entity
     {
         public string Nome { get; set; }
-
-        public string SiglaUF { get; set; }
     }
 }

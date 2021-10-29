@@ -9,5 +9,17 @@ namespace Senac.GCP.Domain.Services.Base
         IRepository<TEntity> GetRepository();
 
         HttpContext GetHttpContext();
+
+        void BeforePost(TEntity entity);
+
+        void BeforePut(TEntity entity);
+
+        void BeforeDelete(long id);
+
+        void AfterPost(TEntity entity);
+
+        void AfterPut(TEntity entity);
+
+        void AfterDelete(long id);
     }
 }

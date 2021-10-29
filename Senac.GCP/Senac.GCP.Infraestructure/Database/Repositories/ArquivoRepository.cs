@@ -6,7 +6,7 @@ namespace Senac.GCP.Infraestructure.Database.Repositories
 {
     public sealed class ArquivoRepository : Repository<ArquivoEntity>, IArquivoRepository
     {
-        public ArquivoRepository(DatabaseContext databaseContext) : base (databaseContext)
+        public ArquivoRepository(DatabaseContext databaseContext) : base(databaseContext)
         {
 
         }

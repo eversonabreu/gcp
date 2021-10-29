@@ -4,10 +4,11 @@ using Senac.GCP.Infraestructure.Database.Repositories.Base;
 
 namespace Senac.GCP.Infraestructure.Database.Repositories
 {
-    public sealed class UsuarioRepository : Repository<UsuarioEntity>, IUsuarioRepository
+    public sealed class TipoCotaRepository : Repository<TipoCotaEntity>, ITipoCotaRepository
     {
-        public UsuarioRepository(DatabaseContext databaseContext) : base(databaseContext)
+        public TipoCotaRepository(DatabaseContext databaseContext) : base(databaseContext)
         {
+
         }
     }
 }
