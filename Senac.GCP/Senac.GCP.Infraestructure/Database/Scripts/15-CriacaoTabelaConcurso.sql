@@ -3,7 +3,7 @@ CREATE TABLE Concurso(
 	Codigo INT NOT NULL,
 	Descricao VARCHAR(255) NOT NULL,
 	DataInicioInscricao DATE NOT NULL,
-	DataFinalInscicao DATE NOT NULL,
+	DataFinalInscricao DATE NOT NULL,
 	IdInstituicaoSolicitante BIGINT NOT NULL,
 	IdInstituicaoOrganizadora BIGINT NOT NULL,
 	PrazoFinalIsencaoValorInscricao DATE NOT NULL,
