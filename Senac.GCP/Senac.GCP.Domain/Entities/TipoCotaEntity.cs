@@ -8,6 +8,6 @@ namespace Senac.GCP.Domain.Entities
 
         public string Descricao { get; set; }
 
-        public string DeclaracaoCiencia { get; set }
+        public string DeclaracaoCiencia { get; set; }
     }
 }
