@@ -1,4 +1,5 @@
-create table Nacionalidade(
-	Id bigint not null identity(1,1),
-	Nome Varchar (255) not null
+CREATE TABLE Nacionalidade(
+	Id BIGINT not null IDENTITY (1, 1),
+	Nome VARCHAR(255) not null,
+	CONSTRAINT PkNacionalidade PRIMARY KEY (Id)
 );
