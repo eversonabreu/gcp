@@ -13,5 +13,11 @@ namespace Senac.GCP.Domain.Services.Implementations
             : base(concursoRepository, httpContextAccessor)
         {
         }
+ 
+        public override void BeforePost(ConcursoEntity entity)
+        {
+            int codigo = 0;
+            entity.Codigo = codigo;
+        }
     }
 }
