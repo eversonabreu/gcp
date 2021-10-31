@@ -2,12 +2,9 @@
 
 namespace Senac.GCP.Domain.Entities
 {
-    public sealed class TipoCotaEntity : Entity
+    class TipoSolicitacaoIsencaoInscricao : Entity
     {
         public string Codigo { get; set; }
-
         public string Descricao { get; set; }
-
-        public string DeclaracaoCiencia { get; set; }
     }
 }
