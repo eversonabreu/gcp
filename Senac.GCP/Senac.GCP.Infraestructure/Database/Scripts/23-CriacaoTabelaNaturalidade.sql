@@ -1,0 +1,6 @@
+CREATE TABLE Naturalidade (
+	Id BIGINT NOT NULL IDENTITY(1, 1),
+	IdMunicipio BIGINT NOT NULL,
+
+	CONSTRAINT PKNaturalidade PRIMARY KEY (Id)
+);
