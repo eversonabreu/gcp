@@ -16,9 +16,9 @@ namespace Senac.GCP.Domain.Entities
 
         public DateTime DataFinalInscricao { get; set; }
 
-        public int IdInstituicaoSolicitante { get; set; }
+        public long IdInstituicaoSolicitante { get; set; }
 
-        public int IdInstituicaoOrganizadora { get; set; }
+        public long IdInstituicaoOrganizadora { get; set; }
 
         public DateTime PrazoFinalIsencaoValorInscricao { get; set; }
 
