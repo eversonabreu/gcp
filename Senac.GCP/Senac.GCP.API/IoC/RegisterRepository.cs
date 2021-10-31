@@ -16,7 +16,9 @@ namespace Senac.GCP.API.IoC
             services.AddTransient<IArquivoRepository, ArquivoRepository>();
             services.AddTransient<ITipoCotaRepository, TipoCotaRepository>();
             services.AddTransient<INacionalidadeRepository, NacionalidadeRepository>();
+            services.AddTransient<IConcursoRepository, ConcursoRepository>();
             services.AddTransient<IConcursoEditaisRepository, ConcursoEditaisRepository>();
+            services.AddTransient<IConcursoTipoCotasRepository, ConcursoTipoCotasRepository>();
         }
     }
 }

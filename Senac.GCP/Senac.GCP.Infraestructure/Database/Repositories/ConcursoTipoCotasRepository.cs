@@ -4,10 +4,11 @@ using Senac.GCP.Infraestructure.Database.Repositories.Base;
 
 namespace Senac.GCP.Infraestructure.Database.Repositories
 {
-    public sealed class ConcursoEditaisRepository : Repository<ConcursoEditaisEntity>, IConcursoEditaisRepository
+    public sealed class ConcursoTipoCotasRepository : Repository<ConcursoTipoCotasEntity>, IConcursoTipoCotasRepository
     {
-        public ConcursoEditaisRepository(DatabaseContext databaseContext) : base(databaseContext)
+        public ConcursoTipoCotasRepository(DatabaseContext databaseContext) : base(databaseContext)
         {
+
         }
     }
 }

@@ -30,7 +30,7 @@ namespace Senac.GCP.API.Models
         [Required(ErrorMessage = "O Campo 'Prazo Final da Insenção do Valor da Inscrição' Deve Ser Informado Obrigatóriamente.")]
         public DateTime PrazoFinalIsencaoValorInscricao { get; set; }
 
-        [RegularExpression(@"^(0 *[1 - 9][0 - 9] * (\.[0-9]+)?|0+\.[0-9]*[1 - 9][0 - 9]*)$", ErrorMessage ="O Valor Informado Deve Ser Maior Que Zero.")]
+        [RegularExpression(@"^(0 *[1 - 9][0 - 9] * (\.[0-9]+)?|0+\.[0-9]*[1 - 9][0 - 9]*)$", ErrorMessage = "O Valor Informado Deve Ser Maior Que Zero.")]
         [Required(ErrorMessage = "O Campo 'Valor da Inscrição' Deve Ser Informado Obrigatóriamente.")]
         public Decimal ValorInscricao { get; set; }
 
@@ -54,14 +54,37 @@ namespace Senac.GCP.API.Models
             }
             PercentualQuantidadeVagasAmplaConcorrencia = percentual;
 
-            //TO DO: VALIDAR DATA INICIAL DA INSCRIÇÃO
+            if (!ValidarDatasDoConcurso(DataInicioInscricao, DateTime.Today))
+            {
+                throw new Exception("A Data de Inicio da Inscrição Não Pode Ser Menor Que a Data Corrente");
+            }
 
-            //TO DO: VALIDAR DATA FINAL DA INSCRIÇÃO
+            if (!ValidarDatasDoConcurso(DataFinalInscricao, DataInicioInscricao))
+            {
+                throw new Exception("A Data Final da Inscrição Não Pode Ser Menor Que a Data de Inicio");
+            }
 
-            //TO DO: VALIDAR PRAZO FINAL DA ISENÇÃO DO VALOR DA INSCRIÇÃO
+            if (!ValidarDatasDoConcurso(PrazoFinalIsencaoValorInscricao, DataInicioInscricao))
+            {
+                throw new Exception("O Prazo Final da Isenção da Inscrição Não Pode Ser Menor Que a Data de Inicio");
+            }
 
-            //TO DO: GERAR CÓDIGO AUTOMÁTICO
+            if (!ValidarDatasDoConcurso(DataFinalInscricao, PrazoFinalIsencaoValorInscricao))
+            {
+                throw new Exception("O Prazo Final da Isenção da Inscrição Não Pode Ser Maior Que a Data Final");
+            }
         }
 
+        public bool ValidarDatasDoConcurso(DateTime dataParametro, DateTime dataComparativa)
+        {            
+            if(dataParametro <= dataComparativa)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }
