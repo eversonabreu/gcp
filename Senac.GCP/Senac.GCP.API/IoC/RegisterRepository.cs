@@ -20,6 +20,7 @@ namespace Senac.GCP.API.IoC
             services.AddTransient<IConcursoEditaisRepository, ConcursoEditaisRepository>();
             services.AddTransient<IConcursoTipoCotasRepository, ConcursoTipoCotasRepository>();
             services.AddTransient<IPessoaRepository, PessoaRepository>();
+            services.AddTransient<ICorRacaRepository, CorRacaRepository>();
         }
     }
 }
