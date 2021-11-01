@@ -9,7 +9,7 @@ namespace Senac.GCP.Domain.Entities
     {
         public long IdArquivoFoto { get; set; }
 
-        public long IdNaturalidade { get; set; }
+        public long IdMunicipioNaturalidade { get; set; }
 
         public long IdNacionalidade { get; set; }
 
@@ -17,7 +17,7 @@ namespace Senac.GCP.Domain.Entities
 
         public long IdCorRaca { get; set; }
 
-        public long IdMunicipio { get; set; }
+        public long IdMunicipioEndereco { get; set; }
 
         public string Nome { get; set; }
 
@@ -51,11 +51,11 @@ namespace Senac.GCP.Domain.Entities
 
         [NotMapped]
         [Dependency(NameForeignKey = nameof(IdArquivoFoto))]
-        public ArquivoFotoEntity ArquivoFoto { get; set; }
+        public ArquivoEntity ArquivoFoto { get; set; }
 
         [NotMapped]
-        [Dependency(NameForeignKey = nameof(IdNaturalidade))]
-        public NaturalidadeEntity Naturalidade { get; set; }
+        [Dependency(NameForeignKey = nameof(IdMunicipioNaturalidade))]
+        public MunicipioEntity Naturalidade { get; set; }
 
         [NotMapped]
         [Dependency(NameForeignKey = nameof(IdNacionalidade))]
@@ -72,7 +72,7 @@ namespace Senac.GCP.Domain.Entities
         
 
         [NotMapped]
-        [Dependency(NameForeignKey = nameof(IdMunicipio))]
+        [Dependency(NameForeignKey = nameof(IdMunicipioEndereco))]
         public MunicipioEntity Municipio { get; set; }
     }
 }
