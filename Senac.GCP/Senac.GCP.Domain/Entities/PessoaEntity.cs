@@ -55,11 +55,13 @@ namespace Senac.GCP.Domain.Entities
 
         [NotMapped]
         [Dependency(NameForeignKey = nameof(IdMunicipioNaturalidade))]
-        public MunicipioEntity Naturalidade { get; set; }
+        public MunicipioEntity MunicipioNaturalidade { get; set; }
+
 
         [NotMapped]
         [Dependency(NameForeignKey = nameof(IdNacionalidade))]
         public NacionalidadeEntity Nacionalidade { get; set; }
+
 
         [NotMapped]
         [Dependency(NameForeignKey = nameof(IdClassificacaoDoenca))]
@@ -73,6 +75,6 @@ namespace Senac.GCP.Domain.Entities
 
         [NotMapped]
         [Dependency(NameForeignKey = nameof(IdMunicipioEndereco))]
-        public MunicipioEntity Municipio { get; set; }
+        public MunicipioEntity MunicipioEndereco { get; set; }
     }
 }
