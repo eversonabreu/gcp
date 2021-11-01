@@ -70,25 +70,12 @@ namespace Senac.GCP.API.Models
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo 'DataEmissaoRG' não foi preenchido")]
         public DateTime DataEmissaoRG { get; set; }
 
-
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo 'DataNascimento' não foi preenchido")]
         public DateTime DataNascimento { get; set; }
-
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo 'Genero' não foi preenchido")]
         [StringLength(maximumLength: 1, ErrorMessage = "O campo 'Genero' aceita no máximo 1 caracteres")]
         public char Genero { get; set; }
-
-
-        [Required(AllowEmptyStrings = false, ErrorMessage = "O campo 'Email' não foi preenchido")]
-        [StringLength(maximumLength: 255, ErrorMessage = "O campo 'Email' aceita no máximo 255 caracteres")]
-        [DataType(DataType.EmailAddress, ErrorMessage = "O conteúdo informado para o campo 'Email' não representa um e-mail válido")]
-        public string Email { get; set; }
-
-
-        [Required(AllowEmptyStrings = false, ErrorMessage = "O campo 'Telefone' não foi preenchido")]
-        [StringLength(maximumLength: 11, ErrorMessage = "O campo 'Telefone' aceita no máximo 11 caracteres")]
-        public string Telefone { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo 'PCD' não foi preenchido")]
         [StringLength(maximumLength: 1, ErrorMessage = "O campo 'PCD' aceita no máximo 1 caracteres")]
