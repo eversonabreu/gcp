@@ -1,7 +1,5 @@
-﻿using Senac.GCP.Domain.Entities.Base;
+using Senac.GCP.Domain.Entities.Base;
 using System;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.CompilerServices;
 
 
 namespace Senac.GCP.Domain.Entities
