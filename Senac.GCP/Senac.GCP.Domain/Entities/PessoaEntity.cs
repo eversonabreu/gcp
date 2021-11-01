@@ -1,4 +1,4 @@
-﻿using Senac.GCP.Domain.Attributes;
+using Senac.GCP.Domain.Attributes;
 using Senac.GCP.Domain.Entities.Base;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -47,8 +47,6 @@ namespace Senac.GCP.Domain.Entities
 
         public string EnderecoCEP { get; set; }
 
-        public bool Ativo { get; set; }
-
         public string ChaveAcesso { get; set; }
 
         [NotMapped]
@@ -66,6 +64,7 @@ namespace Senac.GCP.Domain.Entities
         [NotMapped]
         [Dependency(NameForeignKey = nameof(IdClassificacaoDoenca))]
         public ClassificacaoDoencaEntity ClassificacaoDoenca { get; set; }
+
 
         [NotMapped]
         [Dependency(NameForeignKey = nameof(IdCorRaca))]
