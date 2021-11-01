@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Senac.GCP.API.Models.Base;
+using System;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+
 
 namespace Senac.GCP.API.Models
 {
