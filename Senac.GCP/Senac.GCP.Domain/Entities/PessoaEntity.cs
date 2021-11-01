@@ -5,40 +5,75 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Senac.GCP.Domain.Entities
 {
-    public sealed class ConcursoEntity : Entity
+    public sealed class PessoaEntity : Entity
     {
-        [NotUpdated]
-        public int Codigo { get; set; }
+        public long IdArquivoFoto { get; set; }
 
-        public string Descricao { get; set; }
+        public long IdNaturalidade { get; set; }
 
-        public DateTime DataInicioInscricao { get; set; }
+        public long IdNacionalidade { get; set; }
 
-        public DateTime DataFinalInscricao { get; set; }
+        public long IdClassificacaoDoenca { get; set; }
 
-        public int IdInstituicaoSolicitante { get; set; }
+        public long IdCorRaca { get; set; }
 
-        public int IdInstituicaoOrganizadora { get; set; }
+        public long IdMunicipio { get; set; }
 
-        public DateTime PrazoFinalIsencaoValorInscricao { get; set; }
+        public string Nome { get; set; }
 
-        public Decimal ValorInscricao { get; set; }
+        public string Email { get; set; }
+
+        public string Telefone { get; set; }
+
+        public string CPF { get; set; }
+
+        public string RG { get; set; }
+
+        public string OrgaoEmissorRG { get; set; }
+
+        public DateTime DataEmissaoRG { get; set; }
+
+        public DateTime DataNascimento { get; set; }
+
+        public char Genero { get; set; }
+
+        public bool PCD { get; set; }
+
+        public string EnderecoRua { get; set; }
+
+        public string EnderecoBairro { get; set; }
+
+        public string EnderecoComplemento { get; set; }
+
+        public string EnderecoCEP { get; set; }
 
         public bool Ativo { get; set; }
 
-        public int QuantidadeVagas { get; set; }
-
-        public int PercentualQuantidadeVagasAmplaConcorrencia { get; set; }
-
-        public string Observacoes { get; set; }
-
+        public string ChaveAcesso { get; set; }
 
         [NotMapped]
-        [Dependency(NameForeignKey = nameof(IdInstituicaoOrganizadora))]
-        public InstituicaoEntity InstituicaoOrganizadora { get; set; }
+        [Dependency(NameForeignKey = nameof(IdArquivoFoto))]
+        public ArquivoFotoEntity ArquivoFoto { get; set; }
 
         [NotMapped]
-        [Dependency(NameForeignKey = nameof(IdInstituicaoSolicitante))]
-        public InstituicaoEntity InstituicaoSolicitante { get; set; }
+        [Dependency(NameForeignKey = nameof(IdNaturalidade))]
+        public NaturalidadeEntity Naturalidade { get; set; }
+
+        [NotMapped]
+        [Dependency(NameForeignKey = nameof(IdNacionalidade))]
+        public NacionalidadeEntity Nacionalidade { get; set; }
+
+        [NotMapped]
+        [Dependency(NameForeignKey = nameof(IdClassificacaoDoenca))]
+        public ClassificacaoDoencaEntity ClassificacaoDoenca { get; set; }
+
+        [NotMapped]
+        [Dependency(NameForeignKey = nameof(IdCorRaca))]
+        public CorRacaEntity CorRaca { get; set; }
+        
+
+        [NotMapped]
+        [Dependency(NameForeignKey = nameof(IdMunicipio))]
+        public MunicipioEntity Municipio { get; set; }
     }
 }

@@ -18,7 +18,7 @@ namespace Senac.GCP.API.Models
         public string Descricao { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "O 'IdConcurso' deve ser informada obrigatoriamente.")]
-        [Range(minimum:1, maximum:long.MaxValue, ErrorMessage = "O campo 'IdMunicipio' é inválido!")]
+        [Range(minimum:1, maximum:long.MaxValue, ErrorMessage = "O campo 'IdConcurso' é inválido!")]
         public long IdConcurso { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "O 'IdArquivo' deve ser informada obrigatoriamente.")]
