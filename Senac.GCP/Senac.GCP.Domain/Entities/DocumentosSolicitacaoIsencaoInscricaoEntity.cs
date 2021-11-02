@@ -10,8 +10,8 @@ namespace Senac.GCP.Domain.Entities
         public long IdArquivo { get; set; }        
         public long IdTipoSolicitacaoIsencaoInscricao { get; set; }
        
-        //[Dependency(NameForeignKey = nameof(IdSolicitacaoIsencaoInscricao))]
-        //public SolicitacaoIsencaoInscricaoEntity SolicitacaoIsencaoInscricao { get; set; }
+        [Dependency(NameForeignKey = nameof(IdSolicitacaoIsencaoInscricao))]
+        public SolicitacaoIsencaoInscricaoEntity SolicitacaoIsencaoInscricao { get; set; }
 
         [Dependency(NameForeignKey = nameof(IdArquivo))]
         public ArquivoEntity Arquivo { get; set; }
