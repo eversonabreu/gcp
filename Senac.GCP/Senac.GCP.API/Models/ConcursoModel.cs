@@ -38,7 +38,7 @@ namespace Senac.GCP.API.Models
 
         [RegularExpression(@"^(0 *[1 - 9][0 - 9] * (\.[0-9]+)?|0+\.[0-9]*[1 - 9][0 - 9]*)$", ErrorMessage = "O Valor Informado Deve Ser Maior Que Zero.")]
         [Required(ErrorMessage = "O Campo 'Valor da Inscrição' Deve Ser Informado Obrigatóriamente.")]
-        public Decimal ValorInscricao { get; set; }
+        public decimal ValorInscricao { get; set; }
 
 
         [Required(ErrorMessage = "O Campo 'Ativo' Deve Ser Informado Obrigatóriamente.")]

@@ -35,5 +35,7 @@ namespace Senac.GCP.Infraestructure.Database
 
         public DbSet<TipoSolicitacaoIsencaoInscricaoEntity> TipoSolicitacaoIsencaoInscricao { get; set; }
 
+        public DbSet<NaturalidadeEntity> Naturalidade { get; set; }
+
     }
 }

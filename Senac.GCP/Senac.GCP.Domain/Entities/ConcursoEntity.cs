@@ -22,7 +22,7 @@ namespace Senac.GCP.Domain.Entities
 
         public DateTime PrazoFinalIsencaoValorInscricao { get; set; }
 
-        public Decimal ValorInscricao { get; set; }
+        public decimal ValorInscricao { get; set; }
 
         public bool Ativo { get; set; }
 
