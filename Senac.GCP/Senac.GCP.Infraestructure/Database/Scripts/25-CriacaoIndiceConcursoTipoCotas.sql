@@ -1,0 +1,1 @@
+create unique index UkConcursoTipoCotas on ConcursoTipoCotas(IdConcurso, IdTipoCota);

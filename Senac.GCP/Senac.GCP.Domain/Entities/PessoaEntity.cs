@@ -9,15 +9,15 @@ namespace Senac.GCP.Domain.Entities
     {
         public long IdArquivoFoto { get; set; }
 
-        public long IdNaturalidade { get; set; }
+        public long IdMunicipioNaturalidade { get; set; }
+
+        public long IdMunicipioEndereco { get; set; }
 
         public long IdNacionalidade { get; set; }
 
         public long IdClassificacaoDoenca { get; set; }
 
         public long IdCorRaca { get; set; }
-
-        public long IdMunicipio { get; set; }
 
         public string Nome { get; set; }
 
@@ -49,17 +49,17 @@ namespace Senac.GCP.Domain.Entities
 
         public string EnderecoCEP { get; set; }
 
-        public bool Ativo { get; set; }
+        public bool Bloqueado { get; set; }
 
         public string ChaveAcesso { get; set; }
+
+        public string MotivoBloqueio { get; set; }
+
+        public DateTime DataBloqueio { get; set; }
 
         [NotMapped]
         [Dependency(NameForeignKey = nameof(IdArquivoFoto))]
         public ArquivoEntity ArquivoFoto { get; set; }
-
-        [NotMapped]
-        [Dependency(NameForeignKey = nameof(IdNaturalidade))]
-        public NaturalidadeEntity Naturalidade { get; set; }
 
         [NotMapped]
         [Dependency(NameForeignKey = nameof(IdNacionalidade))]
@@ -74,8 +74,12 @@ namespace Senac.GCP.Domain.Entities
         public CorRacaEntity CorRaca { get; set; }
 
         [NotMapped]
-        [Dependency(NameForeignKey = nameof(IdMunicipio))]
-        public MunicipioEntity Mucipio { get; set; }
+        [Dependency(NameForeignKey = nameof(IdMunicipioNaturalidade))]
+        public MunicipioEntity MucipioNaturalidade { get; set; }
+
+        [NotMapped]
+        [Dependency(NameForeignKey = nameof(IdMunicipioEndereco))]
+        public MunicipioEntity MucipioEndereco { get; set; }
 
     }
 }

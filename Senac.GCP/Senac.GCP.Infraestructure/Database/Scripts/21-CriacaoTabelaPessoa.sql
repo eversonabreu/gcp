@@ -1,16 +1,16 @@
 CREATE TABLE Pessoa (
 	Id BIGINT NOT NULL IDENTITY(1, 1),
 	IdArquivoFoto BIGINT NOT NULL,
-	IdNaturalidade BIGINT,
 	IdNacionalidade BIGINT NOT NULL,
 	IdClassificacaoDoenca BIGINT,
 	IdCorRaca BIGINT NOT NULL,
-	IdMunicipio BIGINT NOT NULL,
+	IdMunicipioNaturalidade BIGINT,
+	IdMunicipioEndereco BIGINT NOT NULL,
 	Nome VARCHAR(255) NOT NULL,
-	DataNascimento DATETIME NOT NULL,
+	DataNascimento DATE NOT NULL,
 	CPF VARCHAR(14) NOT NULL,
 	RG VARCHAR(7) NOT NULL,
-	DataEmissaoRG DATETIME NOT NULL,
+	DataEmissaoRG DATE NOT NULL,
 	OrgaoEmissorRG VARCHAR(255) NOT NULL,
 	Genero VARCHAR(1) NOT NULL,
 	Email VARCHAR(255) NOT NULL,
@@ -21,7 +21,9 @@ CREATE TABLE Pessoa (
 	EnderecoBairro VARCHAR (150) NOT NULL,
 	EnderecoComplemento VARCHAR (150),
 	EnderecoCEP VARCHAR (10) NOT NULL,
-	Ativo BIT NOT NULL,
+	Bloqueado BIT NOT NULL,
+	MotivoBloqueio TEXT,
+	DataBloqueio DATETIME2,
 	ChaveAcesso TEXT NOT NULL,
  
 	CONSTRAINT PKPessoa PRIMARY KEY (Id),
@@ -30,9 +32,8 @@ CREATE TABLE Pessoa (
 	CONSTRAINT FKPessoaIdNacionalidade FOREIGN KEY (IdNacionalidade) REFERENCES Nacionalidade(Id),
 	CONSTRAINT FKPessoaIdClassificacaoDoenca FOREIGN KEY (IdClassificacaoDoenca) REFERENCES ClassificacaoDoenca(Id),
 	CONSTRAINT FKPessoaIdCorRaca FOREIGN KEY (IdCorRaca) REFERENCES CorRaca(Id),
-	CONSTRAINT FKPessoaIdMunicipio FOREIGN KEY (IdMunicipio) REFERENCES Municipio(Id),
+	CONSTRAINT FKPessoaIdMunicipioEndereco FOREIGN KEY (IdMunicipioEndereco) REFERENCES Municipio(Id),
 	CONSTRAINT FKPessoaIdArquivoFoto FOREIGN KEY (IdArquivoFoto) REFERENCES Arquivo(Id),
-	CONSTRAINT FKPessoaIdNaturalidade FOREIGN KEY (IdNaturalidade) REFERENCES Municipio(Id),
+	CONSTRAINT FKPessoaIdMunicipioNaturalidade FOREIGN KEY (IdMunicipioNaturalidade) REFERENCES Municipio(Id)
 );
 
-select * from pessoa

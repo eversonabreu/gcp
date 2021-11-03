@@ -23,8 +23,11 @@ namespace Senac.GCP.API.Models
         [Required(ErrorMessage = "O campo 'IdCorRaca' não foi preenchido")]
         public long IdCorRaca { get; set; }
 
-        [Required(ErrorMessage = "O campo 'IdMunicipio' não foi preenchido")]
-        public long IdMunicipio { get; set; }
+        [Required(ErrorMessage = "O campo 'IdMunicipioEndereco' não foi preenchido")]
+        public long IdMunicipioEndereco { get; set; }
+
+        [Required(ErrorMessage = "O campo 'IdMunicipioNaturalidade' não foi preenchido")]
+        public long IdMunicipioNaturalidade { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo 'Nome' não foi preenchido")]
         [StringLength(maximumLength: 255, ErrorMessage = "O campo 'Nome' aceita no máximo 255 caracteres")]
@@ -80,11 +83,15 @@ namespace Senac.GCP.API.Models
         [StringLength(maximumLength: 10, ErrorMessage = "O campo 'EnderecoCEP' aceita no máximo 10 caracteres")]
         public string EnderecoCEP { get; set; }
 
-        [Required(ErrorMessage = "O campo 'Ativo' não foi definido")]
-        public bool Ativo { get; set; }
+        [Required(ErrorMessage = "O campo 'Bloqueado' não foi definido")]
+        public bool Bloqueado { get; set; }
 
         //gerado automático
         public string ChaveAcesso { get; set; }
+
+        public string MotivoBloqueio { get; set; }
+
+        public DateTime DataBloqueio { get; set; }
 
         public override void AdditionalValidations()
         {
