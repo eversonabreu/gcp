@@ -2,34 +2,35 @@
 using Senac.GCP.Domain.Utils;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace Senac.GCP.API.Models
 {
     public sealed class PessoaModel : Model
     {
-        [Required(AllowEmptyStrings = false, ErrorMessage = "O campo 'IdArquivoFoto' não foi preenchido")]
+        [Required(ErrorMessage = "O campo 'IdArquivoFoto' não foi preenchido")]
         public long IdArquivoFoto { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "O campo 'IdNaturalidade' não foi preenchido")]
+        [Required(ErrorMessage = "O campo 'IdNaturalidade' não foi preenchido")]
         public long IdNaturalidade { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "O campo 'IdNacionalidade' não foi preenchido")]
+        [Required(ErrorMessage = "O campo 'IdNacionalidade' não foi preenchido")]
         public long IdNacionalidade { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "O campo 'IdClassificacaoDoenca' não foi preenchido")]
+        [Required(ErrorMessage = "O campo 'IdClassificacaoDoenca' não foi preenchido")]
         public long IdClassificacaoDoenca { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "O campo 'IdCorRaca' não foi preenchido")]
+        [Required(ErrorMessage = "O campo 'IdCorRaca' não foi preenchido")]
         public long IdCorRaca { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "O campo 'IdMunicipio' não foi preenchido")]
+        [Required(ErrorMessage = "O campo 'IdMunicipio' não foi preenchido")]
         public long IdMunicipio { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo 'Nome' não foi preenchido")]
         [StringLength(maximumLength: 255, ErrorMessage = "O campo 'Nome' aceita no máximo 255 caracteres")]
         public string Nome { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "O campo 'DataNascimento' não foi preenchido")]
+        [Required(ErrorMessage = "O campo 'DataNascimento' não foi preenchido")]
         public DateTime DataNascimento { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo 'CPF' não foi preenchido")]
@@ -38,15 +39,14 @@ namespace Senac.GCP.API.Models
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo 'RG' não foi preenchido")]
         public string RG { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "O campo 'DataEmissaoRG' não foi preenchido")]
+        [Required(ErrorMessage = "O campo 'DataEmissaoRG' não foi preenchido")]
         public DateTime DataEmissaoRG { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo 'OrgaoEmissorRG' não foi preenchido")]
         [StringLength(maximumLength: 255, ErrorMessage = "O campo 'OrgaoEmissorRG' aceita no máximo 255 caracteres")]
         public string OrgaoEmissorRG { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "O campo 'Genero' não foi preenchido")]
-        [StringLength(maximumLength: 1, ErrorMessage = "O campo 'Genero' aceita no máximo 1 caracteres")]
+        [Required(ErrorMessage = "O campo 'Genero' não foi preenchido")]
         public char Genero { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo 'Email' não foi preenchido")]
@@ -58,6 +58,7 @@ namespace Senac.GCP.API.Models
         [StringLength(maximumLength: 11, ErrorMessage = "O campo 'Telefone' aceita no máximo 11 caracteres")]
         public string Telefone { get; set; }
 
+        //ver como ela
         public bool PCD { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo 'EnderecoRua' não foi preenchido")]
@@ -79,9 +80,10 @@ namespace Senac.GCP.API.Models
         [StringLength(maximumLength: 10, ErrorMessage = "O campo 'EnderecoCEP' aceita no máximo 10 caracteres")]
         public string EnderecoCEP { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "O campo 'Ativo' não foi definido")]
+        [Required(ErrorMessage = "O campo 'Ativo' não foi definido")]
         public bool Ativo { get; set; }
 
+        //gerado automático
         public string ChaveAcesso { get; set; }
 
         public override void AdditionalValidations()
@@ -94,6 +96,7 @@ namespace Senac.GCP.API.Models
             CPF = cpf;
             Email = Email.Trim().ToUpper();
             Nome = Nome.Trim();
+            Genero = Genero.ToString().ToUpper().First();
         }
     }
 }

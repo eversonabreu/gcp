@@ -34,3 +34,5 @@ CREATE TABLE Pessoa (
 	CONSTRAINT FKPessoaIdArquivoFoto FOREIGN KEY (IdArquivoFoto) REFERENCES Arquivo(Id),
 	CONSTRAINT FKPessoaIdNaturalidade FOREIGN KEY (IdNaturalidade) REFERENCES Municipio(Id),
 );
+
+select * from pessoa
