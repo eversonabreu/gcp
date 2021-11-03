@@ -22,7 +22,6 @@ namespace Senac.GCP.API.IoC
             services.AddTransient<IPessoaRepository, PessoaRepository>();
             services.AddTransient<ICorRacaRepository, CorRacaRepository>();
             services.AddTransient<ITipoSolicitacaoIsencaoInscricaoRepository, TipoSolicitacaoIsencaoInscricaoRepository>();
-            services.AddTransient<INaturalidadeRepository, NaturalidadeRepository>();
         }
     }
 }
