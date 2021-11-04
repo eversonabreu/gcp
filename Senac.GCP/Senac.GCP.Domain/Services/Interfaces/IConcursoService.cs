@@ -5,5 +5,6 @@ namespace Senac.GCP.Domain.Services.Interfaces
 {
     public interface IConcursoService : IService<ConcursoEntity>
     {
+        int ObterPercentualTotalDeVagas(long idConcurso);
     }
 }
