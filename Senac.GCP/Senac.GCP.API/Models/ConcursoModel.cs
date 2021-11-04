@@ -6,7 +6,7 @@ namespace Senac.GCP.API.Models
 {
     public sealed class ConcursoModel : Model
     {
-        public int Codigo { get; set; }
+        public int Numero { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "O 'Descrição' Deve Ser Informado Obrigatóriamente.")]
         [StringLength(maximumLength: 255, ErrorMessage = "O Tamanho do Campo 'Descrição' Não Pode Superar 255 Caracteres.")]

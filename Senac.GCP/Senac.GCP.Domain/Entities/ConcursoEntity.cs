@@ -8,7 +8,7 @@ namespace Senac.GCP.Domain.Entities
     public sealed class ConcursoEntity : Entity
     {
         [NotUpdated]
-        public int Codigo { get; set; }
+        public int Numero { get; set; }
 
         public string Descricao { get; set; }
 

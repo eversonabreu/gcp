@@ -1,6 +1,6 @@
 CREATE TABLE Concurso(
 	Id BIGINT NOT NULL IDENTITY (1,1),
-	Codigo INT NOT NULL,
+	Numero INT NOT NULL,
 	Descricao VARCHAR(255) NOT NULL,
 	DataInicioInscricao DATE NOT NULL,
 	DataFinalInscricao DATE NOT NULL,

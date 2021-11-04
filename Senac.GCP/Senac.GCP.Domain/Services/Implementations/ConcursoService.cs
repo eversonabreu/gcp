@@ -27,14 +27,14 @@ namespace Senac.GCP.Domain.Services.Implementations
             int anoCorrente = DateTime.Today.Year;
             var numeroAleatorio = new Random();
             int numeroAleatorioValor = numeroAleatorio.Next(1000, 9999);
-            int codigo = int.Parse($"{anoCorrente}{numeroAleatorioValor}");
-            return codigo;
+            int numeroConcurso = int.Parse($"{anoCorrente}{numeroAleatorioValor}");
+            return numeroConcurso;
         }
  
         public override void BeforePost(ConcursoEntity entity)
         {
             ValidarPercentualDeVagas(entity);
-            entity.Codigo = GerarCodigoConcurso();
+            entity.Numero = GerarCodigoConcurso();
         }
 
         public override void BeforePut(ConcursoEntity entity)
