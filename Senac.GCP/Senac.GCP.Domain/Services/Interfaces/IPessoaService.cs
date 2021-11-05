@@ -5,5 +5,6 @@ namespace Senac.GCP.Domain.Services.Interfaces
 {
     public interface IPessoaService : IService<PessoaEntity>
     {
+        void ResetarChaveAcesso(long idPessoa);
     }
 }

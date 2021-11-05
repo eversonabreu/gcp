@@ -9,9 +9,16 @@ namespace Senac.GCP.API.Controllers
     [Route("pessoa")]
     public sealed class PessoaController : Controller<PessoaModel, PessoaEntity>
     {
+        private readonly IPessoaService pessoaService;
+
         public PessoaController(IPessoaService pessoaService) : base(pessoaService)
         {
-
+            this.pessoaService = pessoaService;
         }
+
+        [HttpPut]
+        [Route("resetar-chaveAcesso/{idPessoa:long}")]
+        public void ResetarChaveAcesso(long idPessoa)
+            => pessoaService.ResetarChaveAcesso(idPessoa);
     }
 }
