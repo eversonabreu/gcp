@@ -25,8 +25,7 @@ namespace Senac.GCP.API.Models
         [Required(ErrorMessage = "O campo 'IdMunicipioEndereco' não foi preenchido")]
         public long IdMunicipioEndereco { get; set; }
 
-        [Required(ErrorMessage = "O campo 'IdMunicipioNaturalidade' não foi preenchido")]
-        public long IdMunicipioNaturalidade { get; set; }
+        public long? IdMunicipioNaturalidade { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo 'Nome' não foi preenchido")]
         [StringLength(maximumLength: 255, ErrorMessage = "O campo 'Nome' aceita no máximo 255 caracteres")]

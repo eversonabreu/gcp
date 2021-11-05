@@ -22,7 +22,7 @@ namespace Senac.GCP.Domain.Services.Implementations
             this.concursoTipoCotasRepository = concursoTipoCotasRepository;
         }
 
-        private int GerarCodigoConcurso()
+        private static int GerarCodigoConcurso()
         {
             int anoCorrente = DateTime.Today.Year;
             var numeroAleatorio = new Random();
@@ -56,12 +56,15 @@ namespace Senac.GCP.Domain.Services.Implementations
             return totalPercentualDeVagas;
         }
 
-        private void ValidarPercentualDeVagas(ConcursoEntity entity)
+        private static void ValidarPercentualDeVagas(ConcursoEntity entity)
         {
             if (entity.PercentualQuantidadeVagasAmplaConcorrencia <= 0)
                 throw new Exception("O percentual de vagas para a ampla concorrência deve ser superior a 0 (zero)");
             else if (entity.PercentualQuantidadeVagasAmplaConcorrencia > 100)
                 throw new Exception("O percentual de vagas para a ampla concorrência deve ser igual ou inferior a 100 (cem)");
         }
+
+        //fazer 1 validação 
+        //validar duplicidade do do idpessoa com o mesmo idconcurso
     }
 }
