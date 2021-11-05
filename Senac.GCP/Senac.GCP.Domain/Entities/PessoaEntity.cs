@@ -9,7 +9,7 @@ namespace Senac.GCP.Domain.Entities
     {
         public long IdArquivoFoto { get; set; }
 
-        public long IdMunicipioNaturalidade { get; set; }
+        public long? IdMunicipioNaturalidade { get; set; }
 
         public long IdMunicipioEndereco { get; set; }
 
