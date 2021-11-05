@@ -1,4 +1,5 @@
 ﻿using Senac.GCP.API.Models.Base;
+using Senac.GCP.Domain.Attributes;
 using System;
 using System.ComponentModel.DataAnnotations;
 
@@ -14,10 +15,12 @@ namespace Senac.GCP.API.Models
 
         [Required(ErrorMessage = "O Campo 'Data Inicial da Inscricao' Deve Ser Informado Obrigatóriamente.")]
         [DataType(DataType.Date, ErrorMessage = "Data 'Data Inicial da Inscrição' inválida")]
+        [DateOnly]
         public DateTime DataInicioInscricao { get; set; }
 
         [Required(ErrorMessage = "O Campo 'Data Final da Inscrição' Deve Ser Informado Obrigatóriamente.")]
         [DataType(DataType.Date, ErrorMessage = "Data 'Data Final da Inscrição' inválida")]
+        [DateOnly]
         public DateTime DataFinalInscricao { get; set; }
 
         [Required(ErrorMessage = "O Campo 'Id Instituição Solicitante' Deve Ser Informado Obrigatóriamente.")]
@@ -30,9 +33,11 @@ namespace Senac.GCP.API.Models
 
         [Required(ErrorMessage = "O Campo 'Prazo Final da Insenção do Valor da Inscrição' Deve Ser Informado Obrigatóriamente.")]
         [DataType(DataType.Date, ErrorMessage = "Data 'Prazo Final da Insenção do Valor da Inscrição' inválida")]
+        [DateOnly]
         public DateTime PrazoFinalIsencaoValorInscricao { get; set; }
 
         [Required(ErrorMessage = "O Campo 'Valor da Inscrição' Deve Ser Informado Obrigatóriamente.")]
+        [Range(minimum: 0.01d, maximum: double.MaxValue, ErrorMessage = "Valor de inscrição inválido")]
         public decimal ValorInscricao { get; set; }
 
         [Required(ErrorMessage = "O Campo 'Ativo' Deve Ser Informado Obrigatóriamente.")]
@@ -49,33 +54,20 @@ namespace Senac.GCP.API.Models
 
         public override void AdditionalValidations()
         {
-            if (ValorInscricao <= 0m)
-                throw new Exception("Valor de inscrição inválido");
-
-            if (!ValidarDatasDoConcurso(DataInicioInscricao, DateTime.Today))
-            {
+            if (!DataEhValida(DataInicioInscricao, DateTime.Today))
                 throw new Exception("A Data de Inicio da Inscrição Não Pode Ser Menor Que a Data Corrente");
-            }
 
-            if (!ValidarDatasDoConcurso(DataFinalInscricao, DataInicioInscricao))
-            {
+            if (!DataEhValida(DataFinalInscricao, DataInicioInscricao))
                 throw new Exception("A Data Final da Inscrição Não Pode Ser Menor Que a Data de Inicio");
-            }
 
-            if (!ValidarDatasDoConcurso(PrazoFinalIsencaoValorInscricao, DataInicioInscricao))
-            {
+            if (!DataEhValida(PrazoFinalIsencaoValorInscricao, DataInicioInscricao))
                 throw new Exception("O Prazo Final da Isenção da Inscrição Não Pode Ser Menor Que a Data de Inicio");
-            }
 
-            if (!ValidarDatasDoConcurso(DataFinalInscricao, PrazoFinalIsencaoValorInscricao))
-            {
+            if (!DataEhValida(DataFinalInscricao, PrazoFinalIsencaoValorInscricao))
                 throw new Exception("O Prazo Final da Isenção da Inscrição Não Pode Ser Maior Que a Data Final");
-            }
         }
 
-        public bool ValidarDatasDoConcurso(DateTime dataParametro, DateTime dataComparativa)
-        {
-            return dataParametro > dataComparativa;
-        }
+        private static bool DataEhValida(DateTime data, DateTime dataComparativa)
+            => data > dataComparativa;
     }
 }

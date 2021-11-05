@@ -51,6 +51,7 @@ namespace Senac.GCP.Domain.Entities
 
         public bool Bloqueado { get; set; }
 
+        [NotUpdated]
         public string ChaveAcesso { get; set; }
 
         public string MotivoBloqueio { get; set; }

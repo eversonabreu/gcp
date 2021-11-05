@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Senac.GCP.Domain.Attributes;
+using Senac.GCP.Domain.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -86,7 +88,56 @@ namespace Senac.GCP.API.Models.Base
                 throw new Exception(messages.ToString());
             }
 
+            ApplyAttributeDateOnly(model);
+            ApplyAttributeStringOptions(model);
             model.AdditionalValidations();
+        }
+
+        private static void ApplyAttributeDateOnly(Model model)
+        {
+            var properties = model.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public);
+            foreach (var property in properties)
+            {
+                var custom = property.GetCustomAttribute<DateOnlyAttribute>();
+                if (custom != null)
+                {
+                    var objectValue = property.GetValue(model);
+                    if (objectValue != null && objectValue is DateTime)
+                    {
+                        var value = Convert.ToDateTime(objectValue).Date;
+                        property.SetValue(model, value);
+                    }
+                }
+            }
+        }
+
+        private static void ApplyAttributeStringOptions(Model model)
+        {
+            var properties = model.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            foreach (var property in properties)
+            {
+                var custom = property.GetCustomAttribute<StringOptionsAttribute>();
+                if (custom != null)
+                {
+                    var objectValue = property.GetValue(model);
+                    if (objectValue != null && objectValue is string)
+                    {
+                        string value = objectValue.ToString();
+                        switch (custom.TrimSpace)
+                        {
+                            case TrimSpaceEnum.Both: property.SetValue(model, value.Trim()); value = value.Trim(); break;
+                            case TrimSpaceEnum.End: property.SetValue(model, value.TrimEnd()); value = value.TrimEnd(); break;
+                            case TrimSpaceEnum.Start: property.SetValue(model, value.TrimStart()); value = value.TrimStart(); break;
+                        }
+
+                        switch (custom.AlterCase)
+                        {
+                            case AlterCaseEnum.Lower: property.SetValue(model, value.ToLower()); break;
+                            case AlterCaseEnum.Upper: property.SetValue(model, value.ToUpper()); break;
+                        }
+                    }
+                }
+            }
         }
     }
 }

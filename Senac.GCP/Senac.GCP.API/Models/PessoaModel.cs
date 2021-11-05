@@ -1,4 +1,6 @@
 ﻿using Senac.GCP.API.Models.Base;
+using Senac.GCP.Domain.Attributes;
+using Senac.GCP.Domain.Enums;
 using Senac.GCP.Domain.Utils;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -31,6 +33,7 @@ namespace Senac.GCP.API.Models
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo 'Nome' não foi preenchido")]
         [StringLength(maximumLength: 255, ErrorMessage = "O campo 'Nome' aceita no máximo 255 caracteres")]
+        [StringOptions(TrimSpace = TrimSpaceEnum.Both, AlterCase = AlterCaseEnum.Upper)]
         public string Nome { get; set; }
 
         [Required(ErrorMessage = "O campo 'DataNascimento' não foi preenchido")]
@@ -55,6 +58,7 @@ namespace Senac.GCP.API.Models
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo 'Email' não foi preenchido")]
         [StringLength(maximumLength: 255, ErrorMessage = "O campo 'Email' aceita no máximo 255 caracteres")]
         [DataType(DataType.EmailAddress, ErrorMessage = "O conteúdo informado para o campo 'Email' não representa um e-mail válido")]
+        [StringOptions(TrimSpace = TrimSpaceEnum.Both, AlterCase = AlterCaseEnum.Upper)]
         public string Email { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo 'Telefone' não foi preenchido")]
@@ -86,7 +90,6 @@ namespace Senac.GCP.API.Models
         [Required(ErrorMessage = "O campo 'Bloqueado' não foi definido")]
         public bool Bloqueado { get; set; }
 
-        //gerado automático
         public string ChaveAcesso { get; set; }
 
         public string MotivoBloqueio { get; set; }
@@ -95,15 +98,13 @@ namespace Senac.GCP.API.Models
 
         public override void AdditionalValidations()
         {
+            if (Genero != 'F' && Genero != 'M')
+                throw new Exception("O Gênero informado é inválido");
+
             if (!ValidadorCPF.Validar(CPF, out string cpf))
-            {
                 throw new Exception("O CPF informado não é válido");
-            }
 
             CPF = cpf;
-            Email = Email.Trim().ToUpper();
-            Nome = Nome.Trim();
-            Genero = Genero.ToString().ToUpper().First();
         }
     }
 }
