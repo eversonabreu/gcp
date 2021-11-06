@@ -31,21 +31,18 @@ namespace Senac.GCP.Domain.Services.Implementations
         public override void BeforePost(PessoaEntity entity)
         {
             entity.ChaveAcesso = GerarChaveAcesso();
-            
-            //tua tarefa....
-            //ver como foi implementado no usuário...
-            //e enviar e-mail para a pessoa com a sua chave....
-
-            //tbm criar método para alteração de chave de acesso
-            //tbm criar método reset desta chave
         }
 
         public override void AfterPost(PessoaEntity entity)
         {
-            EnviarEmailUsuarioComChaveDeAcesso(entity);
+            if (!EnviarEmailUsuarioComChaveDeAcesso(entity))
+            {
+                pessoaRepository.DeleteById(entity.Id);
+                throw new Exception("Não foi possível inserir esta pessoa porque ocorreu um problema no envio de e-mail de sua senha");
+            }
         }
 
-        private void EnviarEmailUsuarioComChaveDeAcesso(PessoaEntity entity)
+        private bool EnviarEmailUsuarioComChaveDeAcesso(PessoaEntity entity)
         {
             string chaveAcesso = entity.ChaveAcesso;
             var envioEmail = emailService
@@ -55,18 +52,35 @@ namespace Senac.GCP.Domain.Services.Implementations
                                          <h6><i>Caso queira voçê poderá alterar a sua senha pelo sistema</i></h6>", true)
                              .WithRecipient(entity.Email)
                              .Send();
-            if (!envioEmail)
-            {
-                pessoaRepository.DeleteById(entity.Id);
-                throw new Exception("Não foi possível inserir este usuário porque ocorreu um problema no envio de e-mail de sua senha");
-            }
+            return envioEmail;
         }
 
         public void ResetarChaveAcesso(long idPessoa)
         {
             var pessoa = pessoaRepository.GetById(idPessoa);
             pessoa.ChaveAcesso = GerarChaveAcesso();
+            if (!EnviarEmailUsuarioComChaveDeAcesso(pessoa))
+                throw new Exception(@"Não foi possível resetar a chave de acesso porque ocorreu um problema no
+                     envio de e-mail da chave de acesso para a pessoa");
+
             pessoaRepository.Update(pessoa);
         }
+
+        public void AlterarChaveAcesso(long idPessoa, string chaveAcessoAtual, string novaChaveAcesso)
+        {
+            var pessoa = pessoaRepository.GetById(idPessoa);
+            if (pessoa.ChaveAcesso != chaveAcessoAtual)
+            {
+                throw new Exception("A chave de acesso atual não corresponde com a chave de acesso informada.");
+            }
+
+            pessoa.ChaveAcesso = novaChaveAcesso;
+            pessoaRepository.Update(pessoa);
+        }
+
+        //public bool ValidarChaveAcesso(string chaveAcesso)
+        //{
+
+        //}
     }
 }
