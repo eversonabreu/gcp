@@ -17,7 +17,12 @@ namespace Senac.GCP.API.Controllers
         }
 
         [HttpPut]
-        [Route("resetar-chaveAcesso/{idPessoa:long}")]
+        [Route("alterar-chave-acesso/{idPessoa:long}/{chaveAcessoAtual}/{novaChaveAcesso}")]
+        public void AlterarChaveAcesso(long idPessoa, string chaveAcessoAtual, string novaChaveAcesso)
+            => pessoaService.AlterarChaveAcesso(idPessoa, chaveAcessoAtual, novaChaveAcesso);
+
+        [HttpPut]
+        [Route("resetar-chave-acesso/{idPessoa:long}")]
         public void ResetarChaveAcesso(long idPessoa)
             => pessoaService.ResetarChaveAcesso(idPessoa);
     }
