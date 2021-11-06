@@ -14,9 +14,6 @@ namespace Senac.GCP.API.Models
         [Required(ErrorMessage = "O campo 'IdArquivoFoto' não foi preenchido")]
         public long IdArquivoFoto { get; set; }
 
-        [Required(ErrorMessage = "O campo 'IdNaturalidade' não foi preenchido")]
-        public long IdNaturalidade { get; set; }
-
         [Required(ErrorMessage = "O campo 'IdNacionalidade' não foi preenchido")]
         public long IdNacionalidade { get; set; }
 

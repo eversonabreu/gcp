@@ -40,19 +40,29 @@ namespace Senac.GCP.Domain.Services.Implementations
         public override void BeforePut(ConcursoEntity entity)
         {
             ValidarPercentualDeVagas(entity);
-            if (ObterPercentualTotalDeVagas(entity.Id) > 100)
+            if (ObterPercentualTotalDeVagas(entity.Id, entity.PercentualQuantidadeVagasAmplaConcorrencia) > 100)
                 throw new Exception("Não é possível atualizar porque o percentual de vagas do concurso (ampla concorrência mais vagas para cotistas) ultrapassa 100%");
+        }
+
+        private int ObterPercentualTotalDeVagas(long idConcurso, int percentualQuantidadeVagasAmplaConcorrencia)
+        {
+            int totalPercentualDeVagasCotistas = concursoTipoCotasRepository
+                .Filter(x => x.IdConcurso == idConcurso)
+                .Sum(x => x.PercentualVagas);
+            int totalPercentualDeVagas = percentualQuantidadeVagasAmplaConcorrencia + totalPercentualDeVagasCotistas;
+            
+            return totalPercentualDeVagas;
         }
 
         public int ObterPercentualTotalDeVagas(long idConcurso)
         {
-            int totalPercentualDeVagasAmplaConcorrencia = 
+            int totalPercentualDeVagasAmplaConcorrencia =
                 concursoRepository.GetById(idConcurso).PercentualQuantidadeVagasAmplaConcorrencia;
             int totalPercentualDeVagasCotistas = concursoTipoCotasRepository
                 .Filter(x => x.IdConcurso == idConcurso)
                 .Sum(x => x.PercentualVagas);
             int totalPercentualDeVagas = totalPercentualDeVagasAmplaConcorrencia + totalPercentualDeVagasCotistas;
-            
+
             return totalPercentualDeVagas;
         }
 
@@ -63,8 +73,5 @@ namespace Senac.GCP.Domain.Services.Implementations
             else if (entity.PercentualQuantidadeVagasAmplaConcorrencia > 100)
                 throw new Exception("O percentual de vagas para a ampla concorrência deve ser igual ou inferior a 100 (cem)");
         }
-
-        //fazer 1 validação 
-        //validar duplicidade do do idpessoa com o mesmo idconcurso
     }
 }
