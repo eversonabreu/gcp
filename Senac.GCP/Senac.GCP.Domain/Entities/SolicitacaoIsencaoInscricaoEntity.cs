@@ -13,9 +13,10 @@ namespace Senac.GCP.Domain.Entities
 
         public int SituacaoSolicitacao { get; set; }
 
-       // [NotMapped]        
-       //[Dependency(NameForeignKey = nameof(IdInscricoes))]
-       // public InscricoesEntity Inscricoes { get; set; }
+        //[NotMapped]
+        //[Dependency(NameForeignKey = nameof(IdInscricoes))]
+
+        //public InscricoesEntity Inscricoes { get; set; }
 
     }
 }
