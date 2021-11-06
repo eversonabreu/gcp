@@ -1,6 +1,7 @@
 ﻿using Senac.GCP.API.Models.Base;
 using Senac.GCP.Domain.Attributes;
 using Senac.GCP.Domain.Enums;
+using Senac.GCP.Domain.Services.Implementations;
 using Senac.GCP.Domain.Utils;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -28,8 +29,7 @@ namespace Senac.GCP.API.Models
         [Required(ErrorMessage = "O campo 'IdMunicipioEndereco' não foi preenchido")]
         public long IdMunicipioEndereco { get; set; }
 
-        [Required(ErrorMessage = "O campo 'IdMunicipioNaturalidade' não foi preenchido")]
-        public long IdMunicipioNaturalidade { get; set; }
+        public long? IdMunicipioNaturalidade { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo 'Nome' não foi preenchido")]
         [StringLength(maximumLength: 255, ErrorMessage = "O campo 'Nome' aceita no máximo 255 caracteres")]
@@ -100,6 +100,9 @@ namespace Senac.GCP.API.Models
         {
             if (Genero != 'F' && Genero != 'M')
                 throw new Exception("O Gênero informado é inválido");
+
+            if (DataNascimento.AddYears(18) >= DateTime.Today)
+                throw new Exception("A data de nascimento informada não é válida. A pessoa deve ter 18 anos ou mais.");            
 
             if (!ValidadorCPF.Validar(CPF, out string cpf))
                 throw new Exception("O CPF informado não é válido");
