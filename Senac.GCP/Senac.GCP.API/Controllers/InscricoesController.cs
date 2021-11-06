@@ -6,7 +6,7 @@ using Senac.GCP.Domain.Services.Interfaces;
 
 namespace Senac.GCP.API.Controllers
 {
-    //verificar erro InscricoesModel
+    
     [Route("inscricoes")]
     public sealed class InscricoesController : Controller<InscricoesModel, InscricoesEntity>
     {
