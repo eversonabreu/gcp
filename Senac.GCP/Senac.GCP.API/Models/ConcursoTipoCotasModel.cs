@@ -9,6 +9,5 @@ namespace Senac.GCP.API.Models
         public long IdTipoCota { get; set; }
 
         public int PercentualVagas { get; set; }
-        
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Senac.GCP.API.Models.Base;
 using Senac.GCP.Domain.Attributes;
+using Senac.GCP.Domain.Exceptions;
 using System;
 using System.ComponentModel.DataAnnotations;
 
@@ -48,6 +49,7 @@ namespace Senac.GCP.API.Models
         public int QuantidadeVagas { get; set; }
 
         [Required(ErrorMessage = "O Campo 'Percentual da Quantidade de Vagas da Ampla Concorrencia' Deve Ser Informado Obrigatóriamente.")]
+        [Range(minimum: 1, maximum: 100, ErrorMessage = "O Campo 'Percentual da Quantidade de Vagas da Ampla Concorrencia' Deve Ser menor ou igual a 1 (um) e menor ou igual a 100 (cem).")]
         public int PercentualQuantidadeVagasAmplaConcorrencia { get; set; }
 
         public string Observacoes { get; set; }
@@ -55,16 +57,16 @@ namespace Senac.GCP.API.Models
         public override void AdditionalValidations()
         {
             if (!DataEhValida(DataInicioInscricao, DateTime.Today))
-                throw new Exception("A Data de Inicio da Inscrição Não Pode Ser Menor Que a Data Corrente");
+                throw new BusinessException("A Data de Inicio da Inscrição Não Pode Ser Menor Que a Data Corrente");
 
             if (!DataEhValida(DataFinalInscricao, DataInicioInscricao))
-                throw new Exception("A Data Final da Inscrição Não Pode Ser Menor Que a Data de Inicio");
+                throw new BusinessException("A Data Final da Inscrição Não Pode Ser Menor Que a Data de Inicio");
 
             if (!DataEhValida(PrazoFinalIsencaoValorInscricao, DataInicioInscricao))
-                throw new Exception("O Prazo Final da Isenção da Inscrição Não Pode Ser Menor Que a Data de Inicio");
+                throw new BusinessException("O Prazo Final da Isenção da Inscrição Não Pode Ser Menor Que a Data de Inicio");
 
             if (!DataEhValida(DataFinalInscricao, PrazoFinalIsencaoValorInscricao))
-                throw new Exception("O Prazo Final da Isenção da Inscrição Não Pode Ser Maior Que a Data Final");
+                throw new BusinessException("O Prazo Final da Isenção da Inscrição Não Pode Ser Maior Que a Data Final");
         }
 
         private static bool DataEhValida(DateTime data, DateTime dataComparativa)

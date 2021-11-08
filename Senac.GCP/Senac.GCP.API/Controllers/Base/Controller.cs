@@ -97,7 +97,7 @@ namespace Senac.GCP.API.Controllers.Base
         }
 
         [Route("id/{id:long}"), HttpGet]
-        public TEntity GetById(long id) => repository.GetById(id, true);
+        public TEntity GetById(long id) => repository.GetByIdWithDependencies(id);
 
         [HttpGet]
         public ResultSet<TEntity> Get(string filter, string sort = null!, uint page = 0, uint limit = 10, bool loadDependencies = false)

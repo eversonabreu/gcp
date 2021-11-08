@@ -36,5 +36,12 @@ namespace Senac.GCP.Infraestructure.Database
         public DbSet<CorRacaEntity> CorRaca { get; set; }
 
         public DbSet<TipoSolicitacaoIsencaoInscricaoEntity> TipoSolicitacaoIsencaoInscricao { get; set; }
+
+        public DbSet<SolicitacaoIsencaoInscricaoEntity> SolicitacaoIsencaoInscricao { get; set; }
+
+        public DbSet<InscricaoEntity> Inscricao { get; set; }
+
+        public DbSet<ConcursoFasesLocaisEntity> ConcursoFasesLocais { get; set; }
+
     }
 }

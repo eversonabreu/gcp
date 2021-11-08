@@ -1,4 +1,6 @@
 ﻿using Senac.GCP.API.Models.Base;
+using Senac.GCP.Domain.Attributes;
+using Senac.GCP.Domain.Enums;
 using Senac.GCP.Domain.Utils;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -9,24 +11,20 @@ namespace Senac.GCP.API.Models
     {
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo 'Nome' não foi preenchido")]
         [StringLength(maximumLength: 255, ErrorMessage = "O campo 'Nome' aceita no máximo 255 caracteres")]
+        [StringOptions(TrimSpace = TrimSpaceEnum.Both)]
         public string Nome { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo 'Email' não foi preenchido")]
         [StringLength(maximumLength: 255, ErrorMessage = "O campo 'Email' aceita no máximo 255 caracteres")]
         [DataType(DataType.EmailAddress, ErrorMessage = "O conteúdo informado para o campo 'Email' não representa um e-mail válido")]
+        [StringOptions(AlterCase = AlterCaseEnum.Upper, TrimSpace = TrimSpaceEnum.Both)]
         public string Email { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo 'CPF' não foi preenchido")]
         public string CPF { get; set; }
 
-        public string Senha { get; set; }
-
-        public DateTime DataCadastramento { get; set; }
-
-        [Required(AllowEmptyStrings = false, ErrorMessage = "O campo 'Administrador' não foi definido")]
         public bool Administrador { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "O campo 'Ativo' não foi definido")]
         public bool Ativo { get; set; }
 
         public override void AdditionalValidations()
@@ -37,8 +35,6 @@ namespace Senac.GCP.API.Models
             }
 
             CPF = cpf;
-            Email = Email.Trim().ToUpper();
-            Nome = Nome.Trim();
         }
     }
 }
