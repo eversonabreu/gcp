@@ -3,7 +3,7 @@ using Senac.GCP.Domain.Repositories.Base;
 
 namespace Senac.GCP.Domain.Repositories
 {
-    public interface IInscricoesRepository : IRepository<InscricoesEntity>
+    public interface IInscricaoRepository : IRepository<InscricaoEntity>
     {
     }
 }

@@ -37,7 +37,7 @@ namespace Senac.GCP.Infraestructure.Database
 
         public DbSet<SolicitacaoIsencaoInscricaoEntity> SolicitacaoIsencaoInscricao { get; set; }
 
-        public DbSet<InscricoesEntity> Inscricoes { get; set; }
+        public DbSet<InscricaoEntity> Inscricao { get; set; }
 
     }
 }

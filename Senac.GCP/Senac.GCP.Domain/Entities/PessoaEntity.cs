@@ -5,14 +5,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Senac.GCP.Domain.Entities
 {
-    [Constraint(Name = "FKPessoaIdArquivoFoto", ErrorMessage = "A 'Foto' deve ser enviada obrigatóriamente")]
-    [Constraint(Name = "FKPessoaIdClassificacaoDoenca", ErrorMessage = "A 'Classificação de Doença' é inválida")]
-    [Constraint(Name = "FKPessoaIdCorRaca", ErrorMessage = "A 'Cor/Raça' é inválida ou não informada")]
-    [Constraint(Name = "FKPessoaIdMunicipioEndereco", ErrorMessage = "O 'Município de Endereço' é inválido ou não informado")]
-    [Constraint(Name = "FKPessoaIdMunicipioNaturalidade", ErrorMessage = "O 'Município de Naturalidade' é inválido")]
-    [Constraint(Name = "FKPessoaIdNacionalidade", ErrorMessage = "A 'Nacionalidade' é inválida ou não informada")]
+    [Constraint(Name = "FKPessoaIdArquivoFoto", ErrorMessage = "O 'ID da Foto' não é válido ou não foi atribuído corretamente")]
+    [Constraint(Name = "FKPessoaIdClassificacaoDoenca", ErrorMessage = "A classificação da doença não é valida ou não foi atribuído corretamente")]
+    [Constraint(Name = "FKPessoaIdCorRaca", ErrorMessage = "A cor/raça não é válido ou não foi atribuído corretamente")]
+    [Constraint(Name = "FKPessoaIdMunicipioEndereco", ErrorMessage = "O município de endereço não é válido ou não foi atribuído corretamente")]
+    [Constraint(Name = "FKPessoaIdMunicipioNaturalidade", ErrorMessage = "O município de naturalidade não é válido ou não foi atribuído corretamente")]
+    [Constraint(Name = "FKPessoaIdNacionalidade", ErrorMessage = "A nacionalidade não é válida ou não foi atribuído corretamente")]
     [Constraint(Name = "UKPessoaCPF", ErrorMessage = "Não é possível salvar, porque já existe um registro com este CPF")]
-    [Constraint(Name = "UKPessoaEmail", ErrorMessage = "Não é possível salvar, porque já existe um registro com este E-mail")]
+    [Constraint(Name = "UKPessoaEmail", ErrorMessage = "Não é possível salvar, porque já existe um registro com este e-mail")]
     public sealed class PessoaEntity : Entity
     {
         public long IdArquivoFoto { get; set; }

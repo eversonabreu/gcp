@@ -5,7 +5,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Senac.GCP.Domain.Entities
 {
-    public sealed class InscricoesEntity : Entity
+    [Constraint(Name = "FKInscricaoConcurso", ErrorMessage = "O concurso não é válido ou não foi atribuído corretamente")]
+    [Constraint(Name = "FkInscricaoPessoa", ErrorMessage = "A pessoa não foi atribuída corretamente")]
+    [Constraint(Name = "UkInscricao", ErrorMessage = "Não é possível salvar, porque já existe um registro para este concurso com esta pessoa")]
+    public sealed class InscricaoEntity : Entity
     {
         public long IdPessoa { get; set; }
 
