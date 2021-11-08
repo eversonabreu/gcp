@@ -24,7 +24,6 @@ namespace Senac.GCP.Domain.Services.Implementations
  
         public override void BeforePost(ConcursoTipoCotasEntity entity)
         {
-            ValidarDuplicidadeConcursoTipoCota(entity.IdConcurso, entity.IdTipoCota);
             ValidarPercentualDeVagas(entity);
             int percentualVagas = 0;
             entity.PercentualVagas = percentualVagas;
@@ -32,7 +31,6 @@ namespace Senac.GCP.Domain.Services.Implementations
 
         public override void BeforePut(ConcursoTipoCotasEntity entity)
         {
-            ValidarDuplicidadeConcursoTipoCota(entity.IdConcurso, entity.IdTipoCota, entity.Id);
             ValidarPercentualDeVagas(entity, entity.Id);
         }
 
@@ -54,25 +52,6 @@ namespace Senac.GCP.Domain.Services.Implementations
 
             if (totalPercentualDeVagas > 100)
                 throw new Exception("Não é possível salvar porque o percentual de vagas do concurso (ampla concorrência mais vagas para cotistas) ultrapassa 100%");
-        }
-
-        private void ValidarDuplicidadeConcursoTipoCota(long idConcurso, long idTipoCota, long? id = null)
-        {
-            var concursoTipoCota = concursoTipoCotasRepository.SingleOrDefault(x => x.IdConcurso == idConcurso && x.IdTipoCota == idTipoCota);
-            if (concursoTipoCota != null)
-            {
-                if (id.HasValue)
-                {
-                    if (concursoTipoCota.Id != id.Value)
-                    {
-                        throw new Exception("Não é possível atualizar porque este concurso com este tipo de cota já está sendo utilizado em outro registro.");
-                    }
-                }
-                else
-                {
-                    throw new Exception("Não é possível inserir porque este concurso com este tipo de cota já está sendo utilizado em outro registro.");
-                }
-            }
         }
     }
 }
