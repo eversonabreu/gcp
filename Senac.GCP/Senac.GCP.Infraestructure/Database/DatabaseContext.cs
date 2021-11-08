@@ -39,5 +39,7 @@ namespace Senac.GCP.Infraestructure.Database
 
         public DbSet<InscricoesEntity> Inscricoes { get; set; }
 
+        public DbSet<ConcursoFasesLocaisEntity> ConcursoFasesLocais { get; set; }
+
     }
 }
