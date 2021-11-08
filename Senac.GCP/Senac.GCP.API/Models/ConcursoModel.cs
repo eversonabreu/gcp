@@ -48,6 +48,7 @@ namespace Senac.GCP.API.Models
         public int QuantidadeVagas { get; set; }
 
         [Required(ErrorMessage = "O Campo 'Percentual da Quantidade de Vagas da Ampla Concorrencia' Deve Ser Informado Obrigatóriamente.")]
+        [Range(minimum: 1, maximum: 100, ErrorMessage = "O Campo 'Percentual da Quantidade de Vagas da Ampla Concorrencia' Deve Ser menor ou igual a 1 (um) e menor ou igual a 100 (cem).")]
         public int PercentualQuantidadeVagasAmplaConcorrencia { get; set; }
 
         public string Observacoes { get; set; }

@@ -31,13 +31,6 @@ namespace Senac.GCP.Domain.Services.Implementations
         public override void BeforePost(PessoaEntity entity)
         {
             entity.ChaveAcesso = GerarChaveAcesso();
-            
-            //tua tarefa....
-            //ver como foi implementado no usuário...
-            //e enviar e-mail para a pessoa com a sua chave....
-
-            //tbm criar método para alteração de chave de acesso
-            //tbm criar método reset desta chave
         }
 
         public override void AfterPost(PessoaEntity entity)

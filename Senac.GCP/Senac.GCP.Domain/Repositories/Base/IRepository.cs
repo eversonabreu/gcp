@@ -7,13 +7,21 @@ namespace Senac.GCP.Domain.Repositories.Base
 {
     public interface IRepository<TEntity> where TEntity : Entity
     {
-        TEntity GetById(long id, bool loadDependencies = false);
+        TEntity GetById(long id);
 
-        TEntity FirstOrDefault(Expression<Func<TEntity, bool>> expression, bool loadDependencies = false);
+        TEntity GetByIdWithDependencies(long id);
 
-        TEntity SingleOrDefault(Expression<Func<TEntity, bool>> expression, bool loadDependencies = false);
+        TEntity FirstOrDefault(Expression<Func<TEntity, bool>> expression);
 
-        IEnumerable<TEntity> Filter(Expression<Func<TEntity, bool>> expression, bool loadDependencies = false);
+        TEntity FirstOrDefaultWithDependencies(Expression<Func<TEntity, bool>> expression);
+
+        TEntity SingleOrDefault(Expression<Func<TEntity, bool>> expression);
+
+        TEntity SingleOrDefaultWithDependencies(Expression<Func<TEntity, bool>> expression);
+
+        IEnumerable<TEntity> Filter(Expression<Func<TEntity, bool>> expression);
+
+        IEnumerable<TEntity> FilterWithDependencies(Expression<Func<TEntity, bool>> expression);
 
         (IEnumerable<TEntity> Data, int Count) FilterWithPagination(string expression, string sort = null, uint page = 0, uint limit = 10, bool loadDependencies = false);
 

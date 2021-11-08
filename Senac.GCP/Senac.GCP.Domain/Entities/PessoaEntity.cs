@@ -5,6 +5,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Senac.GCP.Domain.Entities
 {
+    [Constraint(Name = "FKPessoaIdArquivoFoto", ErrorMessage = "A 'Foto' deve ser enviada obrigatóriamente")]
+    [Constraint(Name = "FKPessoaIdClassificacaoDoenca", ErrorMessage = "A 'Classificação de Doença' é inválida")]
+    [Constraint(Name = "FKPessoaIdCorRaca", ErrorMessage = "A 'Cor/Raça' é inválida ou não informada")]
+    [Constraint(Name = "FKPessoaIdMunicipioEndereco", ErrorMessage = "O 'Município de Endereço' é inválido ou não informado")]
+    [Constraint(Name = "FKPessoaIdMunicipioNaturalidade", ErrorMessage = "O 'Município de Naturalidade' é inválido")]
+    [Constraint(Name = "FKPessoaIdNacionalidade", ErrorMessage = "A 'Nacionalidade' é inválida ou não informada")]
+    [Constraint(Name = "UKPessoaCPF", ErrorMessage = "Não é possível salvar, porque já existe um registro com este CPF")]
+    [Constraint(Name = "UKPessoaEmail", ErrorMessage = "Não é possível salvar, porque já existe um registro com este E-mail")]
     public sealed class PessoaEntity : Entity
     {
         public long IdArquivoFoto { get; set; }
@@ -49,14 +57,17 @@ namespace Senac.GCP.Domain.Entities
 
         public string EnderecoCEP { get; set; }
 
+        [NotUpdated]
         public bool Bloqueado { get; set; }
 
         [NotUpdated]
         public string ChaveAcesso { get; set; }
 
+        [NotUpdated]
         public string MotivoBloqueio { get; set; }
 
-        public DateTime DataBloqueio { get; set; }
+        [NotUpdated]
+        public DateTime? DataBloqueio { get; set; }
 
         [NotMapped]
         [Dependency(NameForeignKey = nameof(IdArquivoFoto))]
@@ -76,11 +87,10 @@ namespace Senac.GCP.Domain.Entities
 
         [NotMapped]
         [Dependency(NameForeignKey = nameof(IdMunicipioNaturalidade))]
-        public MunicipioEntity MucipioNaturalidade { get; set; }
+        public MunicipioEntity MunicipioNaturalidade { get; set; }
 
         [NotMapped]
         [Dependency(NameForeignKey = nameof(IdMunicipioEndereco))]
-        public MunicipioEntity MucipioEndereco { get; set; }
-
+        public MunicipioEntity MunicipioEndereco { get; set; }
     }
 }
