@@ -15,6 +15,7 @@ namespace Senac.GCP.API.IoC
             services.AddScoped<IInstituicaoService, InstituicaoService>();
             services.AddScoped<IArquivoService, ArquivoService>();
             services.AddScoped<IConcursoService, ConcursoService>();
+            services.AddScoped<IConcursoFasesService, ConcursoFasesService>();
             services.AddScoped<IConcursoEditaisService, ConcursoEditaisService>();
             services.AddScoped<IConcursoTipoCotasService, ConcursoTipoCotasService>();
             services.AddScoped<IPessoaService, PessoaService>();

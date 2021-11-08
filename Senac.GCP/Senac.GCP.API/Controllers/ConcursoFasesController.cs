@@ -6,10 +6,10 @@ using Senac.GCP.Domain.Services.Interfaces;
 
 namespace Senac.GCP.API.Controllers
 {
-    [Route("concurso")]
-    public sealed class ConcursoController : Controller<ConcursoModel, ConcursoEntity>
+    [Route("concursofases")]
+    public sealed class ConcursoFasesController : Controller<ConcursoFasesModel, ConcursoFasesEntity>
     {
-        public ConcursoController(IConcursoService concursoService) : base(concursoService)
+        public ConcursoFasesController(IConcursoFasesService concursoFasesService) : base(concursoFasesService)
         {
         }
     }
