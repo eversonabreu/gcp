@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Senac.GCP.API.Models
 {
-    public sealed class InscricoesModel : Model
+    public sealed class InscricaoModel : Model
     {
         [Required(AllowEmptyStrings = false, ErrorMessage = "A 'Pessoa' deve ser informada obrigatoriamente.")]
         [StringLength(maximumLength: 255, ErrorMessage = "O tamanho do campo 'Pessoa' não pode superar 255 caractéres.")]

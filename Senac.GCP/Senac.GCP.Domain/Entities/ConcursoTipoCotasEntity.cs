@@ -7,7 +7,9 @@ namespace Senac.GCP.Domain.Entities
     public sealed class ConcursoTipoCotasEntity : Entity
     {
         public long IdConcurso { get; set; }
+
         public long IdTipoCota { get; set; }
+
         public int PercentualVagas { get; set; }
 
         [NotMapped]

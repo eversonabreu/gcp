@@ -85,6 +85,10 @@ namespace Senac.GCP.Domain.Services.Implementations
                 throw new Exception("A chave de acesso atual não corresponde com a chave de acesso informada.");
             }
 
+            if (ValidarChaveAcesso(novaChaveAcesso) == false || novaChaveAcesso.Length < 6)
+            {
+                throw new Exception("A nova chave de acesso é inválida! deve conter no minímo 6 caracteres, letras e números.");
+            }
             pessoa.ChaveAcesso = novaChaveAcesso;
             pessoaRepository.Update(pessoa);
         }
@@ -114,10 +118,42 @@ namespace Senac.GCP.Domain.Services.Implementations
                     throw new Exception("Não é possível inserir esta pessoa porque o CPF informado já está sendo utilizado por outro registro");
                 }
             }
-        }
-        //public bool ValidarChaveAcesso(string chaveAcesso)
-        //{
+        } 
 
-        //}
+        public bool ValidarChaveAcesso(string chaveAcesso)
+        {
+            var contadorNumeros = 0;
+            var contadorLetras = 0;
+            var numeros = new char[10] {'0','1','2','3','4','5','6','7','8','9'};
+            var letras = new char[26] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 
+                                        'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+
+            var aux = chaveAcesso.ToCharArray();
+            for (int index = 0; index < aux.Length; index++)
+            {
+                for (int subIndex = 0; subIndex < numeros.Length; subIndex++)
+                {
+                    if (numeros[subIndex] == aux[index])
+                    {
+                        contadorNumeros++;
+                    }
+                }
+            }
+
+            for (int index = 0; index < aux.Length; index++)
+            {
+                for (int subIndex = 0; subIndex < letras.Length; subIndex++)
+                {
+                    if (letras[subIndex] == aux[index])
+                    {
+                        contadorLetras++;
+                    }
+                }
+            }
+
+            if (contadorLetras >= 1 && contadorNumeros >= 1) return true;
+
+            else return false;
+        }
     }
 }

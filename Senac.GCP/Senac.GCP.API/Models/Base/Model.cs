@@ -1,5 +1,6 @@
 ﻿using Senac.GCP.Domain.Attributes;
 using Senac.GCP.Domain.Enums;
+using Senac.GCP.Domain.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -76,7 +77,7 @@ namespace Senac.GCP.API.Models.Base
             }
             else if (validateId && model.Id is null)
             {
-                throw new Exception("ID não definido para atualização de dados.");
+                throw new BusinessException("'ID' não definido para atualização de dados.");
             }
 
             var validations = new List<ValidationResult>();
@@ -85,7 +86,7 @@ namespace Senac.GCP.API.Models.Base
             {
                 var messages = new StringBuilder();
                 validations.ForEach(item => messages.AppendLine(item.ErrorMessage));
-                throw new Exception(messages.ToString());
+                throw new BusinessException(messages.ToString());
             }
 
             ApplyAttributeDateOnly(model);

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Senac.GCP.Domain.Attributes;
 using Senac.GCP.Domain.Entities.Base;
+using Senac.GCP.Domain.Exceptions;
 using Senac.GCP.Domain.Repositories.Base;
 using System;
 using System.Collections.Generic;
@@ -50,14 +51,14 @@ namespace Senac.GCP.Infraestructure.Database.Repositories.Base
             }
         }
 
-        public TEntity GetById(long id, bool loadDependencies = false)
+        private TEntity GetById(long id, bool loadDependencies)
         {
             var entity = dbSet.FirstOrDefault($"Id == {id}");
 
             if (entity is null)
             {
                 string nameEntity = typeof(TEntity).Name;
-                throw new Exception($"Nenhum resultado encontrado para o id '{id}' na entidade '{nameEntity}'.");
+                throw new DbException($"Nenhum resultado encontrado para o id '{id}' na entidade '{nameEntity}'.");
             }
 
             if (loadDependencies)
@@ -68,7 +69,11 @@ namespace Senac.GCP.Infraestructure.Database.Repositories.Base
             return entity;
         }
 
-        public TEntity FirstOrDefault(Expression<Func<TEntity, bool>> expression, bool loadDependencies = false)
+        public TEntity GetById(long id) => GetById(id, false);
+
+        public TEntity GetByIdWithDependencies(long id) => GetById(id, true);
+
+        private TEntity FirstOrDefault(Expression<Func<TEntity, bool>> expression, bool loadDependencies)
         {
             var entity = dbSet.FirstOrDefault(expression);
             if (entity is null)
@@ -84,7 +89,11 @@ namespace Senac.GCP.Infraestructure.Database.Repositories.Base
             return entity;
         }
 
-        public TEntity SingleOrDefault(Expression<Func<TEntity, bool>> expression, bool loadDependencies = false)
+        public TEntity FirstOrDefault(Expression<Func<TEntity, bool>> expression) => FirstOrDefault(expression, false);
+
+        public TEntity FirstOrDefaultWithDependencies(Expression<Func<TEntity, bool>> expression) => FirstOrDefault(expression, true);
+
+        private TEntity SingleOrDefault(Expression<Func<TEntity, bool>> expression, bool loadDependencies)
         {
             var entity = dbSet.SingleOrDefault(expression);
             if (entity is null)
@@ -100,7 +109,11 @@ namespace Senac.GCP.Infraestructure.Database.Repositories.Base
             return entity;
         }
 
-        public IEnumerable<TEntity> Filter(Expression<Func<TEntity, bool>> expression, bool loadDependencies = false)
+        public TEntity SingleOrDefault(Expression<Func<TEntity, bool>> expression) => SingleOrDefault(expression, false);
+
+        public TEntity SingleOrDefaultWithDependencies(Expression<Func<TEntity, bool>> expression) => SingleOrDefault(expression, true);
+
+        private IEnumerable<TEntity> Filter(Expression<Func<TEntity, bool>> expression, bool loadDependencies)
         {
             var entities = dbSet.Where(expression)?.ToList();
 
@@ -114,6 +127,10 @@ namespace Senac.GCP.Infraestructure.Database.Repositories.Base
 
             return entities;
         }
+
+        public IEnumerable<TEntity> Filter(Expression<Func<TEntity, bool>> expression) => Filter(expression, false);
+
+        public IEnumerable<TEntity> FilterWithDependencies(Expression<Func<TEntity, bool>> expression) => Filter(expression, true);
 
         public (IEnumerable<TEntity> Data, int Count) FilterWithPagination(string expression, string sort = null, uint page = 0, uint limit = 10, bool loadDependencies = false)
         {
@@ -149,7 +166,7 @@ namespace Senac.GCP.Infraestructure.Database.Repositories.Base
         public long Add(TEntity entity)
         {
             dbSet.Add(entity);
-            databaseContext.SaveChanges();
+            Commit();
             return entity.Id;
         }
 
@@ -158,7 +175,7 @@ namespace Senac.GCP.Infraestructure.Database.Repositories.Base
             TEntity entityDb = GetById(entity.Id);
             databaseContext.Entry(entityDb).State = EntityState.Modified;
             databaseContext.Entry(entityDb).CurrentValues.SetValues(entity);
-            databaseContext.SaveChanges();
+            Commit();
         }
 
         public void DeleteById(long id)
@@ -166,7 +183,42 @@ namespace Senac.GCP.Infraestructure.Database.Repositories.Base
             TEntity entity = GetById(id);
             databaseContext.Entry(entity).State = EntityState.Deleted;
             dbSet.Remove(entity);
-            databaseContext.SaveChanges();
+            Commit(true);
+        }
+
+        private void Commit(bool isDelete = false)
+        {
+            try
+            {
+                databaseContext.SaveChanges();
+            }
+            catch (Exception exc)
+            {
+                if (isDelete)
+                {
+                    throw new DbException("Não é possível excluir este registro, porque ele possui registros dependentes. Exclua primeiro os registros dependentes");
+                }
+                else
+                {
+                    ApplyErrorConstraint(exc);
+                }
+            }
+        }
+
+        private static void ApplyErrorConstraint(Exception exception)
+        {
+            string message = (exception.InnerException ?? exception).Message;
+            var constraints = typeof(TEntity).GetCustomAttributes<ConstraintAttribute>();
+            if (constraints != null)
+            {
+                foreach (var item in constraints)
+                {
+                    if (message.Contains(item.Name.ToUpper()))
+                        throw new DbException(item.ErrorMessage);
+                }
+            }
+
+            throw new DbException(message);
         }
     }
 }

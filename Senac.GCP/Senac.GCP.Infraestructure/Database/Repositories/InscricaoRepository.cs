@@ -4,9 +4,9 @@ using Senac.GCP.Infraestructure.Database.Repositories.Base;
 
 namespace Senac.GCP.Infraestructure.Database.Repositories
 {
-    public sealed class InscricoesRepository : Repository<InscricoesEntity>, IInscricoesRepository
+    public sealed class InscricaoRepository : Repository<InscricaoEntity>, IInscricaoRepository
     {
-        public InscricoesRepository(DatabaseContext databaseContext) : base(databaseContext)
+        public InscricaoRepository(DatabaseContext databaseContext) : base(databaseContext)
         {
 
         }
