@@ -58,7 +58,7 @@ namespace Senac.GCP.Infraestructure.Database.Repositories.Base
             if (entity is null)
             {
                 string nameEntity = typeof(TEntity).Name;
-                throw new Exception($"Nenhum resultado encontrado para o id '{id}' na entidade '{nameEntity}'.");
+                throw new DbException($"Nenhum resultado encontrado para o id '{id}' na entidade '{nameEntity}'.");
             }
 
             if (loadDependencies)
@@ -196,7 +196,7 @@ namespace Senac.GCP.Infraestructure.Database.Repositories.Base
             {
                 if (isDelete)
                 {
-                    throw new BusinessException("Não é possível excluir este registro, porque ele possui registros dependentes. Exclua primeiro os registros dependentes");
+                    throw new DbException("Não é possível excluir este registro, porque ele possui registros dependentes. Exclua primeiro os registros dependentes");
                 }
                 else
                 {
@@ -207,18 +207,18 @@ namespace Senac.GCP.Infraestructure.Database.Repositories.Base
 
         private static void ApplyErrorConstraint(Exception exception)
         {
+            string message = (exception.InnerException ?? exception).Message;
             var constraints = typeof(TEntity).GetCustomAttributes<ConstraintAttribute>();
             if (constraints != null)
             {
-                string message = (exception.InnerException ?? exception).Message.ToUpper();
                 foreach (var item in constraints)
                 {
                     if (message.Contains(item.Name.ToUpper()))
-                        throw new BusinessException(item.ErrorMessage);
+                        throw new DbException(item.ErrorMessage);
                 }
             }
 
-            throw exception;
+            throw new DbException(message);
         }
     }
 }

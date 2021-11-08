@@ -13,7 +13,7 @@ namespace Senac.GCP.Tests
     public sealed class UsuarioControllerTest
     {
         [Fact]
-        public void PostTest()
+        public void Post_Test()
         {
             var mockUsuarioRepository = new Mock<IUsuarioRepository>();
             var usuarioService = new UsuarioService(mockUsuarioRepository.Object,
@@ -33,7 +33,7 @@ namespace Senac.GCP.Tests
         }
 
         [Fact]
-        public void PutTest()
+        public void Put_Test()
         {
             var mockUsuarioRepository = new Mock<IUsuarioRepository>();
             mockUsuarioRepository.Setup(x => x.GetById(1)).Returns(new UsuarioEntity());
@@ -55,7 +55,7 @@ namespace Senac.GCP.Tests
         }
 
         [Fact]
-        public void DeleteByIdTest()
+        public void DeleteById_Test()
         {
             var mockUsuarioRepository = new Mock<IUsuarioRepository>();
             var usuarioService = new UsuarioService(mockUsuarioRepository.Object,

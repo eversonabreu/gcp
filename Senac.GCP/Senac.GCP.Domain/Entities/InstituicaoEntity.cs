@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Senac.GCP.Domain.Entities
 {
+    [Constraint(Name = "FkInstituicaoMunicipio", ErrorMessage = "O município da instituição não é válido ou não foi atribuído corretamente")]
+    [Constraint(Name = "UkInstituicao", ErrorMessage = "Não é possível salvar porque este CNPJ já está sendo utilizado por outro registro")]
     public sealed class InstituicaoEntity : Entity
     {
         public string Nome { get; set; }

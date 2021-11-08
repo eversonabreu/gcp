@@ -12,6 +12,5 @@ namespace Senac.GCP.Domain.Services.Implementations
             : base(concursoFasesLocaisRepository, httpContextAccessor)
         {
         }
-
     }
 }
