@@ -49,7 +49,7 @@ namespace Senac.GCP.API.Models
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo 'Email' não foi preenchido")]
         [StringLength(maximumLength: 255, ErrorMessage = "O campo 'Email' aceita no máximo 255 caracteres")]
-        [DataType(DataType.EmailAddress, ErrorMessage = "O conteúdo informado para o campo 'Email' não representa um e-mail válido")]
+        [EmailAddress(ErrorMessage = "O conteúdo informado para o campo 'Email' não representa um e-mail válido")]
         [StringOptions(TrimSpace = TrimSpaceEnum.Both, AlterCase = AlterCaseEnum.Upper)]
         public string Email { get; set; }
 
@@ -83,6 +83,8 @@ namespace Senac.GCP.API.Models
         [StringLength(maximumLength: 10, ErrorMessage = "O campo 'EnderecoCEP' aceita no máximo 10 caracteres")]
         [StringOptions(TrimSpace = TrimSpaceEnum.Both)]
         public string EnderecoCEP { get; set; }
+
+        public NivelEscolaridadeEnum NivelEscolaridade { get; set; }
 
         public override void AdditionalValidations()
         {

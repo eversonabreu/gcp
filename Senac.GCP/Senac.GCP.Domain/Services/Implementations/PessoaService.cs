@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Senac.GCP.Domain.Entities;
+using Senac.GCP.Domain.Exceptions;
 using Senac.GCP.Domain.Notifications;
 using Senac.GCP.Domain.Repositories;
 using Senac.GCP.Domain.Services.Base;
@@ -26,9 +27,13 @@ namespace Senac.GCP.Domain.Services.Implementations
 
         public override void BeforePost(PessoaEntity entity)
         {
-            ValidarDuplicidadeCPFPessoa(entity.CPF, entity.Id);
-            ValidarNacionalidadeBrasileira(entity.IdNacionalidade, entity.IdMunicipioNaturalidade);
+            ValidarNaturalidade(entity);
             entity.ChaveAcesso = GerarChaveAcesso();
+        }
+
+        public override void BeforePut(PessoaEntity entity)
+        {
+            ValidarNaturalidade(entity);
         }
 
         public override void AfterPost(PessoaEntity entity)
@@ -36,14 +41,8 @@ namespace Senac.GCP.Domain.Services.Implementations
             if (!EnviarEmailUsuarioComChaveDeAcesso(entity))
             {
                 pessoaRepository.DeleteById(entity.Id);
-                throw new Exception("Não foi possível inserir esta pessoa porque ocorreu um problema no envio de e-mail de sua senha");
+                throw new BusinessException("Não foi possível inserir esta pessoa porque ocorreu um problema no envio de e-mail de sua senha");
             }
-        }
-
-        public override void BeforePut(PessoaEntity entity)
-        {
-            ValidarDuplicidadeCPFPessoa(entity.CPF, entity.Id);
-            ValidarNacionalidadeBrasileira(entity.IdNacionalidade, entity.IdMunicipioNaturalidade);
         }
 
         private static string GerarChaveAcesso()
@@ -71,7 +70,7 @@ namespace Senac.GCP.Domain.Services.Implementations
             var pessoa = pessoaRepository.GetById(idPessoa);
             pessoa.ChaveAcesso = GerarChaveAcesso();
             if (!EnviarEmailUsuarioComChaveDeAcesso(pessoa))
-                throw new Exception(@"Não foi possível resetar a chave de acesso porque ocorreu um problema no
+                throw new BusinessException(@"Não foi possível resetar a chave de acesso porque ocorreu um problema no
                      envio de e-mail da chave de acesso para a pessoa");
 
             pessoaRepository.Update(pessoa);
@@ -81,79 +80,61 @@ namespace Senac.GCP.Domain.Services.Implementations
         {
             var pessoa = pessoaRepository.GetById(idPessoa);
             if (pessoa.ChaveAcesso != chaveAcessoAtual)
-            {
-                throw new Exception("A chave de acesso atual não corresponde com a chave de acesso informada.");
-            }
+                throw new BusinessException("A chave de acesso atual não corresponde com a chave de acesso informada.");
 
-            if (ValidarChaveAcesso(novaChaveAcesso) == false || novaChaveAcesso.Length < 6)
-            {
-                throw new Exception("A nova chave de acesso é inválida! deve conter no minímo 6 caracteres, letras e números.");
-            }
+            ValidarChaveAcesso(novaChaveAcesso);
             pessoa.ChaveAcesso = novaChaveAcesso;
-            pessoaRepository.Update(pessoa);
         }
 
-        public void ValidarNacionalidadeBrasileira(long idNacionalidade, long? IdMunicipioNaturalidade = null)
+        private void ValidarNaturalidade(PessoaEntity pessoaEntity)
         {
-            var nacionalidadeInformada = nacionalidadeRepository.SingleOrDefault(x => x.Id == idNacionalidade);
-
-            if (nacionalidadeInformada.Nome == "Brasileiro(a)" && !IdMunicipioNaturalidade.HasValue)
-                throw new Exception("Você deve informar sua naturalidade primeiro.");
+            var nacionalidade = nacionalidadeRepository.GetById(pessoaEntity.IdNacionalidade);
+            if (nacionalidade.Nome.ToUpper().Contains("BRASILEIRO"))
+            {
+                if (pessoaEntity.IdMunicipioNaturalidade is null)
+                    throw new BusinessException("O município de naturalidade deve ser informado obrigatóriamente quando a nacionalidade informada for 'Brasileiro(a)'.");
+            }
+            else
+            {
+                pessoaEntity.IdMunicipioNaturalidade = null;
+            }
         }
 
-        private void ValidarDuplicidadeCPFPessoa(string cpf, long? idPessoa = null)
+        private static void ValidarChaveAcesso(string chaveAcesso)
         {
-            var pessoa = pessoaRepository.SingleOrDefault(item => item.CPF == cpf);
-            if (pessoa != null)
-            {
-                if (idPessoa.HasValue)
-                {
-                    if (pessoa.Id != idPessoa.Value)
-                    {
-                        throw new Exception("Não é possível atualizar esta pessoa porque o CPF informado já está sendo utilizado por outro registro");
-                    }
-                }
-                else
-                {
-                    throw new Exception("Não é possível inserir esta pessoa porque o CPF informado já está sendo utilizado por outro registro");
-                }
-            }
-        } 
+            const string chaveAcessoInvalido = "A chave de acesso informada é inválida. É necessário ter no mínimo 6 caracteres, contendo no mínimo uma letra e um número.";
+            if (string.IsNullOrEmpty(chaveAcesso) || chaveAcesso.Length < 6)
+                throw new BusinessException(chaveAcessoInvalido);
 
-        public bool ValidarChaveAcesso(string chaveAcesso)
+            int contadorNumeros = 0;
+            int contadorLetras = 0;
+
+            foreach (char ch in chaveAcesso)
+            {
+                if (char.IsDigit(ch))
+                    contadorNumeros++;
+                else if (char.IsLetter(ch))
+                    contadorLetras++;
+
+                if (contadorNumeros > 0 && contadorLetras > 0)
+                    break;
+            }
+
+            if (contadorNumeros == 0 || contadorLetras == 0)
+                throw new BusinessException(chaveAcessoInvalido);
+        }
+
+        public void BloquearUsuario(long idPessoa,string motivoBloqueio)
         {
-            var contadorNumeros = 0;
-            var contadorLetras = 0;
-            var numeros = new char[10] {'0','1','2','3','4','5','6','7','8','9'};
-            var letras = new char[26] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 
-                                        'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+            var bloqueioUsuario = pessoaRepository.GetById(idPessoa);
 
-            var aux = chaveAcesso.ToCharArray();
-            for (int index = 0; index < aux.Length; index++)
+            if (bloqueioUsuario.Bloqueado == false)
             {
-                for (int subIndex = 0; subIndex < numeros.Length; subIndex++)
-                {
-                    if (numeros[subIndex] == aux[index])
-                    {
-                        contadorNumeros++;
-                    }
-                }
+                bloqueioUsuario.Bloqueado = true;
+                bloqueioUsuario.MotivoBloqueio = motivoBloqueio;
+                bloqueioUsuario.DataBloqueio = DateTime.Now;
             }
-
-            for (int index = 0; index < aux.Length; index++)
-            {
-                for (int subIndex = 0; subIndex < letras.Length; subIndex++)
-                {
-                    if (letras[subIndex] == aux[index])
-                    {
-                        contadorLetras++;
-                    }
-                }
-            }
-
-            if (contadorLetras >= 1 && contadorNumeros >= 1) return true;
-
-            else return false;
+            else throw new BusinessException("Não foi possível bloquear a pessoa,esta pessoa ja esta bloqueada.");
         }
     }
 }
