@@ -25,6 +25,8 @@ namespace Senac.GCP.Infraestructure.Database
 
         public DbSet<ConcursoEntity> concurso { get; set; }
 
+        public DbSet<ConcursoFasesEntity> ConcursoFases { get; set; }
+
         public DbSet<ConcursoEditaisEntity> ConcursoEditais { get; set; }
        
         public DbSet<ConcursoEditaisEntity> ConcursoTipoCotas { get; set; }

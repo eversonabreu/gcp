@@ -16,7 +16,7 @@ namespace Senac.GCP.API.Models
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo 'Email' não foi preenchido")]
         [StringLength(maximumLength: 255, ErrorMessage = "O campo 'Email' aceita no máximo 255 caracteres")]
-        [DataType(DataType.EmailAddress, ErrorMessage = "O conteúdo informado para o campo 'Email' não representa um e-mail válido")]
+        [EmailAddress(ErrorMessage = "O conteúdo informado para o campo 'Email' não representa um e-mail válido")]
         [StringOptions(AlterCase = AlterCaseEnum.Upper, TrimSpace = TrimSpaceEnum.Both)]
         public string Email { get; set; }
 

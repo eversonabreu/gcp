@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Senac.GCP.Domain.Entities;
+using Senac.GCP.Domain.Exceptions;
 using Senac.GCP.Domain.Notifications;
 using Senac.GCP.Domain.Repositories;
 using Senac.GCP.Domain.Services.Base;
@@ -23,17 +24,16 @@ namespace Senac.GCP.Domain.Services.Implementations
             this.nacionalidadeRepository = nacionalidadeRepository;
         }
 
-        private static string GerarChaveAcesso()
-        {
-            var colunasChaveAcesso = Guid.NewGuid().ToString().Split('-');
-            string chaveAcesso = $"{colunasChaveAcesso.First()}{colunasChaveAcesso.Last()}";
-            return chaveAcesso;
-        }
 
         public override void BeforePost(PessoaEntity entity)
         {
-            ValidarNacionalidadeBrasileira(entity.IdNacionalidade, entity.IdMunicipioNaturalidade);
+            ValidarNaturalidade(entity);
             entity.ChaveAcesso = GerarChaveAcesso();
+        }
+
+        public override void BeforePut(PessoaEntity entity)
+        {
+            ValidarNaturalidade(entity);
         }
 
         public override void AfterPost(PessoaEntity entity)
@@ -41,8 +41,15 @@ namespace Senac.GCP.Domain.Services.Implementations
             if (!EnviarEmailUsuarioComChaveDeAcesso(entity))
             {
                 pessoaRepository.DeleteById(entity.Id);
-                throw new Exception("Não foi possível inserir esta pessoa porque ocorreu um problema no envio de e-mail de sua senha");
+                throw new BusinessException("Não foi possível inserir esta pessoa porque ocorreu um problema no envio de e-mail de sua senha");
             }
+        }
+
+        private static string GerarChaveAcesso()
+        {
+            var colunasChaveAcesso = Guid.NewGuid().ToString().Split('-');
+            string chaveAcesso = $"{colunasChaveAcesso.First()}{colunasChaveAcesso.Last()}";
+            return chaveAcesso;
         }
 
         private bool EnviarEmailUsuarioComChaveDeAcesso(PessoaEntity entity)
@@ -63,7 +70,7 @@ namespace Senac.GCP.Domain.Services.Implementations
             var pessoa = pessoaRepository.GetById(idPessoa);
             pessoa.ChaveAcesso = GerarChaveAcesso();
             if (!EnviarEmailUsuarioComChaveDeAcesso(pessoa))
-                throw new Exception(@"Não foi possível resetar a chave de acesso porque ocorreu um problema no
+                throw new BusinessException(@"Não foi possível resetar a chave de acesso porque ocorreu um problema no
                      envio de e-mail da chave de acesso para a pessoa");
 
             pessoaRepository.Update(pessoa);
@@ -73,60 +80,48 @@ namespace Senac.GCP.Domain.Services.Implementations
         {
             var pessoa = pessoaRepository.GetById(idPessoa);
             if (pessoa.ChaveAcesso != chaveAcessoAtual)
-            {
-                throw new Exception("A chave de acesso atual não corresponde com a chave de acesso informada.");
-            }
+                throw new BusinessException("A chave de acesso atual não corresponde com a chave de acesso informada.");
 
-            if(ValidarChaveAcesso(novaChaveAcesso) == false || novaChaveAcesso.Length < 6)
-            {
-                throw new Exception("A nova chave de acesso é inválida! deve conter no minímo 6 caracteres, letras e números.");
-            }
+            ValidarChaveAcesso(novaChaveAcesso);
             pessoa.ChaveAcesso = novaChaveAcesso;
-            pessoaRepository.Update(pessoa);
         }
 
-        public void ValidarNacionalidadeBrasileira(long idNacionalidade, long? IdMunicipioNaturalidade = null)
+        private void ValidarNaturalidade(PessoaEntity pessoaEntity)
         {
-            var nacionalidadeInformada = nacionalidadeRepository.SingleOrDefault(x => x.Id == idNacionalidade);
-
-            if (nacionalidadeInformada.Nome == "Brasileiro(a)" && !IdMunicipioNaturalidade.HasValue)
-                throw new Exception("Você deve informar sua naturalidade.");
+            var nacionalidade = nacionalidadeRepository.GetById(pessoaEntity.IdNacionalidade);
+            if (nacionalidade.Nome.ToUpper().Contains("BRASILEIRO"))
+            {
+                if (pessoaEntity.IdMunicipioNaturalidade is null)
+                    throw new BusinessException("O município de naturalidade deve ser informado obrigatóriamente quando a nacionalidade informada for 'Brasileiro(a)'.");
+            }
+            else
+            {
+                pessoaEntity.IdMunicipioNaturalidade = null;
+            }
         }
 
-        public bool ValidarChaveAcesso(string chaveAcesso)
+        private static void ValidarChaveAcesso(string chaveAcesso)
         {
-            var contadorNumeros = 0;
-            var contadorLetras = 0;
-            var numeros = new char[10] {'0','1','2','3','4','5','6','7','8','9'};
-            var letras = new char[26] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 
-                                        'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+            const string chaveAcessoInvalido = "A chave de acesso informada é inválida. É necessário ter no mínimo 6 caracteres, contendo no mínimo uma letra e um número.";
+            if (string.IsNullOrEmpty(chaveAcesso) || chaveAcesso.Length < 6)
+                throw new BusinessException(chaveAcessoInvalido);
 
-            var aux = chaveAcesso.ToCharArray();
-            for (int index = 0; index < aux.Length; index++)
+            int contadorNumeros = 0;
+            int contadorLetras = 0;
+
+            foreach (char ch in chaveAcesso)
             {
-                for (int subIndex = 0; subIndex < numeros.Length; subIndex++)
-                {
-                    if (numeros[subIndex] == aux[index])
-                    {
-                        contadorNumeros++;
-                    }
-                }
+                if (char.IsDigit(ch))
+                    contadorNumeros++;
+                else if (char.IsLetter(ch))
+                    contadorLetras++;
+
+                if (contadorNumeros > 0 && contadorLetras > 0)
+                    break;
             }
 
-            for (int index = 0; index < aux.Length; index++)
-            {
-                for (int subIndex = 0; subIndex < letras.Length; subIndex++)
-                {
-                    if (letras[subIndex] == aux[index])
-                    {
-                        contadorLetras++;
-                    }
-                }
-            }
-
-            if (contadorLetras >= 1 && contadorNumeros >= 1) return true;
-
-            else return false;
+            if (contadorNumeros == 0 || contadorLetras == 0)
+                throw new BusinessException(chaveAcessoInvalido);
         }
     }
 }
