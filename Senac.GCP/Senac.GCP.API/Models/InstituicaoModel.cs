@@ -49,7 +49,7 @@ namespace Senac.GCP.API.Models
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "O Campo 'Email' Deve Ser Informado Obrigatóriamente.")]
         [StringLength(maximumLength: 255, ErrorMessage = "O Tamanho do Campo 'Email' Não Pode Superar 255 Caracteres.")]
-        [DataType(DataType.EmailAddress, ErrorMessage = "O 'Email' Informado Não é Valido.")]
+        [EmailAddress(ErrorMessage = "O conteúdo informado para o campo 'Email' não representa um e-mail válido")]
         [StringOptions(TrimSpace = TrimSpaceEnum.Both, AlterCase = AlterCaseEnum.Upper)]
         public string Email { get; set; }
 
