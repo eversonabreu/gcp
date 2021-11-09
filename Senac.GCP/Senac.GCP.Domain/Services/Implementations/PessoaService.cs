@@ -123,5 +123,18 @@ namespace Senac.GCP.Domain.Services.Implementations
             if (contadorNumeros == 0 || contadorLetras == 0)
                 throw new BusinessException(chaveAcessoInvalido);
         }
+
+        public void BloquearUsuario(long idPessoa,string motivoBloqueio)
+        {
+            var bloqueioUsuario = pessoaRepository.GetById(idPessoa);
+
+            if (bloqueioUsuario.Bloqueado == false)
+            {
+                bloqueioUsuario.Bloqueado = true;
+                bloqueioUsuario.MotivoBloqueio = motivoBloqueio;
+                bloqueioUsuario.DataBloqueio = DateTime.Now;
+            }
+            else throw new BusinessException("Não foi possível bloquear a pessoa,esta pessoa ja esta bloqueada.");
+        }
     }
 }
