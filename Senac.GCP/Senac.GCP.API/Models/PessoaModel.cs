@@ -90,15 +90,12 @@ namespace Senac.GCP.API.Models
                 throw new BusinessException("O Gênero informado é inválido. Deve ser 'F' para 'Feminino' ou 'M' para 'Masculino'");
 
             if (DataNascimento.AddYears(18) >= DateTime.Today)
-                throw new Exception("A data de nascimento informada não é válida. A pessoa deve ter 18 anos ou mais.");            
+                throw new BusinessException("É necessário que a pessoa tenha 18 anos ou mais para o cadastramento no sistema.");            
 
             if (!ValidadorCPF.Validar(CPF, out string cpf))
                 throw new BusinessException("O CPF informado não é válido");
 
             CPF = cpf;
-
-            if (DataNascimento.AddYears(18) > DateTime.Today)
-                throw new BusinessException("É necessário ter 18 anos completos para o cadastramento no sistema");
 
             if (DataEmissaoRG < DataNascimento || DataEmissaoRG > DateTime.Today)
                 throw new BusinessException("A data de emissão do RG não é válida");
