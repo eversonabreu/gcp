@@ -7,7 +7,6 @@ namespace Senac.GCP.API.Models
 {
     public sealed class ConcursoFasesLocaisModel : Model
     {
-        [Required(ErrorMessage = "O campo 'IdConcursoFases' não foi preenchido")]
         public long IdConcursoFases { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo 'NomeLocal' não foi preenchido")]
@@ -17,26 +16,31 @@ namespace Senac.GCP.API.Models
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo 'EnderecoRua' não foi preenchido")]
         [StringLength(maximumLength: 150, ErrorMessage = "O campo 'EnderecoRua' aceita no máximo 150 caracteres")]
+        [StringOptions(TrimSpace = TrimSpaceEnum.Both)]
         public string EnderecoRua { get; set; }
 
         [StringLength(maximumLength: 20, ErrorMessage = "O campo 'EnderecoNumero' aceita no máximo 20 caracteres")]
+        [StringOptions(TrimSpace = TrimSpaceEnum.Both)]
         public string EnderecoNumero { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo 'EnderecoBairro' não foi preenchido")]
         [StringLength(maximumLength: 150, ErrorMessage = "O campo 'EnderecoBairro' aceita no máximo 150 caracteres")]
+        [StringOptions(TrimSpace = TrimSpaceEnum.Both)]
         public string EnderecoBairro { get; set; }
 
         [StringLength(maximumLength: 150, ErrorMessage = "O campo 'EnderecoComplemento' aceita no máximo 150 caracteres")]
+        [StringOptions(TrimSpace = TrimSpaceEnum.Both)]
         public string EnderecoComplemento { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo 'EnderecoCEP' não foi preenchido")]
         [StringLength(maximumLength: 10, ErrorMessage = "O campo 'EnderecoCEP' aceita no máximo 10 caracteres")]
+        [StringOptions(TrimSpace = TrimSpaceEnum.Both)]
         public string EnderecoCEP { get; set; }
 
-        [Required(ErrorMessage = "O campo 'IdMunicipioEndereco' não foi preenchido")]
         public long IdMunicipioEndereco { get; set; }
 
         [StringLength(maximumLength: 11, ErrorMessage = "O campo 'Telefone' aceita no máximo 11 caracteres")]
+        [StringOptions(TrimSpace = TrimSpaceEnum.Both)]
         public string Telefone { get; set; }
 
         [StringLength(maximumLength: 255, ErrorMessage = "O campo 'Email' aceita no máximo 255 caracteres")]
