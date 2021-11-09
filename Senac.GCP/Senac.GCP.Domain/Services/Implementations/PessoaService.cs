@@ -134,7 +134,7 @@ namespace Senac.GCP.Domain.Services.Implementations
                 bloqueioUsuario.MotivoBloqueio = motivoBloqueio;
                 bloqueioUsuario.DataBloqueio = DateTime.Now;
             }
-            else throw new BusinessException("Não foi possível bloquear a pessoa,esta pessoa ja esta bloqueada.");
+            else throw new BusinessException("Não foi possível bloquear a pessoa, porque esta pessoa já esta bloqueada.");
         }
     }
 }
