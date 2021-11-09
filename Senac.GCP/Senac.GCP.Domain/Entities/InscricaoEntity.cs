@@ -16,6 +16,7 @@ namespace Senac.GCP.Domain.Entities
 
         public DateTime DataInscricao { get; set; }
 
+        [NotUpdated]
         public string NumeroInscricao { get; set; }
 
         public int Situacao { get; set; }
