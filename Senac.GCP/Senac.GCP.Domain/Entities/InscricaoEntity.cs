@@ -1,5 +1,6 @@
 ﻿using Senac.GCP.Domain.Attributes;
 using Senac.GCP.Domain.Entities.Base;
+using Senac.GCP.Domain.Enums;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -17,9 +18,10 @@ namespace Senac.GCP.Domain.Entities
         public DateTime DataInscricao { get; set; }
 
         [NotUpdated]
+        [NotMapped]
         public string NumeroInscricao { get; set; }
 
-        public int Situacao { get; set; }
+        public SituacaoInscricaoEnum Situacao { get; set; }
 
         public bool ParticiparComoCotista { get; set; }
 
