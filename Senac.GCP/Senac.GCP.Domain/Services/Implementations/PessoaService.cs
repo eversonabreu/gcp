@@ -24,12 +24,6 @@ namespace Senac.GCP.Domain.Services.Implementations
             this.nacionalidadeRepository = nacionalidadeRepository;
         }
 
-        private static string GerarChaveAcesso()
-        {
-            var colunasChaveAcesso = Guid.NewGuid().ToString().Split('-');
-            string chaveAcesso = $"{colunasChaveAcesso.First()}{colunasChaveAcesso.Last()}";
-            return chaveAcesso;
-        }
 
         public override void BeforePost(PessoaEntity entity)
         {
@@ -49,6 +43,13 @@ namespace Senac.GCP.Domain.Services.Implementations
                 pessoaRepository.DeleteById(entity.Id);
                 throw new BusinessException("Não foi possível inserir esta pessoa porque ocorreu um problema no envio de e-mail de sua senha");
             }
+        }
+
+        private static string GerarChaveAcesso()
+        {
+            var colunasChaveAcesso = Guid.NewGuid().ToString().Split('-');
+            string chaveAcesso = $"{colunasChaveAcesso.First()}{colunasChaveAcesso.Last()}";
+            return chaveAcesso;
         }
 
         private bool EnviarEmailUsuarioComChaveDeAcesso(PessoaEntity entity)
