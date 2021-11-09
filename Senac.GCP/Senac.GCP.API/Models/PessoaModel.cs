@@ -84,6 +84,8 @@ namespace Senac.GCP.API.Models
         [StringOptions(TrimSpace = TrimSpaceEnum.Both)]
         public string EnderecoCEP { get; set; }
 
+        public NivelEscolaridadeEnum NivelEscolaridade { get; set; }
+
         public override void AdditionalValidations()
         {
             if (Genero != 'F' && Genero != 'M')
