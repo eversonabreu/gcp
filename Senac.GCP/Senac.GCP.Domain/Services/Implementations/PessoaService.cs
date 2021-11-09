@@ -23,15 +23,10 @@ namespace Senac.GCP.Domain.Services.Implementations
             this.nacionalidadeRepository = nacionalidadeRepository;
         }
 
-        private static string GerarChaveAcesso()
-        {
-            var colunasChaveAcesso = Guid.NewGuid().ToString().Split('-');
-            string chaveAcesso = $"{colunasChaveAcesso.First()}{colunasChaveAcesso.Last()}";
-            return chaveAcesso;
-        }
 
         public override void BeforePost(PessoaEntity entity)
         {
+            ValidarDuplicidadeCPFPessoa(entity.CPF, entity.Id);
             ValidarNacionalidadeBrasileira(entity.IdNacionalidade, entity.IdMunicipioNaturalidade);
             entity.ChaveAcesso = GerarChaveAcesso();
         }
@@ -43,6 +38,19 @@ namespace Senac.GCP.Domain.Services.Implementations
                 pessoaRepository.DeleteById(entity.Id);
                 throw new Exception("Não foi possível inserir esta pessoa porque ocorreu um problema no envio de e-mail de sua senha");
             }
+        }
+
+        public override void BeforePut(PessoaEntity entity)
+        {
+            ValidarDuplicidadeCPFPessoa(entity.CPF, entity.Id);
+            ValidarNacionalidadeBrasileira(entity.IdNacionalidade, entity.IdMunicipioNaturalidade);
+        }
+
+        private static string GerarChaveAcesso()
+        {
+            var colunasChaveAcesso = Guid.NewGuid().ToString().Split('-');
+            string chaveAcesso = $"{colunasChaveAcesso.First()}{colunasChaveAcesso.Last()}";
+            return chaveAcesso;
         }
 
         private bool EnviarEmailUsuarioComChaveDeAcesso(PessoaEntity entity)
@@ -77,7 +85,7 @@ namespace Senac.GCP.Domain.Services.Implementations
                 throw new Exception("A chave de acesso atual não corresponde com a chave de acesso informada.");
             }
 
-            if(ValidarChaveAcesso(novaChaveAcesso) == false || novaChaveAcesso.Length < 6)
+            if (ValidarChaveAcesso(novaChaveAcesso) == false || novaChaveAcesso.Length < 6)
             {
                 throw new Exception("A nova chave de acesso é inválida! deve conter no minímo 6 caracteres, letras e números.");
             }
@@ -90,8 +98,27 @@ namespace Senac.GCP.Domain.Services.Implementations
             var nacionalidadeInformada = nacionalidadeRepository.SingleOrDefault(x => x.Id == idNacionalidade);
 
             if (nacionalidadeInformada.Nome == "Brasileiro(a)" && !IdMunicipioNaturalidade.HasValue)
-                throw new Exception("Você deve informar sua naturalidade.");
+                throw new Exception("Você deve informar sua naturalidade primeiro.");
         }
+
+        private void ValidarDuplicidadeCPFPessoa(string cpf, long? idPessoa = null)
+        {
+            var pessoa = pessoaRepository.SingleOrDefault(item => item.CPF == cpf);
+            if (pessoa != null)
+            {
+                if (idPessoa.HasValue)
+                {
+                    if (pessoa.Id != idPessoa.Value)
+                    {
+                        throw new Exception("Não é possível atualizar esta pessoa porque o CPF informado já está sendo utilizado por outro registro");
+                    }
+                }
+                else
+                {
+                    throw new Exception("Não é possível inserir esta pessoa porque o CPF informado já está sendo utilizado por outro registro");
+                }
+            }
+        } 
 
         public bool ValidarChaveAcesso(string chaveAcesso)
         {
