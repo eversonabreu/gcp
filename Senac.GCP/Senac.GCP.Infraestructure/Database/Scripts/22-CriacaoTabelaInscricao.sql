@@ -4,9 +4,9 @@ create table Inscricao
 	IdPessoa bigint not null,
 	IdConcurso bigint not null,
 	DataInscricao date not null,
-	NumeroInscricao int not null,
+	NumeroInscricao varchar(50) not null,
 	Situacao int not null,
-	ParticiparComoCotista varbinary(max) not null,
+	ParticiparComoCotista bit not null,
 	MotivoRecusaInscricao text,
 	DataRecusaInscricao date,
 

@@ -2,9 +2,9 @@
 {
     public enum NivelEscolaridadeEnum
     {
-        EnsinoFundamental,
-        EnsinoMedio,
-        EnsinoTecnico,
-        EnsinoSuperior
+        EnsinoFundamental = 1,
+        EnsinoMedio = 2,
+        EnsinoTecnico = 3,
+        EnsinoSuperior = 4
     }
 }

@@ -8,6 +8,7 @@ namespace Senac.GCP.Domain.Services.Interfaces
         void ResetarChaveAcesso(long idPessoa);
 
         void AlterarChaveAcesso(long idPessoa, string chaveAcessoAtual, string novaChaveAcesso);
+
         void BloquearUsuario(long idPessoa, string motivoBloqueio);
     }
 }

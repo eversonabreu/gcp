@@ -1,4 +1,5 @@
 ﻿using Senac.GCP.API.Models.Base;
+using Senac.GCP.Domain.Enums;
 using System;
 
 namespace Senac.GCP.API.Models
@@ -11,7 +12,7 @@ namespace Senac.GCP.API.Models
 
         public DateTime DataInscricao { get; set; }
 
-        public int Situacao { get; set; }
+        public SituacaoInscricaoEnum Situacao { get; set; }
 
         public bool ParticiparComoCotista { get; set; }
 
