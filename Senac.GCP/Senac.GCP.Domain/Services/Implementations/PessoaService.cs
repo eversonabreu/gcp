@@ -89,7 +89,7 @@ namespace Senac.GCP.Domain.Services.Implementations
         private void ValidarNaturalidade(PessoaEntity pessoaEntity)
         {
             var nacionalidade = nacionalidadeRepository.GetById(pessoaEntity.IdNacionalidade);
-            if (nacionalidade.Nome.ToUpper().Contains("BRASILEIRO"))
+            if (nacionalidade.Nome.ToUpper().Contains("BRASILEIRO(A)"))
             {
                 if (pessoaEntity.IdMunicipioNaturalidade is null)
                     throw new BusinessException("O município de naturalidade deve ser informado obrigatóriamente quando a nacionalidade informada for 'Brasileiro(a)'.");

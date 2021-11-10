@@ -2,6 +2,7 @@
 using Senac.GCP.API.Controllers;
 using Senac.GCP.API.Models;
 using Senac.GCP.Domain.Entities;
+using Senac.GCP.Domain.Enums;
 using Senac.GCP.Domain.Exceptions;
 using Senac.GCP.Domain.Repositories;
 using Senac.GCP.Domain.Services.Implementations;
@@ -25,10 +26,9 @@ namespace Senac.GCP.Tests
             {
                 IdArquivoFoto = 1,
                 IdNacionalidade = 1,
-                IdClassificacaoDoenca = 1,
+                IdMunicipioNaturalidade = 1,
                 IdCorRaca = 1,
                 IdMunicipioEndereco = 1,
-                IdMunicipioNaturalidade = 1,
                 CPF = "11280819979",
                 Email = "cristinapriester2003@gmail.com",
                 Nome = "Cristina Priester",
@@ -39,11 +39,12 @@ namespace Senac.GCP.Tests
                 Genero = 'F',
                 Telefone = "4712093123",
                 PCD = false,
-                EnderecoNumero = "123",
-                EnderecoComplemento = "casa",
-                EnderecoRua = "Pedrinho",
+                EnderecoNumero = "0",
+                EnderecoComplemento = "casa muito engraçada",
+                EnderecoRua = "Rua dos Bobos",
                 EnderecoBairro = "Pedrinha",
                 EnderecoCEP = "10101010",
+                NivelEscolaridade = NivelEscolaridadeEnum.EnsinoTecnico
             };
 
             Assert.Throws<SendEmailException>(() => pessoaController.Post(model));
@@ -64,10 +65,8 @@ namespace Senac.GCP.Tests
                 Id = 1,
                 IdArquivoFoto = 1,
                 IdNacionalidade = 1,
-                IdClassificacaoDoenca = 1,
                 IdCorRaca = 1,
                 IdMunicipioEndereco = 1,
-                IdMunicipioNaturalidade = 1,
                 CPF = "11280819979",
                 Email = "cristinapriester2003@gmail.com",
                 Nome = "Cristina Priester",
@@ -102,6 +101,21 @@ namespace Senac.GCP.Tests
         }
 
         [Fact]
+        public void Bloquear_Usuario_Test()
+        {
+            const long idPessoa = 1;
+            string motivoBloqueio = "Senha incorreta várias vezes";
+            var mockPessoaRepository = new Mock<IPessoaRepository>();
+            var mockNacionalidadeRepository = new Mock<INacionalidadeRepository>();
+            mockPessoaRepository.Setup(x => x.GetById(1)).Returns(new PessoaEntity());
+            var pessoaService = new PessoaService(mockPessoaRepository.Object,
+                UtilsTest.GetHttpContextAccessor(), UtilsTest.GetEmailService(), mockNacionalidadeRepository.Object);
+            var pessoaController = new PessoaController(pessoaService);
+
+            pessoaController.BloquearUsuario(idPessoa, motivoBloqueio);
+        }
+
+        [Fact]
         public void Alterar_ChaveAcesso_ComChaveAcessoAtualCorreta_Test()
         {
             const long idPessoa = 1;
@@ -128,7 +142,7 @@ namespace Senac.GCP.Tests
                 UtilsTest.GetHttpContextAccessor(), UtilsTest.GetEmailService(), mockNacionalidadeRepository.Object);
             var pessoaController = new PessoaController(pessoaService);
 
-            Assert.Throws<BusinessException>(() => pessoaController.AlterarChaveAcesso(idPessoa, chaveAcessoAtual, "xpto@789"));
+            pessoaController.AlterarChaveAcesso(idPessoa, chaveAcessoAtual, "xpto@789");
         }
 
         [Fact]
@@ -142,23 +156,23 @@ namespace Senac.GCP.Tests
                 UtilsTest.GetHttpContextAccessor(), UtilsTest.GetEmailService(), mockNacionalidadeRepository.Object);
             var pessoaController = new PessoaController(pessoaService);
 
-            Assert.Throws<BusinessException>(() => pessoaController.ResetarChaveAcesso(idPessoa));
+            pessoaController.ResetarChaveAcesso(idPessoa);
         }
 
-
+        /*
         [Fact]
-        public void ValidarNacionalidadeBrasileira_Test()
+        public void ValidarNaturalidade_Test()
         {
-            const long idNacionalidade = 22;
-            const long IdMunicipioNaturalidade = 1;
             var mockPessoaRepository = new Mock<IPessoaRepository>();
             var mockNacionalidadeRepository = new Mock<INacionalidadeRepository>();
             mockPessoaRepository.Setup(x => x.GetById(1)).Returns(new PessoaEntity());
             var pessoaService = new PessoaService(mockPessoaRepository.Object,
                 UtilsTest.GetHttpContextAccessor(), UtilsTest.GetEmailService(), mockNacionalidadeRepository.Object);
+            var pessoaController = new PessoaController(pessoaService);
 
-            Assert.Throws<BusinessException>(() => pessoaService.ValidarNacionalidadeBrasileira(idNacionalidade, IdMunicipioNaturalidade));
+            Assert.Throws<BusinessException>(() => pessoaService.BeforePost());
 
         }
+        */
     }
 }
