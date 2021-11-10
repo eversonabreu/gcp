@@ -211,9 +211,10 @@ namespace Senac.GCP.Infraestructure.Database.Repositories.Base
             var constraints = typeof(TEntity).GetCustomAttributes<ConstraintAttribute>();
             if (constraints != null)
             {
+                string error = message.ToUpper();
                 foreach (var item in constraints)
                 {
-                    if (message.Contains(item.Name.ToUpper()))
+                    if (error.Contains(item.Name.ToUpper()))
                         throw new DbException(item.ErrorMessage);
                 }
             }
