@@ -3,7 +3,7 @@ using Senac.GCP.Domain.Services.Base;
 
 namespace Senac.GCP.Domain.Services.Interfaces
 {
-    public interface ICursoService : IService<CursoEntity>
+    public interface ITipoSolicitacaoIsencaoInscricaoService : IService<TipoSolicitacaoIsencaoInscricaoEntity>
     {
     }
 }

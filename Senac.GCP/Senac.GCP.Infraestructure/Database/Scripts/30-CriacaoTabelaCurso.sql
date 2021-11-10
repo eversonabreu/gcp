@@ -1,7 +1,9 @@
-CREATE TABLE ConcursoCargo(
-Id BIGINT NOT NULL IDENTITY(1,1) PRIMARY KEY,
-IdCargo BIGINT NOT NULL FOREIGN KEY REFERENCES Cargo(Id),
-IdConcurso BIGINT NOT NULL FOREIGN KEY REFERENCES Concurso(Id),
-QuantidadeVagas INT NOT NULL,
-QuantidadeVagasPCD INT NOT NULL
+
+create table Curso
+(
+Id bigint not null identity(1,1),
+IdNivelEscolaridade bigint not null,
+Codigo int not null,
+Descricao text not null,
+constraint PKCurso primary key (Id)
 );
