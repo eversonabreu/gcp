@@ -32,7 +32,6 @@ namespace Senac.GCP.Domain.Entities
 
         public string Observacoes { get; set; }
 
-
         [NotMapped]
         [Dependency(NameForeignKey = nameof(IdInstituicaoOrganizadora))]
         public InstituicaoEntity InstituicaoOrganizadora { get; set; }

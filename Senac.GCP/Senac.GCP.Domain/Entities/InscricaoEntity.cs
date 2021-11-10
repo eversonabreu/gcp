@@ -1,11 +1,15 @@
 ﻿using Senac.GCP.Domain.Attributes;
 using Senac.GCP.Domain.Entities.Base;
+using Senac.GCP.Domain.Enums;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Senac.GCP.Domain.Entities
 {
-    public sealed class InscricoesEntity : Entity
+    [Constraint(Name = "FKInscricaoConcurso", ErrorMessage = "O concurso não é válido ou não foi atribuído corretamente")]
+    [Constraint(Name = "FkInscricaoPessoa", ErrorMessage = "A pessoa não foi atribuída corretamente")]
+    [Constraint(Name = "UkInscricao", ErrorMessage = "Não é possível salvar, porque já existe um registro para este concurso com esta pessoa")]
+    public sealed class InscricaoEntity : Entity
     {
         public long IdPessoa { get; set; }
 
@@ -13,9 +17,11 @@ namespace Senac.GCP.Domain.Entities
 
         public DateTime DataInscricao { get; set; }
 
+        [NotUpdated]
+        [NotMapped]
         public string NumeroInscricao { get; set; }
 
-        public int Situacao { get; set; }
+        public SituacaoInscricaoEnum Situacao { get; set; }
 
         public bool ParticiparComoCotista { get; set; }
 

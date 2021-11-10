@@ -10,8 +10,8 @@ namespace Senac.GCP.Domain.Services.Implementations
 {
     public sealed class ConcursoService : Service<ConcursoEntity>, IConcursoService
     {
-        private IConcursoRepository concursoRepository;
-        private IConcursoTipoCotasRepository concursoTipoCotasRepository;
+        private readonly IConcursoRepository concursoRepository;
+        private readonly IConcursoTipoCotasRepository concursoTipoCotasRepository;
 
         public ConcursoService(IConcursoRepository concursoRepository,
             IConcursoTipoCotasRepository concursoTipoCotasRepository,
@@ -33,13 +33,11 @@ namespace Senac.GCP.Domain.Services.Implementations
  
         public override void BeforePost(ConcursoEntity entity)
         {
-            ValidarPercentualDeVagas(entity);
             entity.Numero = GerarCodigoConcurso();
         }
 
         public override void BeforePut(ConcursoEntity entity)
         {
-            ValidarPercentualDeVagas(entity);
             if (ObterPercentualTotalDeVagas(entity.Id, entity.PercentualQuantidadeVagasAmplaConcorrencia) > 100)
                 throw new Exception("Não é possível atualizar porque o percentual de vagas do concurso (ampla concorrência mais vagas para cotistas) ultrapassa 100%");
         }
@@ -64,14 +62,6 @@ namespace Senac.GCP.Domain.Services.Implementations
             int totalPercentualDeVagas = totalPercentualDeVagasAmplaConcorrencia + totalPercentualDeVagasCotistas;
 
             return totalPercentualDeVagas;
-        }
-
-        private static void ValidarPercentualDeVagas(ConcursoEntity entity)
-        {
-            if (entity.PercentualQuantidadeVagasAmplaConcorrencia <= 0)
-                throw new Exception("O percentual de vagas para a ampla concorrência deve ser superior a 0 (zero)");
-            else if (entity.PercentualQuantidadeVagasAmplaConcorrencia > 100)
-                throw new Exception("O percentual de vagas para a ampla concorrência deve ser igual ou inferior a 100 (cem)");
         }
     }
 }

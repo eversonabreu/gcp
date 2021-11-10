@@ -4,6 +4,8 @@ using System;
 
 namespace Senac.GCP.Domain.Entities
 {
+    [Constraint(Name = "UkUsuarioCPF", ErrorMessage = "O CPF informado já está sendo utilizado por outro registro")]
+    [Constraint(Name = "UkUsuarioEmail", ErrorMessage = "O E-mail informado já está sendo utilizado por outro registro")]
     public sealed class UsuarioEntity : Entity
     {
         public string Nome { get; set; }

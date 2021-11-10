@@ -25,5 +25,11 @@ namespace Senac.GCP.API.Controllers
         [Route("resetar-chave-acesso/{idPessoa:long}")]
         public void ResetarChaveAcesso(long idPessoa)
             => pessoaService.ResetarChaveAcesso(idPessoa);
+
+        [HttpPut]
+        [Route("bloquear-usuario/{idPessoa:long}/{motivoBloqueio}")]
+        public void BloquearUsuario(long idPessoa, string motivoBloqueio)
+           => pessoaService.BloquearUsuario(idPessoa, motivoBloqueio );
+
     }
 }

@@ -15,11 +15,14 @@ namespace Senac.GCP.API.IoC
             services.AddScoped<IInstituicaoService, InstituicaoService>();
             services.AddScoped<IArquivoService, ArquivoService>();
             services.AddScoped<IConcursoService, ConcursoService>();
+            services.AddScoped<IConcursoFasesService, ConcursoFasesService>();
             services.AddScoped<IConcursoEditaisService, ConcursoEditaisService>();
             services.AddScoped<IConcursoTipoCotasService, ConcursoTipoCotasService>();
             services.AddScoped<IPessoaService, PessoaService>();
-            services.AddScoped<IInscricoesService, InscricoesService>();
-
+            services.AddScoped<IInscricaoService, InscricaoService>();
+            services.AddScoped<IConcursoFasesLocaisService, ConcursoFasesLocaisService>();
+            services.AddScoped<ICargoService, CargoService>();
+            services.AddScoped<IConcursoCargoService, ConcursoCargoService>();
         }
     }
 }

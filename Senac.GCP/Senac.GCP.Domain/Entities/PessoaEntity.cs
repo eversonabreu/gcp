@@ -1,10 +1,19 @@
 ﻿using Senac.GCP.Domain.Attributes;
 using Senac.GCP.Domain.Entities.Base;
+using Senac.GCP.Domain.Enums;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Senac.GCP.Domain.Entities
 {
+    [Constraint(Name = "FKPessoaIdArquivoFoto", ErrorMessage = "O 'ID da Foto' não é válido ou não foi atribuído corretamente")]
+    [Constraint(Name = "FKPessoaIdClassificacaoDoenca", ErrorMessage = "A classificação da doença não é valida ou não foi atribuído corretamente")]
+    [Constraint(Name = "FKPessoaIdCorRaca", ErrorMessage = "A cor/raça não é válido ou não foi atribuído corretamente")]
+    [Constraint(Name = "FKPessoaIdMunicipioEndereco", ErrorMessage = "O município de endereço não é válido ou não foi atribuído corretamente")]
+    [Constraint(Name = "FKPessoaIdMunicipioNaturalidade", ErrorMessage = "O município de naturalidade não é válido ou não foi atribuído corretamente")]
+    [Constraint(Name = "FKPessoaIdNacionalidade", ErrorMessage = "A nacionalidade não é válida ou não foi atribuído corretamente")]
+    [Constraint(Name = "UKPessoaCPF", ErrorMessage = "Não é possível salvar, porque já existe um registro com este CPF")]
+    [Constraint(Name = "UKPessoaEmail", ErrorMessage = "Não é possível salvar, porque já existe um registro com este e-mail")]
     public sealed class PessoaEntity : Entity
     {
         public long IdArquivoFoto { get; set; }
@@ -49,14 +58,19 @@ namespace Senac.GCP.Domain.Entities
 
         public string EnderecoCEP { get; set; }
 
+        public NivelEscolaridadeEnum NivelEscolaridade { get; set; }
+
+        [NotUpdated]
         public bool Bloqueado { get; set; }
 
         [NotUpdated]
         public string ChaveAcesso { get; set; }
 
+        [NotUpdated]
         public string MotivoBloqueio { get; set; }
 
-        public DateTime DataBloqueio { get; set; }
+        [NotUpdated]
+        public DateTime? DataBloqueio { get; set; }
 
         [NotMapped]
         [Dependency(NameForeignKey = nameof(IdArquivoFoto))]
@@ -76,11 +90,10 @@ namespace Senac.GCP.Domain.Entities
 
         [NotMapped]
         [Dependency(NameForeignKey = nameof(IdMunicipioNaturalidade))]
-        public MunicipioEntity MucipioNaturalidade { get; set; }
+        public MunicipioEntity MunicipioNaturalidade { get; set; }
 
         [NotMapped]
         [Dependency(NameForeignKey = nameof(IdMunicipioEndereco))]
-        public MunicipioEntity MucipioEndereco { get; set; }
-
+        public MunicipioEntity MunicipioEndereco { get; set; }
     }
 }

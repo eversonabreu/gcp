@@ -7,10 +7,10 @@ using Senac.GCP.Domain.Services.Interfaces;
 namespace Senac.GCP.API.Controllers
 {
     
-    [Route("inscricoes")]
-    public sealed class InscricoesController : Controller<InscricoesModel, InscricoesEntity>
+    [Route("inscricao")]
+    public sealed class InscricaoController : Controller<InscricaoModel, InscricaoEntity>
     {
-        public InscricoesController(IInscricoesService inscricoesService) : base(inscricoesService)
+        public InscricaoController(IInscricaoService inscricaoService) : base(inscricaoService)
         {
         }
     }

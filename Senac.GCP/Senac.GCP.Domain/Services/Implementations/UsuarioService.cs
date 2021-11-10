@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Senac.GCP.Domain.Entities;
+using Senac.GCP.Domain.Exceptions;
 using Senac.GCP.Domain.Notifications;
 using Senac.GCP.Domain.Repositories;
 using Senac.GCP.Domain.Services.Base;
@@ -26,61 +27,15 @@ namespace Senac.GCP.Domain.Services.Implementations
 
         public override void BeforePost(UsuarioEntity entity)
         {
-            ValidarDuplicidadeEmailUsuario(entity.Email);
-            ValidarDuplicidadeCPFUsuario(entity.CPF);
             string senhaAutomatica = Guid.NewGuid().ToString().Split('-').First();
             entity.Senha = senhaAutomatica.Encrypt();
             entity.Ativo = true;
             entity.DataCadastramento = DateTime.Now;
         }
 
-        public override void BeforePut(UsuarioEntity entity)
-        {
-            ValidarDuplicidadeEmailUsuario(entity.Email, entity.Id);
-            ValidarDuplicidadeCPFUsuario(entity.CPF, entity.Id);
-        }
-
         public override void AfterPost(UsuarioEntity entity)
         {
             EnviarEmailUsuarioParaConfirmacaoDeCadasatro(entity);
-        }
-
-        private void ValidarDuplicidadeEmailUsuario(string email, long? idUsuario = null)
-        {
-            var usuario = usuarioRepository.SingleOrDefault(item => item.Email == email);
-            if (usuario != null)
-            {
-                if (idUsuario.HasValue)
-                {
-                    if (usuario.Id != idUsuario.Value)
-                    {
-                        throw new Exception("Não é possível atualizar este usuário porque o e-mail informado já está sendo utilizado por outro registro");
-                    }
-                }
-                else
-                {
-                    throw new Exception("Não é possível inserir este usuário porque o e-mail informado já está sendo utilizado por outro registro");
-                }
-            }
-        }
-
-        private void ValidarDuplicidadeCPFUsuario(string cpf, long? idUsuario = null)
-        {
-            var usuario = usuarioRepository.SingleOrDefault(item => item.CPF == cpf);
-            if (usuario != null)
-            {
-                if (idUsuario.HasValue)
-                {
-                    if (usuario.Id != idUsuario.Value)
-                    {
-                        throw new Exception("Não é possível atualizar este usuário porque o CPF informado já está sendo utilizado por outro registro");
-                    }
-                }
-                else
-                {
-                    throw new Exception("Não é possível inserir este usuário porque o CPF informado já está sendo utilizado por outro registro");
-                }
-            }
         }
 
         private void EnviarEmailUsuarioParaConfirmacaoDeCadasatro(UsuarioEntity entity)
@@ -96,7 +51,7 @@ namespace Senac.GCP.Domain.Services.Implementations
             if (!envioEmail)
             {
                 usuarioRepository.DeleteById(entity.Id);
-                throw new Exception("Não foi possível inserir este usuário porque ocorreu um problema no envio de e-mail de sua senha");
+                throw new SendEmailException("Não foi possível inserir este usuário porque ocorreu um problema no envio de e-mail de sua senha");
             }
         }
 
@@ -105,7 +60,7 @@ namespace Senac.GCP.Domain.Services.Implementations
             var usuario = usuarioRepository.GetById(idUsuario);
             if (usuario.Senha != senhaAtual.Encrypt())
             {
-                throw new Exception("A senha atual não corresponde com a senha informada.");
+                throw new BusinessException("A senha atual não corresponde com a senha informada.");
             }
 
             usuario.Senha = novaSenha.Encrypt();
