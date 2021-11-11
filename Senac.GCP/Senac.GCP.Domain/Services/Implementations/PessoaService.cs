@@ -41,7 +41,7 @@ namespace Senac.GCP.Domain.Services.Implementations
             if (!EnviarEmailUsuarioComChaveDeAcesso(entity))
             {
                 pessoaRepository.DeleteById(entity.Id);
-                throw new BusinessException("Não foi possível inserir esta pessoa porque ocorreu um problema no envio de e-mail de sua senha");
+                    throw new SendEmailException("Não foi possível inserir esta pessoa porque ocorreu um problema no envio de e-mail de sua senha");
             }
         }
 
@@ -70,7 +70,7 @@ namespace Senac.GCP.Domain.Services.Implementations
             var pessoa = pessoaRepository.GetById(idPessoa);
             pessoa.ChaveAcesso = GerarChaveAcesso();
             if (!EnviarEmailUsuarioComChaveDeAcesso(pessoa))
-                throw new BusinessException(@"Não foi possível resetar a chave de acesso porque ocorreu um problema no
+                throw new SendEmailException(@"Não foi possível resetar a chave de acesso porque ocorreu um problema no
                      envio de e-mail da chave de acesso para a pessoa");
 
             pessoaRepository.Update(pessoa);
