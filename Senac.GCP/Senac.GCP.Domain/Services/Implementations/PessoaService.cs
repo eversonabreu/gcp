@@ -41,7 +41,7 @@ namespace Senac.GCP.Domain.Services.Implementations
             if (!EnviarEmailUsuarioComChaveDeAcesso(entity))
             {
                 pessoaRepository.DeleteById(entity.Id);
-                throw new BusinessException("Não foi possível inserir esta pessoa porque ocorreu um problema no envio de e-mail de sua senha");
+                    throw new SendEmailException("Não foi possível inserir esta pessoa porque ocorreu um problema no envio de e-mail de sua senha");
             }
         }
 
@@ -70,7 +70,7 @@ namespace Senac.GCP.Domain.Services.Implementations
             var pessoa = pessoaRepository.GetById(idPessoa);
             pessoa.ChaveAcesso = GerarChaveAcesso();
             if (!EnviarEmailUsuarioComChaveDeAcesso(pessoa))
-                throw new BusinessException(@"Não foi possível resetar a chave de acesso porque ocorreu um problema no
+                throw new SendEmailException(@"Não foi possível resetar a chave de acesso porque ocorreu um problema no
                      envio de e-mail da chave de acesso para a pessoa");
 
             pessoaRepository.Update(pessoa);
@@ -84,12 +84,13 @@ namespace Senac.GCP.Domain.Services.Implementations
 
             ValidarChaveAcesso(novaChaveAcesso);
             pessoa.ChaveAcesso = novaChaveAcesso;
+            pessoaRepository.Update(pessoa);
         }
 
         private void ValidarNaturalidade(PessoaEntity pessoaEntity)
         {
             var nacionalidade = nacionalidadeRepository.GetById(pessoaEntity.IdNacionalidade);
-            if (nacionalidade.Nome.ToUpper().Contains("BRASILEIRO"))
+            if (nacionalidade.Nome.ToUpper().Contains("BRASILEIRO(A)"))
             {
                 if (pessoaEntity.IdMunicipioNaturalidade is null)
                     throw new BusinessException("O município de naturalidade deve ser informado obrigatóriamente quando a nacionalidade informada for 'Brasileiro(a)'.");
@@ -133,6 +134,7 @@ namespace Senac.GCP.Domain.Services.Implementations
                 bloqueioUsuario.Bloqueado = true;
                 bloqueioUsuario.MotivoBloqueio = motivoBloqueio;
                 bloqueioUsuario.DataBloqueio = DateTime.Now;
+                pessoaRepository.Update(bloqueioUsuario);
             }
             else throw new BusinessException("Não foi possível bloquear a pessoa, porque esta pessoa já esta bloqueada.");
         }
