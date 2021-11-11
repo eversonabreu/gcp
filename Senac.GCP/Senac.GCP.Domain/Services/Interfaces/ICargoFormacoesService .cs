@@ -3,7 +3,7 @@ using Senac.GCP.Domain.Services.Base;
 
 namespace Senac.GCP.Domain.Services.Interfaces
 {
-    public interface ICargoFormacoesService : IService<CargoFormacoesEntity>
+    public interface ICargoService : IService<CargoEntity>
     {
     }
 }
