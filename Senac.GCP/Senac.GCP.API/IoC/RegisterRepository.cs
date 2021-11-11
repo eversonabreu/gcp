@@ -33,6 +33,8 @@ namespace Senac.GCP.API.IoC
             services.AddTransient<IPessoaFormacoesRepository, PessoaFormacoesRepository>();
             services.AddTransient<ICursoRepository, CursoRepository>();
             services.AddTransient<ITipoSolicitacaoIsencaoInscricaoRepository, TipoSolicitacaoIsencaoInscricaoRepository>();
+            services.AddTransient<IConcursoFasesLocaisSalaRepository, ConcursoFasesLocaisSalaRepository>();
+
         }
     } 
 }
