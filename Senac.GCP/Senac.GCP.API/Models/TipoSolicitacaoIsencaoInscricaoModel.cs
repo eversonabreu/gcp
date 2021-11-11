@@ -1,8 +1,9 @@
-﻿using Senac.GCP.Domain.Entities.Base;
+﻿using Senac.GCP.API.Models.Base;
+using System;
 
-namespace Senac.GCP.Domain.Entities
+namespace Senac.GCP.API.Models
 {
-    public sealed class TipoSolicitacaoIsencaoInscricaoEntity : Entity
+    public sealed class TipoSolicitacaoIsencaoInscricaoModel : Model
     {
         public string Codigo { get; set; }
         public string Descricao { get; set; }

@@ -24,7 +24,7 @@ namespace Senac.GCP.Domain.Entities
 
         public long IdNacionalidade { get; set; }
 
-        public long IdClassificacaoDoenca { get; set; }
+        public long? IdClassificacaoDoenca { get; set; }
 
         public long IdCorRaca { get; set; }
 
