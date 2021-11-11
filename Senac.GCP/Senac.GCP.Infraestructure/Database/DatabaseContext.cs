@@ -47,5 +47,7 @@ namespace Senac.GCP.Infraestructure.Database
 
         public DbSet<ConcursoCargoEntity> ConcursoCargo { get; set; }
 
+        public DbSet<PessoaFormacoesEntity> PessoaFormacoes { get; set; }
+
     }
 }
