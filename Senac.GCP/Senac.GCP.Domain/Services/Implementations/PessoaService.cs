@@ -84,6 +84,7 @@ namespace Senac.GCP.Domain.Services.Implementations
 
             ValidarChaveAcesso(novaChaveAcesso);
             pessoa.ChaveAcesso = novaChaveAcesso;
+            pessoaRepository.Update(pessoa);
         }
 
         private void ValidarNaturalidade(PessoaEntity pessoaEntity)
@@ -133,6 +134,7 @@ namespace Senac.GCP.Domain.Services.Implementations
                 bloqueioUsuario.Bloqueado = true;
                 bloqueioUsuario.MotivoBloqueio = motivoBloqueio;
                 bloqueioUsuario.DataBloqueio = DateTime.Now;
+                pessoaRepository.Update(bloqueioUsuario);
             }
             else throw new BusinessException("Não foi possível bloquear a pessoa, porque esta pessoa já esta bloqueada.");
         }
