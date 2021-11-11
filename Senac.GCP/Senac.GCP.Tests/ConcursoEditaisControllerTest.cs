@@ -22,7 +22,7 @@ namespace Senac.GCP.Tests
 
             var model = new ConcursoEditaisModel
             {
-                DataEdital = new System.DateTime(2021, 05, 08),
+                DataEdital = new System.DateTime(2021, 08, 05),
                 Descricao = "Nao pode parar",
                 IdConcurso = 1,
                 IdArquivo = 2

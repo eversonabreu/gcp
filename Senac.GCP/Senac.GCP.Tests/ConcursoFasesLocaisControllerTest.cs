@@ -23,7 +23,7 @@ namespace Senac.GCP.Tests
             var model = new ConcursoFasesLocaisModel
             {
                 IdConcursoFases = 1,
-                NomeLocal = "Nao pode parar",
+                NomeLocal = "Nao pode parar ",
                 EnderecoRua = "Leonel",
                 EnderecoNumero = "123",
                 EnderecoBairro = "Favela Venceu",
