@@ -49,5 +49,8 @@ namespace Senac.GCP.Infraestructure.Database
 
         public DbSet<PessoaFormacoesEntity> PessoaFormacoes { get; set; }
 
+        public DbSet<CursoEntity> Curso { get; set; }
+
+        public DbSet<TipoSolicitacaoIsencaoInscricaoEntity> TipoSolicitacaoIsencaoInscricaoEntity { get; set; }
     }
 }

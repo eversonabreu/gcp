@@ -6,5 +6,6 @@ namespace Senac.GCP.Domain.Entities
     {
         public string Codigo { get; set; }
         public string Descricao { get; set; }
+        public decimal PercentualIsencaoInscricao { get; set; }
     }
 }

@@ -29,7 +29,7 @@ namespace Senac.GCP.API.Controllers
         [HttpPut]
         [Route("bloquear-usuario/{idPessoa:long}/{motivoBloqueio}")]
         public void BloquearUsuario(long idPessoa, string motivoBloqueio)
-           => pessoaService.BloquearUsuario(idPessoa, motivoBloqueio );
+           => pessoaService.BloquearUsuario(idPessoa, motivoBloqueio);
 
     }
 }
