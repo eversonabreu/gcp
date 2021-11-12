@@ -8,7 +8,7 @@ namespace Senac.GCP.API.Models
     {
         public long IdPessoa { get; set; }
 
-        public long IdConcurso { get; set; }
+        public long IdConcursoCargo { get; set; }
 
         public DateTime DataInscricao { get; set; }
 
@@ -19,5 +19,13 @@ namespace Senac.GCP.API.Models
         public string MotivoRecusaInscricao { get; set; }
 
         public DateTime DataRecusaInscricao { get; set; }
+
+        public decimal ValorPago { get; set; }
+
+        public DateTime DataPagamento { get; set; }
+
+        public TipoPagamentoEnum TipoPagamento { get; set; }
+
+
     }
 }

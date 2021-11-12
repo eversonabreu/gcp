@@ -1,0 +1,10 @@
+CREATE TABLE PessoaFormacoes (
+Id BIGINT NOT NULL IDENTITY(1, 1),
+IdPessoa BIGINT NOT NULL,
+IdCurso BIGINT NOT NULL,
+AnoConclusao DATE NOT NULL
+
+CONSTRAINT PKPessoaFormacoes PRIMARY KEY (Id),
+CONSTRAINT FKPessoaFormacoesIdPessoa FOREIGN KEY (IdPessoa) REFERENCES Pessoa(Id),
+CONSTRAINT FKPessoaFormacoesIdCurso FOREIGN KEY (IdCurso) REFERENCES Curso(Id),
+);

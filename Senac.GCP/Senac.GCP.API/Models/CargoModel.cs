@@ -12,23 +12,8 @@ namespace Senac.GCP.API.Models
         [StringLength(maximumLength: 255, ErrorMessage = "O Tamanho do Campo 'Descrição' Não Pode Superar 255 Caracteres.")]
         public string Descricao { get; set; }
 
+        public long IdNivelEscolaridade { get; set; }
+
         public int Codigo { get; set; }
-
-        public NivelEscolaridadeEnum NivelEscolaridade { get; set; }
-
-        public override void AdditionalValidations()
-        {
-            // Criando Lista para guardar os Enums.
-            var N = new List<NivelEscolaridadeEnum>() {
-            NivelEscolaridadeEnum.EnsinoFundamental,
-            NivelEscolaridadeEnum.EnsinoMedio,
-            NivelEscolaridadeEnum.EnsinoSuperior,
-            NivelEscolaridadeEnum.EnsinoTecnico
-            };
-
-            // Verificando se possui o valores disponiveis no Enum.
-            if (!N.Contains(NivelEscolaridade))
-                throw new BusinessException("O nivel de escolaridade informado é inválido.");
-        }
     }
 }
