@@ -4,9 +4,9 @@ using Senac.GCP.Infraestructure.Database.Repositories.Base;
 
 namespace Senac.GCP.Infraestructure.Database.Repositories
 {
-    public sealed class ConcursoCargoRepository : Repository<ConcursoCargoEntity>, IConcursoCargoRepository
+    public sealed class ConcursoFaseCargoRepository : Repository<ConcursoFaseCargoEntity>, IConcursoFaseCargoRepository
     {
-        public ConcursoCargoRepository(DatabaseContext databaseContext) : base(databaseContext)
+        public ConcursoFaseCargoRepository(DatabaseContext databaseContext) : base(databaseContext)
         {
 
         }
