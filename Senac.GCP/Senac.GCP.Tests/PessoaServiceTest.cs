@@ -11,7 +11,7 @@ using Xunit;
 
 namespace Senac.GCP.Tests
 {
-    public sealed class PessoaControllerTest
+    public sealed class PessoaServiceTest
     {
         [Fact]
         public void Post_PessoaBrasileira_Test()
@@ -50,6 +50,7 @@ namespace Senac.GCP.Tests
             Assert.Throws<SendEmailException>(() => pessoaController.Post(model));
         }
 
+
         [Fact]
         public void Post_PessoaSemNome_Test()
         {
@@ -80,6 +81,44 @@ namespace Senac.GCP.Tests
                 EnderecoComplemento = "casa muito engraçada",
                 EnderecoRua = "Rua dos Bobos",
                 EnderecoBairro = "Pedrinha",
+                EnderecoCEP = "10101010",
+            };
+
+            Assert.Throws<BusinessException>(() => pessoaController.Post(model));
+        }
+
+
+
+        [Fact]
+        public void Post_PessoaSemEnderecoBairro_Test()
+        {
+            var mockPessoaRepository = new Mock<IPessoaRepository>();
+            var mockNacionalidadeRepository = new Mock<INacionalidadeRepository>();
+            mockNacionalidadeRepository.Setup(x => x.GetById(1)).Returns(new NacionalidadeEntity());
+            var pessoaService = new PessoaService(mockPessoaRepository.Object,
+                UtilsTest.GetHttpContextAccessor(), UtilsTest.GetEmailService(), mockNacionalidadeRepository.Object);
+            var pessoaController = new PessoaController(pessoaService);
+
+            var model = new PessoaModel
+            {
+                IdArquivoFoto = 1,
+                IdNacionalidade = 1,
+                IdMunicipioNaturalidade = 1,
+                IdCorRaca = 1,
+                IdMunicipioEndereco = 1,
+                CPF = "11280819979",
+                Email = "cristinapriester2003@gmail.com",
+                Nome = "Bu",
+                DataNascimento = new System.DateTime(2003, 08, 04),
+                RG = "360362928",
+                DataEmissaoRG = new System.DateTime(2008, 08, 04),
+                OrgaoEmissorRG = "Secretaria de Sergurança Pública",
+                Genero = 'F',
+                Telefone = "4712093123",
+                PCD = false,
+                EnderecoNumero = "0",
+                EnderecoComplemento = "casa muito engraçada",
+                EnderecoRua = "Rua dos Bobos",
                 EnderecoCEP = "10101010",
             };
 
@@ -301,43 +340,6 @@ namespace Senac.GCP.Tests
                 EnderecoNumero = "0",
                 EnderecoComplemento = "casa muito engraçada",
                 EnderecoBairro = "Pedrinha",
-                EnderecoCEP = "10101010",
-            };
-
-            Assert.Throws<BusinessException>(() => pessoaController.Post(model));
-        }
-
-
-        [Fact]
-        public void Post_PessoaSemEnderecoBairro_Test()
-        {
-            var mockPessoaRepository = new Mock<IPessoaRepository>();
-            var mockNacionalidadeRepository = new Mock<INacionalidadeRepository>();
-            mockNacionalidadeRepository.Setup(x => x.GetById(1)).Returns(new NacionalidadeEntity());
-            var pessoaService = new PessoaService(mockPessoaRepository.Object,
-                UtilsTest.GetHttpContextAccessor(), UtilsTest.GetEmailService(), mockNacionalidadeRepository.Object);
-            var pessoaController = new PessoaController(pessoaService);
-
-            var model = new PessoaModel
-            {
-                IdArquivoFoto = 1,
-                IdNacionalidade = 1,
-                IdMunicipioNaturalidade = 1,
-                IdCorRaca = 1,
-                IdMunicipioEndereco = 1,
-                CPF = "11280819979",
-                Email = "cristinapriester2003@gmail.com",
-                Nome = "Bu",
-                DataNascimento = new System.DateTime(2003, 08, 04),
-                RG = "360362928",
-                DataEmissaoRG = new System.DateTime(2008, 08, 04),
-                OrgaoEmissorRG = "Secretaria de Sergurança Pública",
-                Genero = 'F',
-                Telefone = "4712093123",
-                PCD = false,
-                EnderecoNumero = "0",
-                EnderecoComplemento = "casa muito engraçada",
-                EnderecoRua = "Rua dos Bobos",
                 EnderecoCEP = "10101010",
             };
 
