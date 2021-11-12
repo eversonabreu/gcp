@@ -29,7 +29,7 @@ namespace Senac.GCP.Domain.Services.Implementations
             const decimal tamanhoMaximoAceito = tamanhoEmMegaByte * 10;
 
             if (arquivo.Length > tamanhoMaximoAceito)
-                throw new BusinessException("O arquivo não suportado, o mesmo deve conter no maximo 10MB");
+                throw new BusinessException("Arquivo não suportado, o mesmo deve conter no maximo 10MB");
 
             var tamanhoEmMegaBytes = arquivo.Length / tamanhoEmMegaByte;
             return tamanhoEmMegaBytes;

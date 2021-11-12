@@ -14,12 +14,12 @@ namespace Senac.GCP.Domain.Services.Base
 
         void BeforePut(TEntity entity);
 
-        void BeforeDelete(long id);
+        void BeforeDelete(TEntity entity);
 
         void AfterPost(TEntity entity);
 
         void AfterPut(TEntity entity);
 
-        void AfterDelete(long id);
+        void AfterDelete(TEntity entity);
     }
 }

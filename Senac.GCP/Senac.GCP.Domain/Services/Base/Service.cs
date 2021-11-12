@@ -24,12 +24,12 @@ namespace Senac.GCP.Domain.Services.Base
 
         public virtual void BeforePut(TEntity entity) { }
 
-        public virtual void BeforeDelete(long id) { }
+        public virtual void BeforeDelete(TEntity entity) { }
 
         public virtual void AfterPost(TEntity entity) { }
 
         public virtual void AfterPut(TEntity entity) { }
 
-        public virtual void AfterDelete(long id) { }
+        public virtual void AfterDelete(TEntity entity) { }
     }
 }
