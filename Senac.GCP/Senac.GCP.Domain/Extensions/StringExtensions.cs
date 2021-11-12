@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Senac.GCP.Domain.Exceptions;
+using System;
 using System.Linq;
 
 namespace Senac.GCP.Domain.Extensions
@@ -31,12 +32,12 @@ namespace Senac.GCP.Domain.Extensions
                 string name = Reverse(fileName);
                 name = name.Split('.').First();
                 if (string.IsNullOrWhiteSpace(name))
-                    throw new Exception("O arquivo não possui extensão");
+                    throw new BusinessException("O arquivo não possui extensão");
 
                 return Reverse(name);
             }
 
-            throw new Exception("O arquivo não possui extensão");
+            throw new BusinessException("O arquivo não possui extensão");
         }
 
         public static string Reverse(this string value)
