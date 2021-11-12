@@ -91,9 +91,10 @@ namespace Senac.GCP.API.Controllers.Base
         [HttpDelete]
         public void DeleteById(long id)
         {
-            service.BeforeDelete(id);
+            var entity = repository.GetById(id);
+            service.BeforeDelete(entity);
             repository.DeleteById(id);
-            service.AfterDelete(id);
+            service.AfterDelete(entity);
         }
 
         [Route("id/{id:long}"), HttpGet]
