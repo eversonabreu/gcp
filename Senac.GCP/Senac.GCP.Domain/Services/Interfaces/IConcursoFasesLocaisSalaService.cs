@@ -3,8 +3,7 @@ using Senac.GCP.Domain.Services.Base;
 
 namespace Senac.GCP.Domain.Services.Interfaces
 {
-    public interface IArquivoService : IService<ArquivoEntity>
+    public interface IConcursoFasesLocaisSalaService : IService<ConcursoFasesLocaisSalaEntity>
     {
-        decimal ObterTamanhoEmMegaBytes(byte[] arquivo);
     }
 }

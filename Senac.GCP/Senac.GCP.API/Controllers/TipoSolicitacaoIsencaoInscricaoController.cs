@@ -6,7 +6,7 @@ using Senac.GCP.Domain.Services.Interfaces;
 
 namespace Senac.GCP.API.Controllers
 {
-    [Route("TipoSolicitacaoIsencaoInscricao")]
+    [Route("tipo-solicitacao-isencao-inscricao")]
     public sealed class TipoSolicitacaoIsencaoInscricaoController : Controller<TipoSolicitacaoIsencaoInscricaoModel, TipoSolicitacaoIsencaoInscricaoEntity>
     {
         public TipoSolicitacaoIsencaoInscricaoController(ITipoSolicitacaoIsencaoInscricaoService tipoSolicitacaoIsencaoInscricaoService) : base(tipoSolicitacaoIsencaoInscricaoService)

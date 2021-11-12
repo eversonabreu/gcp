@@ -8,7 +8,7 @@ namespace Senac.GCP.API.Models
     {
         public long IdPessoa { get; set; }
 
-        public long IdConcurso { get; set; }
+        public long IdCurso { get; set; }
 
         [DateOnly]
         public DateTime AnoConclusao { get; set; }
