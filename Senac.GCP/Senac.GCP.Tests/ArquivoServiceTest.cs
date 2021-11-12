@@ -40,18 +40,6 @@ namespace Senac.GCP.Tests
 
             //actual
             var result = arquivoService.ObterTamanhoEmMegaBytes(arquivo);
-<<<<<<< HEAD
-            
-            //if (arquivoMais10MB > 104876)
-            //{
-            //    Assert.Throws<BusinessException>(())
-            //}
-            //Assert.Throws<Exception>.(arquivoMais10MB, result);
-        }
-
-=======
-
-            Assert.Throws<BusinessException>(() => result);
 
             /*
             if ()
@@ -62,8 +50,5 @@ namespace Senac.GCP.Tests
             //Assert.Throws<Exception>.(arquivoMais10MB, result);
             */
         }
-
-    
->>>>>>> a009c82b04e5ab38f62121d91bfd0758c4f691eb
     }
 }
