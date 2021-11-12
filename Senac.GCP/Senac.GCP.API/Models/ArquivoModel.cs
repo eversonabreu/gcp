@@ -25,7 +25,8 @@ namespace Senac.GCP.API.Models
             Extensao = nome.GetFileExtension();
 
             if (Conteudo is null || Conteudo.Length == 0)
-                throw new BusinessException("O arquivo deve ser enviado obrigatóriamente");
+                throw new BusinessException("O arquivo deve ser enviado obrigatóriamente");         
+
         }
     }
 }

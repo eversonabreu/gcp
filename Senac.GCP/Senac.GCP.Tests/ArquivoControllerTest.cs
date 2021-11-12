@@ -82,5 +82,23 @@ namespace Senac.GCP.Tests
 
             Assert.Throws<BusinessException>(() => arquivoController.Post(model));
         }
+
+        [Fact]
+        public void Post_Arquivo_Com_Nome_Excedendo_225Caracteres_Test()
+        {
+            var mockArquivoRepository = new Mock<IArquivoRepository>();
+            var ArquivoService = new ArquivoService(mockArquivoRepository.Object,
+                UtilsTest.GetHttpContextAccessor());
+            var arquivoController = new ArquivoController(ArquivoService);
+
+            var model = new ArquivoModel
+            {
+                Nome = "NomeParaOTesteDoNomeDeArquivoQueUltrapassaOsDuzentosEVinteECincoCaracteresManoelTesteMarianaTeste123Teste1111111111111111111111111111111111" +
+                "11111111111111111111111111111111111111111111111111111111111111111111111111111111112222222222222222222221111222222222222222222222222222222.pdf",
+                Conteudo = new byte[10]
+            };
+
+            Assert.Throws<BusinessException>(() => arquivoController.Post(model));
+        }
     }
 }
