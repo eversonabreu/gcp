@@ -13,5 +13,7 @@ namespace Senac.GCP.API.Models
 
         public int Codigo { get; set; }
 
+        public long IdNivelEscolaridade { get; set; }
+
     }
 }
