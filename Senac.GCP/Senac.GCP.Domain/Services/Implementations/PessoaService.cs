@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Senac.GCP.Domain.Dtos;
 using Senac.GCP.Domain.Entities;
 using Senac.GCP.Domain.Exceptions;
 using Senac.GCP.Domain.Notifications;
@@ -125,18 +126,28 @@ namespace Senac.GCP.Domain.Services.Implementations
                 throw new BusinessException(chaveAcessoInvalido);
         }
 
-        public void BloquearUsuario(long idPessoa,string motivoBloqueio)
+        public void BloquearUsuario(PessoaBloqueioDto pessoaBloqueioDto)
         {
-            var bloqueioUsuario = pessoaRepository.GetById(idPessoa);
-
-            if (bloqueioUsuario.Bloqueado == false)
+            var pessoa = pessoaRepository.GetById(pessoaBloqueioDto.IdPessoa);
+            if (!pessoa.Bloqueado)
             {
-                bloqueioUsuario.Bloqueado = true;
-                bloqueioUsuario.MotivoBloqueio = motivoBloqueio;
-                bloqueioUsuario.DataBloqueio = DateTime.Now;
-                pessoaRepository.Update(bloqueioUsuario);
+                pessoa.Bloqueado = true;
+                pessoa.MotivoBloqueio = pessoaBloqueioDto.MotivoBloqueio;
+                pessoa.DataBloqueio = DateTime.Now;
+                pessoaRepository.Update(pessoa);
             }
-            else throw new BusinessException("Não foi possível bloquear a pessoa, porque esta pessoa já esta bloqueada.");
+        }
+
+        public void DesbloquearUsuario(PessoaBloqueioDto pessoaBloqueioDto)
+        {
+            var pessoa = pessoaRepository.GetById(pessoaBloqueioDto.IdPessoa);
+            if (pessoa.Bloqueado)
+            {
+                pessoa.Bloqueado = false;
+                pessoa.MotivoBloqueio = null;
+                pessoa.DataBloqueio = null;
+                pessoaRepository.Update(pessoa);
+            }
         }
     }
 }
