@@ -7,10 +7,10 @@ using System;
 
 namespace Senac.GCP.Domain.Services.Implementations
 {
-    public sealed class CargoFormacoesService : Service<CargoFormacoesEntity>, ICargoFormacoesService
+    public sealed class CargoService : Service<CargoEntity>, ICargoService
     {
-        public CargoFormacoesService(ICargoFormacoesRepository CargoFormacoesRepository, IHttpContextAccessor httpContextAccessor)
-            : base(CargoFormacoesRepository, httpContextAccessor)
+        public CargoService(ICargoRepository CargoRepository, IHttpContextAccessor httpContextAccessor)
+            : base(CargoRepository, httpContextAccessor)
         {
         }
     }

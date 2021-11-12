@@ -6,7 +6,7 @@ using Senac.GCP.Domain.Services.Interfaces;
 
 namespace Senac.GCP.API.Controllers
 {
-    [Route("cargo")]
+    [Route("cargo-formacoes")]
     public sealed class CargoFormacoesController : Controller<CargoFormacoesModel, CargoFormacoesEntity>
     {
         public CargoFormacoesController(ICargoFormacoesService CargoFormacoesService) : base(CargoFormacoesService)

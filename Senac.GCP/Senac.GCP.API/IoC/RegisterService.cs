@@ -28,6 +28,7 @@ namespace Senac.GCP.API.IoC
             services.AddScoped<ICursoService, CursoService>();
             services.AddScoped<ITipoSolicitacaoIsencaoInscricaoService, TipoSolicitacaoIsencaoInscricaoService>();
             services.AddScoped<ICargoFormacoesService, CargoFormacoesService>();
+            services.AddScoped<IConcursoFaseCargoService, ConcursoFaseCargoService>();
         }
     }
 }

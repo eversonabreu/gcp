@@ -10,7 +10,6 @@ namespace Senac.GCP.Domain.Entities
     public sealed class CargoFormacoesEntity : Entity
     {
 
-
         public long IdCargo { get; set; }
         public long IdCurso { get; set; }
 

@@ -4,8 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Senac.GCP.Domain.Entities
 {
-    [Constraint(Name = "FkIdCargo", ErrorMessage = "O 'Id Cargo' não é válido ou não foi atribuído corretamente")]
-    [Constraint(Name = "FkIdConcurso", ErrorMessage = "O 'Id Concurso' não é válido ou não foi atribuído corretamente")]
+    //[Constraint(Name = "FkIdCargo", ErrorMessage = "O 'Id Cargo' não é válido ou não foi atribuído corretamente")]
+    //[Constraint(Name = "FkIdConcurso", ErrorMessage = "O 'Id Concurso' não é válido ou não foi atribuído corretamente")]
 
     public sealed class  ConcursoFaseCargoEntity: Entity
     {
