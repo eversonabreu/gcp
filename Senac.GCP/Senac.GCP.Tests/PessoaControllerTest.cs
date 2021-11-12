@@ -181,20 +181,21 @@ namespace Senac.GCP.Tests
             pessoaController.DeleteById(1);
         }
 
-        [Fact]
-        public void Bloquear_Usuario_Test()
-        {
-            const long idPessoa = 1;
-            string motivoBloqueio = "Senha incorreta várias vezes";
-            var mockPessoaRepository = new Mock<IPessoaRepository>();
-            var mockNacionalidadeRepository = new Mock<INacionalidadeRepository>();
-            mockPessoaRepository.Setup(x => x.GetById(1)).Returns(new PessoaEntity());
-            var pessoaService = new PessoaService(mockPessoaRepository.Object,
-                UtilsTest.GetHttpContextAccessor(), UtilsTest.GetEmailService(), mockNacionalidadeRepository.Object);
-            var pessoaController = new PessoaController(pessoaService);
+        //[Fact]
+        //public void Bloquear_Usuario_Test()
+        //{
+        //    const long idPessoa = 1;
+        //    string motivoBloqueio = "Senha incorreta várias vezes";
 
-            pessoaController.BloquearUsuario(idPessoa, motivoBloqueio);
-        }
+        //    var mockPessoaRepository = new Mock<IPessoaRepository>();
+        //    var mockNacionalidadeRepository = new Mock<INacionalidadeRepository>();
+        //    mockPessoaRepository.Setup(x => x.GetById(1)).Returns(new PessoaEntity());
+        //    var pessoaService = new PessoaService(mockPessoaRepository.Object,
+        //        UtilsTest.GetHttpContextAccessor(), UtilsTest.GetEmailService(), mockNacionalidadeRepository.Object);
+        //    var pessoaController = new PessoaController(pessoaService);
+
+        //    pessoaController.BloquearUsuario(idPessoa, motivoBloqueio);
+        //}
 
         [Fact]
         public void Alterar_ChaveAcesso_ComChaveAcessoAtualCorreta_Test()
