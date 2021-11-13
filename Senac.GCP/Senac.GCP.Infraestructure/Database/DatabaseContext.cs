@@ -43,5 +43,20 @@ namespace Senac.GCP.Infraestructure.Database
 
         public DbSet<ConcursoFasesLocaisEntity> ConcursoFasesLocais { get; set; }
 
+        public DbSet<ConcursoFaseCargoEntity> ConcursoFaseCargo { get; set; }
+
+        public DbSet<CargoEntity> Cargo { get; set; }
+
+        public DbSet<ConcursoCargoEntity> ConcursoCargo { get; set; }
+
+        public DbSet<PessoaFormacoesEntity> PessoaFormacoes { get; set; }
+
+        public DbSet<CursoEntity> Curso { get; set; }
+
+        public DbSet<TipoSolicitacaoIsencaoInscricaoEntity> TipoSolicitacaoIsencaoInscricaoEntity { get; set; }
+
+        public DbSet<ConcursoFasesLocaisSalaEntity> ConcursoFasesSalaLocais { get; set; }
+
+        public DbSet<CargoFormacoesEntity> CargoFormacoes { get; set; }
     }
 }

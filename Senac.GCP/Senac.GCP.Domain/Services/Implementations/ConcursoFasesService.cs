@@ -35,9 +35,25 @@ namespace Senac.GCP.Domain.Services.Implementations
             ValidarDataInicioNovaFase(entity);
         }
 
-        public override void AfterDelete(long id)
+        public override void AfterDelete(ConcursoFasesEntity entity)
         {
+            AjustarNumeracaoDasFases(entity.IdConcurso);
+        }
 
+        private void AjustarNumeracaoDasFases(long idConcurso)
+        {
+            var fases = concursoFasesRepository.Filter(x => x.IdConcurso == idConcurso).OrderBy(x => x.NumeroFase);
+            int numeroFase = 1;
+            foreach (var item in fases)
+            {
+                if (item.NumeroFase != numeroFase)
+                {
+                    item.NumeroFase = numeroFase;
+                    concursoFasesRepository.Update(item);
+                }
+
+                numeroFase++;
+            }
         }
 
         private void ValidarDataInicioFase(ConcursoFasesEntity entity)
@@ -69,7 +85,22 @@ namespace Senac.GCP.Domain.Services.Implementations
 
         private void ValidarDataInicioNovaFase(ConcursoFasesEntity entity)
         {
+<<<<<<< HEAD
             if (entity.DataInicio <= entity.DataTermino)
+=======
+            //vc precisa as fases pelo repositorio das fases (utilize o id do concurso)
+            //se não tiver fases ainda, não faz nada
+            //vc precisa identificar se a fase corrente possui antecessor e posterior
+            //posterior
+            //pegar a data de início da fase posterior (idconcurso = 1 && numeroFase = numeroFaseCorrente + 1)
+            //verificar se a data de início é menor ou igual a data de termino da fase corrente. (Se não for lança exceção)
+            //antecessor
+            //pegar a data de término da fase antecessor (idconcurso = 1 && numeroFase = numeroFaseCorrente - 1)
+            //verificar se a data de término é maior ou igual a data de início da fase corrente. (Se não for lança exceção)
+
+
+            if (entity.DataInicio < entity.DataTermino)
+>>>>>>> 9979887cbde1ee199532c1a2f85cf5521dc89487
                 throw new BusinessException("A data de inicio da nova fase, deve superior ou igual à anterior");
         }
 

@@ -1,4 +1,5 @@
 ﻿using Senac.GCP.API.Models.Base;
+using Senac.GCP.Domain.Exceptions;
 using Senac.GCP.Domain.Extensions;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -13,10 +14,8 @@ namespace Senac.GCP.API.Models
 
         public string Extensao { get; set; }
 
-        [Required(ErrorMessage = "O Campo 'Conteudo' Deve Ser Informado Obrigatóriamente.")]
         public byte[] Conteudo { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "O Campo 'DataUpload' Deve Ser Informado Obrigatóriamente.")]
         public DateTime DataUpload { get; set; }
 
         public override void AdditionalValidations()
@@ -24,6 +23,10 @@ namespace Senac.GCP.API.Models
             string nome = Nome;
             Nome = nome.GetFileName();
             Extensao = nome.GetFileExtension();
+
+            if (Conteudo is null || Conteudo.Length == 0)
+                throw new BusinessException("O arquivo deve ser enviado obrigatóriamente");         
+
         }
     }
 }

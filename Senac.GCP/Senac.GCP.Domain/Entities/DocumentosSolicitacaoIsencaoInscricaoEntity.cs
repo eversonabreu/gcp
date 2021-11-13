@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Senac.GCP.Domain.Entities
 {
+    [Constraint(Name = "FkDocumentosSolicitacaoIsencaoInscricaoIdSolicitacaoIsencaoInscricao", ErrorMessage = "O Id de Solicitacao de Isencao e Inscricao não é válido ou não foi atribuído corretamente")]
+    [Constraint(Name = "FkDocumentosSolicitacaoIsencaoInscricaoIdArquivo", ErrorMessage = "O Id do Arquivo não foi atribuído corretamente")]
     public sealed class DocumentosSolicitacaoIsencaoInscricaoEntity : Entity
     {
         public long IdSolicitacaoIsencaoInscricao { get; set; }

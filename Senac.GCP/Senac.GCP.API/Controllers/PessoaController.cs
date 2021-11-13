@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Senac.GCP.API.Controllers.Base;
 using Senac.GCP.API.Models;
+using Senac.GCP.Domain.Dtos;
 using Senac.GCP.Domain.Entities;
 using Senac.GCP.Domain.Services.Interfaces;
 
@@ -25,5 +26,15 @@ namespace Senac.GCP.API.Controllers
         [Route("resetar-chave-acesso/{idPessoa:long}")]
         public void ResetarChaveAcesso(long idPessoa)
             => pessoaService.ResetarChaveAcesso(idPessoa);
+
+        [HttpPut]
+        [Route("bloquear-usuario")]
+        public void BloquearUsuario([FromBody] PessoaBloqueioDto pessoaBloqueioDto)
+           => pessoaService.BloquearUsuario(pessoaBloqueioDto);
+
+        [HttpPut]
+        [Route("desbloquear-usuario")]
+        public void DesbloquearUsuario([FromBody] PessoaBloqueioDto pessoaBloqueioDto)
+           => pessoaService.DesbloquearUsuario(pessoaBloqueioDto);
     }
 }

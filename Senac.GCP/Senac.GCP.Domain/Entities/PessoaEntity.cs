@@ -1,5 +1,6 @@
 ﻿using Senac.GCP.Domain.Attributes;
 using Senac.GCP.Domain.Entities.Base;
+using Senac.GCP.Domain.Enums;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -23,7 +24,7 @@ namespace Senac.GCP.Domain.Entities
 
         public long IdNacionalidade { get; set; }
 
-        public long IdClassificacaoDoenca { get; set; }
+        public long? IdClassificacaoDoenca { get; set; }
 
         public long IdCorRaca { get; set; }
 
@@ -56,6 +57,8 @@ namespace Senac.GCP.Domain.Entities
         public string EnderecoComplemento { get; set; }
 
         public string EnderecoCEP { get; set; }
+
+        public NivelEscolaridadeEnum NivelEscolaridade { get; set; }
 
         [NotUpdated]
         public bool Bloqueado { get; set; }

@@ -25,6 +25,7 @@ CREATE TABLE Pessoa (
 	MotivoBloqueio TEXT,
 	DataBloqueio DATETIME2,
 	ChaveAcesso TEXT NOT NULL,
+	NivelEscolaridade INT NOT NULL,
  
 	CONSTRAINT PKPessoa PRIMARY KEY (Id),
 	CONSTRAINT UKPessoaCPF UNIQUE (CPF),
