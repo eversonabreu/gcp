@@ -85,9 +85,7 @@ namespace Senac.GCP.Domain.Services.Implementations
 
         private void ValidarDataInicioNovaFase(ConcursoFasesEntity entity)
         {
-<<<<<<< HEAD
             if (entity.DataInicio <= entity.DataTermino)
-=======
             //vc precisa as fases pelo repositorio das fases (utilize o id do concurso)
             //se não tiver fases ainda, não faz nada
             //vc precisa identificar se a fase corrente possui antecessor e posterior
@@ -100,7 +98,6 @@ namespace Senac.GCP.Domain.Services.Implementations
 
 
             if (entity.DataInicio < entity.DataTermino)
->>>>>>> 9979887cbde1ee199532c1a2f85cf5521dc89487
                 throw new BusinessException("A data de inicio da nova fase, deve superior ou igual à anterior");
         }
 
