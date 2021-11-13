@@ -9,8 +9,9 @@ namespace Senac.GCP.Domain.Services.Implementations
 {
     public sealed class ConcursoFaseCargoService : Service<ConcursoFaseCargoEntity>, IConcursoFaseCargoService
     {
-        public ConcursoFaseCargoService(IConcursoFaseCargoRepository ConcursoFaseCargoRepository, IHttpContextAccessor httpContextAccessor)
-            : base(ConcursoFaseCargoRepository, httpContextAccessor)
+
+        public ConcursoFaseCargoService(IConcursoFaseCargoRepository concursoFaseCargoRepository, IHttpContextAccessor httpContextAccessor)
+            : base(concursoFaseCargoRepository, httpContextAccessor)
         {
         }
     }
