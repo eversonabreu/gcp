@@ -24,14 +24,14 @@ namespace Senac.GCP.Domain.Services.Implementations
 
         public override void BeforePost(ConcursoFasesEntity entity)
         {
-            ValidarDataInicioFase(entity);
+            VerificarSeFaseIniciaAntesDoPeriodoFinalDeInscricaoDoConcurso(entity);
             ValidarDataInicioNovaFase(entity);
             entity.NumeroFase = GerarNumeroFase(entity.IdConcurso);
         }
 
         public override void BeforePut(ConcursoFasesEntity entity)
         {
-            ValidarDataInicioFase(entity);
+            VerificarSeFaseIniciaAntesDoPeriodoFinalDeInscricaoDoConcurso(entity);
             ValidarDataInicioNovaFase(entity);
         }
 
@@ -56,7 +56,7 @@ namespace Senac.GCP.Domain.Services.Implementations
             }
         }
 
-        private void ValidarDataInicioFase(ConcursoFasesEntity entity)
+        private void VerificarSeFaseIniciaAntesDoPeriodoFinalDeInscricaoDoConcurso(ConcursoFasesEntity entity)
         {
             var dataFinalInscricaoConcurso = concursoRepository.GetById(entity.IdConcurso).DataFinalInscricao;
             if (entity.DataInicio <= dataFinalInscricaoConcurso)

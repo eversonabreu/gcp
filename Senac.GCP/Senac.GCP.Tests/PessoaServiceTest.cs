@@ -1,6 +1,7 @@
 ﻿using Moq;
 using Senac.GCP.API.Controllers;
 using Senac.GCP.API.Models;
+using Senac.GCP.Domain.Dtos;
 using Senac.GCP.Domain.Entities;
 using Senac.GCP.Domain.Enums;
 using Senac.GCP.Domain.Exceptions;
@@ -548,20 +549,24 @@ namespace Senac.GCP.Tests
             pessoaController.DeleteById(1);
         }
 
-        //[Fact]
-        //public void Bloquear_Usuario_Test()
-        //{
-        //    const long idPessoa = 1;
-        //    string motivoBloqueio = "Senha incorreta várias vezes";
-        //    var mockPessoaRepository = new Mock<IPessoaRepository>();
-        //    var mockNacionalidadeRepository = new Mock<INacionalidadeRepository>();
-        //    mockPessoaRepository.Setup(x => x.GetById(1)).Returns(new PessoaEntity());
-        //    var pessoaService = new PessoaService(mockPessoaRepository.Object,
-        //        UtilsTest.GetHttpContextAccessor(), UtilsTest.GetEmailService(), mockNacionalidadeRepository.Object);
-        //    var pessoaController = new PessoaController(pessoaService);
+        [Fact]
+        public void Bloquear_Pessoa_Sem_Motivo_Test()
+        {
+            var pessoaBloqueioDto = new PessoaBloqueioDto
+            {
+                IdPessoa = 1
+            };
 
-        //    pessoaController.BloquearUsuario(idPessoa, motivoBloqueio);
-        //}
+            var mockPessoaRepository = new Mock<IPessoaRepository>();
+            var mockNacionalidadeRepository = new Mock<INacionalidadeRepository>();
+
+            mockPessoaRepository.Setup(x => x.GetById(pessoaBloqueioDto.IdPessoa)).Returns(new PessoaEntity());
+
+            var pessoaService = new PessoaService(mockPessoaRepository.Object,
+                UtilsTest.GetHttpContextAccessor(), UtilsTest.GetEmailService(), mockNacionalidadeRepository.Object);
+
+            Assert.Throws<BusinessException>(() => pessoaService.BloquearUsuario(pessoaBloqueioDto));
+        }
 
         [Fact]
         public void Alterar_ChaveAcesso_ComChaveAcessoAtualCorreta_Test()

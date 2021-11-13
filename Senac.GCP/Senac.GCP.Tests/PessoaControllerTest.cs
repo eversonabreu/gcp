@@ -1,6 +1,7 @@
 ﻿using Moq;
 using Senac.GCP.API.Controllers;
 using Senac.GCP.API.Models;
+using Senac.GCP.Domain.Dtos;
 using Senac.GCP.Domain.Entities;
 using Senac.GCP.Domain.Enums;
 using Senac.GCP.Domain.Exceptions;
@@ -545,22 +546,6 @@ namespace Senac.GCP.Tests
 
             pessoaController.DeleteById(1);
         }
-
-        //[Fact]
-        //public void Bloquear_Usuario_Test()
-        //{
-        //    const long idPessoa = 1;
-        //    string motivoBloqueio = "Senha incorreta várias vezes";
-
-        //    var mockPessoaRepository = new Mock<IPessoaRepository>();
-        //    var mockNacionalidadeRepository = new Mock<INacionalidadeRepository>();
-        //    mockPessoaRepository.Setup(x => x.GetById(1)).Returns(new PessoaEntity());
-        //    var pessoaService = new PessoaService(mockPessoaRepository.Object,
-        //        UtilsTest.GetHttpContextAccessor(), UtilsTest.GetEmailService(), mockNacionalidadeRepository.Object);
-        //    var pessoaController = new PessoaController(pessoaService);
-
-        //    pessoaController.BloquearUsuario(idPessoa, motivoBloqueio);
-        //}
 
         [Fact]
         public void Alterar_ChaveAcesso_ComChaveAcessoAtualCorreta_Test()

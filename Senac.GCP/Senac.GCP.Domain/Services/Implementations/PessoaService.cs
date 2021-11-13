@@ -17,14 +17,16 @@ namespace Senac.GCP.Domain.Services.Implementations
         private readonly IPessoaRepository pessoaRepository;
         private readonly INacionalidadeRepository nacionalidadeRepository;
 
-        public PessoaService(IPessoaRepository pessoaRepository, IHttpContextAccessor httpContextAccessor, IEmailService emailService, INacionalidadeRepository nacionalidadeRepository)
+        public PessoaService(IPessoaRepository pessoaRepository, 
+            IHttpContextAccessor httpContextAccessor, 
+            IEmailService emailService, 
+            INacionalidadeRepository nacionalidadeRepository)
             : base(pessoaRepository, httpContextAccessor)
         {
             this.emailService = emailService;
             this.pessoaRepository = pessoaRepository;
             this.nacionalidadeRepository = nacionalidadeRepository;
         }
-
 
         public override void BeforePost(PessoaEntity entity)
         {
@@ -131,6 +133,9 @@ namespace Senac.GCP.Domain.Services.Implementations
             var pessoa = pessoaRepository.GetById(pessoaBloqueioDto.IdPessoa);
             if (!pessoa.Bloqueado)
             {
+                if (string.IsNullOrWhiteSpace(pessoaBloqueioDto.MotivoBloqueio))
+                    throw new BusinessException("O motivo de bloqueio da pessoa não informado");
+
                 pessoa.Bloqueado = true;
                 pessoa.MotivoBloqueio = pessoaBloqueioDto.MotivoBloqueio;
                 pessoa.DataBloqueio = DateTime.Now;
