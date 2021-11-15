@@ -8,6 +8,7 @@ namespace Senac.GCP.API.Models
     public sealed class ConcursoFasesLocaisSalaModel : Model
     {
         public long IdConcursoFasesLocais { get; set; }
+
         [StringLength(maximumLength: 255, 
             ErrorMessage = "O tamanho do campo 'Descrição' não pode superar 255 Caracteres.")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo 'Descrição' deve ser informado obrigatoriamente.")]
