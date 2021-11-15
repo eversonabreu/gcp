@@ -9,6 +9,7 @@ namespace Senac.GCP.Domain.Entities
         public string Descricao { get; set; }
 
         public int Codigo { get; set; }
+
         public long IdNivelEscolaridade { get; set; }
 
         [NotMapped]

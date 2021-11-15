@@ -10,6 +10,8 @@ namespace Senac.GCP.API.Models
 {
     public sealed class PessoaModel : Model
     {
+        public long IdNivelEscolaridade { get; set; }
+
         public long IdArquivoFoto { get; set; }
 
         public long IdNacionalidade { get; set; }

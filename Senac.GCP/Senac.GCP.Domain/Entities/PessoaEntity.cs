@@ -1,6 +1,5 @@
 ﻿using Senac.GCP.Domain.Attributes;
 using Senac.GCP.Domain.Entities.Base;
-using Senac.GCP.Domain.Enums;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -12,6 +11,7 @@ namespace Senac.GCP.Domain.Entities
     [Constraint(Name = "FKPessoaIdMunicipioEndereco", ErrorMessage = "O município de endereço não é válido ou não foi atribuído corretamente")]
     [Constraint(Name = "FKPessoaIdMunicipioNaturalidade", ErrorMessage = "O município de naturalidade não é válido ou não foi atribuído corretamente")]
     [Constraint(Name = "FKPessoaIdNacionalidade", ErrorMessage = "A nacionalidade não é válida ou não foi atribuído corretamente")]
+    [Constraint(Name = "FKNivelEscolaridade", ErrorMessage = "O nivel de escolaridade não é válido ou não foi atribuído corretamente")]
     [Constraint(Name = "UKPessoaCPF", ErrorMessage = "Não é possível salvar, porque já existe um registro com este CPF")]
     [Constraint(Name = "UKPessoaEmail", ErrorMessage = "Não é possível salvar, porque já existe um registro com este e-mail")]
     public sealed class PessoaEntity : Entity
@@ -27,6 +27,8 @@ namespace Senac.GCP.Domain.Entities
         public long? IdClassificacaoDoenca { get; set; }
 
         public long IdCorRaca { get; set; }
+
+        public long IdNivelEscolaridade { get; set; }
 
         public string Nome { get; set; }
 
@@ -57,8 +59,6 @@ namespace Senac.GCP.Domain.Entities
         public string EnderecoComplemento { get; set; }
 
         public string EnderecoCEP { get; set; }
-
-        public NivelEscolaridadeEnum NivelEscolaridade { get; set; }
 
         [NotUpdated]
         public bool Bloqueado { get; set; }
@@ -95,5 +95,9 @@ namespace Senac.GCP.Domain.Entities
         [NotMapped]
         [Dependency(NameForeignKey = nameof(IdMunicipioEndereco))]
         public MunicipioEntity MunicipioEndereco { get; set; }
+
+        [NotMapped]
+        [Dependency(NameForeignKey = nameof(IdNivelEscolaridade))]
+        public NivelEscolaridadeEntity NivelEscolaridade { get; set; }
     }
 }

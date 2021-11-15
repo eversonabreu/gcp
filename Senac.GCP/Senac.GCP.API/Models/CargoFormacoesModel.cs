@@ -11,8 +11,5 @@ namespace Senac.GCP.API.Models
         public long IdCargo { get; set; }
 
         public long IdCurso { get; set; }
-
-       
-
     }
 }

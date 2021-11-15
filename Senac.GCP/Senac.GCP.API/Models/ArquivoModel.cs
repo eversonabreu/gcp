@@ -1,4 +1,5 @@
 ﻿using Senac.GCP.API.Models.Base;
+using Senac.GCP.Domain.Attributes;
 using Senac.GCP.Domain.Exceptions;
 using Senac.GCP.Domain.Extensions;
 using System;
@@ -16,6 +17,7 @@ namespace Senac.GCP.API.Models
 
         public byte[] Conteudo { get; set; }
 
+        [DateOnly]
         public DateTime DataUpload { get; set; }
 
         public override void AdditionalValidations()

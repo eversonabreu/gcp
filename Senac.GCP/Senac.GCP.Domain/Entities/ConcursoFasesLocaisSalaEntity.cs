@@ -9,12 +9,15 @@ namespace Senac.GCP.Domain.Entities
     public sealed class ConcursoFasesLocaisSalaEntity : Entity
     {
         public long IdConcursoFasesLocais { get; set; }
+
         public string Descricao { get; set; }
+
         public int QuantidadeDeCarteiras { get; set; }
+
         public int QuantidadeDeCarteirasPcd { get; set; }
 
         [NotMapped]
         [Dependency(NameForeignKey = nameof(IdConcursoFasesLocais))]
-        public ConcursoFasesLocaisEntity concursoFasesLocais { get; set; }
+        public ConcursoFasesLocaisEntity ConcursoFasesLocais { get; set; }
     }
 }

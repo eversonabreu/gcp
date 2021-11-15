@@ -7,5 +7,5 @@ Codigo int not null,
 Descricao text not null,
 constraint PKCurso primary key (Id)
 );
-alter table curso
+alter table Curso
 add constraint FkCursoNivelEscolaridade foreign key (IdNivelEscolaridade) references NivelEscolaridade(id);
