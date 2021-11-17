@@ -15,6 +15,6 @@ create table Inscricao
 
 	Constraint PkInscricao primary key (Id),
 	Constraint FkInscricaoPessoa foreign key(IdPessoa) references Pessoa(Id),
-	Constraint FKConcursoCargoInscricao foreign key(IdConcursoCargo)  references ConcursoCargo (id),
+	Constraint FKConcursoCargoInscricao foreign key(IdConcursoCargo)  references ConcursoCargo(id),
 	constraint UkInscricao unique(NumeroInscricao)
 );

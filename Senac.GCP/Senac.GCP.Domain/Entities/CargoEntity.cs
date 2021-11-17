@@ -10,7 +10,7 @@ namespace Senac.GCP.Domain.Entities
     {
         public string Descricao { get; set; }
 
-       public long IdNivelEscolaridade { get; set; }
+        public long IdNivelEscolaridade { get; set; }
 
         public int Codigo { get; set; }
 

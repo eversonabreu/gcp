@@ -1,5 +1,6 @@
 CREATE TABLE Pessoa (
 	Id BIGINT NOT NULL IDENTITY(1, 1),
+	IdNivelEscolaridade BIGINT NOT NULL,
 	IdArquivoFoto BIGINT NOT NULL,
 	IdNacionalidade BIGINT NOT NULL,
 	IdClassificacaoDoenca BIGINT,
@@ -37,4 +38,7 @@ CREATE TABLE Pessoa (
 	CONSTRAINT FKPessoaIdArquivoFoto FOREIGN KEY (IdArquivoFoto) REFERENCES Arquivo(Id),
 	CONSTRAINT FKPessoaIdMunicipioNaturalidade FOREIGN KEY (IdMunicipioNaturalidade) REFERENCES Municipio(Id)
 );
+
+ALTER TABLE Pessoa
+ADD CONSTRAINT FkPessoaIdNivelEscolaridade FOREIGN KEY (IdNivelEscolaridade) REFERENCES NivelEscolaridade(id);
 

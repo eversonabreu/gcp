@@ -16,7 +16,6 @@ namespace Senac.GCP.API.Models
 
         public int QuantidadeVagasPCD { get; set; }
 
-
         public override void AdditionalValidations()
         {
             if (QuantidadeVagas< 0 || QuantidadeVagasPCD < 0)

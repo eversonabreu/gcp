@@ -9,8 +9,8 @@ namespace Senac.GCP.API.Models
 { 
     public sealed class ConcursoFaseCargoModel : Model
     {
-        public long IdConcusoCargo { get; set; }
+        public long IdCargo { get; set; }
 
-        public long IdConcursoFase { get; set; }
+        public long IdConcursoCargo { get; set; }
     }
 }
