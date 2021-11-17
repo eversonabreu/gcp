@@ -39,5 +39,6 @@ namespace Senac.GCP.API.Models
         //validar dar se as datas são iguais ou menores que a data de finalização de inscrição do concurso
         //validar se data a data de recusa da inscrição é igual ou superior a data de inscrição
         //validar se data a data de pagamento é igual ou superior a data de inscrição
+        
     }
 }
