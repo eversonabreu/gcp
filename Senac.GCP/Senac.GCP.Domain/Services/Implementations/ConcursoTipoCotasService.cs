@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Senac.GCP.Domain.Entities;
 using Senac.GCP.Domain.Repositories;
+using Senac.GCP.Domain.Repositories.Base;
 using Senac.GCP.Domain.Services.Base;
 using Senac.GCP.Domain.Services.Interfaces;
 using System;
@@ -12,6 +13,10 @@ namespace Senac.GCP.Domain.Services.Implementations
     {
         private readonly IConcursoTipoCotasRepository concursoTipoCotasRepository;
         private readonly IConcursoRepository concursoRepository;
+
+        public ConcursoTipoCotasService(IRepository<ConcursoTipoCotasEntity> repository, IHttpContextAccessor httpContextAccessor) : base(repository, httpContextAccessor)
+        {
+        }
 
         public ConcursoTipoCotasService(IConcursoTipoCotasRepository concursoTipoCotasRepository, 
             IHttpContextAccessor httpContextAccessor,
