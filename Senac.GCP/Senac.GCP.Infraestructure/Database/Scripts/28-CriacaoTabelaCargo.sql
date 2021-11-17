@@ -5,5 +5,5 @@ IdNivelEscolaridade BIGINT not null,
 Codigo INT NOT NULL,
 
 CONSTRAINT FKNivelEscolaridadeCargo FOREIGN KEY(IdNivelEscolaridade) REFERENCES NivelEscolaridade(id),
-CONSTRAINT UniqCodigo UNIQUE(Codigo)
+CONSTRAINT UKCodigoCargo UNIQUE(Codigo)
 );
