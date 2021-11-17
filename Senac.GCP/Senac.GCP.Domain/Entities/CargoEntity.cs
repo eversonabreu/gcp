@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Senac.GCP.Domain.Entities
 {
     [Constraint(Name = "FKNivelEscolaridadeCargo", ErrorMessage = "O 'Nivel Escolaridade' digitado não é válido ou não foi atribuído corretamente")]
-    [Constraint(Name = "UniqCodigo", ErrorMessage = "O 'codigo' não é válido ou não foi atribuído corretamente")]
+    [Constraint(Name = "UKCodigoCargo", ErrorMessage = "O 'codigo' não é válido ou não foi atribuído corretamente")]
     public sealed class  CargoEntity: Entity
     {
         public string Descricao { get; set; }
