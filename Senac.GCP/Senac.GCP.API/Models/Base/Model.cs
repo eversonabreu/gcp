@@ -73,7 +73,6 @@ namespace Senac.GCP.API.Models.Base
         {
             if (model is null)
             {
-                throw new ArgumentNullException("O Model não foi serializado corretamente. \nVerifique quais propriedades foram definidas incorretamente.");
             }
             else if (validateId && model.Id is null)
             {
@@ -111,7 +110,6 @@ namespace Senac.GCP.API.Models.Base
                 }
             }
         }
-
         private static void ApplyAttributeStringOptions(Model model)
         {
             var properties = model.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);

@@ -1,6 +1,5 @@
 ﻿using Senac.GCP.Domain.Attributes;
 using Senac.GCP.Domain.Entities.Base;
-using Senac.GCP.Domain.Enums;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Senac.GCP.Domain.Entities
@@ -11,6 +10,7 @@ namespace Senac.GCP.Domain.Entities
     {
 
         public long IdCargo { get; set; }
+
         public long IdCurso { get; set; }
 
         [NotMapped]
