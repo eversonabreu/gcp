@@ -33,17 +33,15 @@ namespace Senac.GCP.Tests
         public void Validar_Se_Arquivo_Supera_10MB_Test()
         {
             //arrange
-            const decimal tamanhoEsperado = 1048580;
+            const int tamanhoEsperado = 11534380;
 
             var mockRepositorioArquivo = new Mock<IArquivoRepository>();
-            var arquivoService = new ArquivoService(mockRepositorioArquivo.Object, UtilsTest.GetHttpContextAccessor());
-            var arquivo = new byte[1048576];
-
-            //actual
-            var result = arquivoService.ObterTamanhoEmMegaBytes(arquivo);
+            var arquivoService = new ArquivoService(mockRepositorioArquivo.Object, 
+                UtilsTest.GetHttpContextAccessor());
+            var arquivo = new byte[tamanhoEsperado];
 
             //assert
-            BusinessException.Equals(tamanhoEsperado, arquivo);
+            Assert.Throws<BusinessException>(() => arquivoService.ObterTamanhoEmMegaBytes(arquivo));
         }
     }    
 }

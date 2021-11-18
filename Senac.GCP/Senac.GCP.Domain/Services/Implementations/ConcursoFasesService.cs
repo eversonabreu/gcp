@@ -4,7 +4,6 @@ using Senac.GCP.Domain.Exceptions;
 using Senac.GCP.Domain.Repositories;
 using Senac.GCP.Domain.Services.Base;
 using Senac.GCP.Domain.Services.Interfaces;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Senac.GCP.Domain.Services.Implementations
@@ -25,14 +24,14 @@ namespace Senac.GCP.Domain.Services.Implementations
         public override void BeforePost(ConcursoFasesEntity entity)
         {
             VerificarSeFaseIniciaAntesDoPeriodoFinalDeInscricaoDoConcurso(entity);
-            ValidarDataInicioNovaFase(entity);
+            ValidarIntervalosDaFase(entity);
             entity.NumeroFase = GerarNumeroFase(entity.IdConcurso);
         }
 
         public override void BeforePut(ConcursoFasesEntity entity)
         {
             VerificarSeFaseIniciaAntesDoPeriodoFinalDeInscricaoDoConcurso(entity);
-            ValidarDataInicioNovaFase(entity);
+            ValidarIntervalosDaFase(entity);
         }
 
         public override void AfterDelete(ConcursoFasesEntity entity)
@@ -63,48 +62,24 @@ namespace Senac.GCP.Domain.Services.Implementations
                 throw new BusinessException("A data de inicio deve ser superior a data final de inscrição do concurso");
         }
 
-        private void UpdateFases(long idConcurso)
+        private void ValidarIntervalosDaFase(ConcursoFasesEntity entity)
         {
-            int contadorContem = 0;
-            int quantidadeDeFasesConcurso = concursoFasesRepository.Filter(x => x.IdConcurso == idConcurso).Count();
-            if (quantidadeDeFasesConcurso > 0)
-            {
-                for(int i = 1; i <= quantidadeDeFasesConcurso; i++)
-                {
-                    if (idConcurso == i)
-                    {
-                        contadorContem++;
-                    }
-                }
-                for (int i = 1; i <= contadorContem; i++)
-                {
-                    
-                }
-            }
-        }
+            var faseAnterior = concursoFasesRepository
+                .SingleOrDefault(x => x.IdConcurso == entity.IdConcurso && x.NumeroFase == (entity.NumeroFase - 1));
+            if (faseAnterior != null && faseAnterior.DataTermino < entity.DataInicio)
+                throw new BusinessException($"Não é possível salvar porque a data de início da fase deve ser igual ou superior à '{faseAnterior.DataTermino:dd/MM/yyyy}'");
 
-        private void ValidarDataInicioNovaFase(ConcursoFasesEntity entity)
-        {
-            if (entity.DataInicio <= entity.DataTermino)
-            //vc precisa as fases pelo repositorio das fases (utilize o id do concurso)
-            //se não tiver fases ainda, não faz nada
-            //vc precisa identificar se a fase corrente possui antecessor e posterior
-            //posterior
-            //pegar a data de início da fase posterior (idconcurso = 1 && numeroFase = numeroFaseCorrente + 1)
-            //verificar se a data de início é menor ou igual a data de termino da fase corrente. (Se não for lança exceção)
-            //antecessor
-            //pegar a data de término da fase antecessor (idconcurso = 1 && numeroFase = numeroFaseCorrente - 1)
-            //verificar se a data de término é maior ou igual a data de início da fase corrente. (Se não for lança exceção)
-
-
-            if (entity.DataInicio < entity.DataTermino)
-                throw new BusinessException("A data de inicio da nova fase, deve superior ou igual à anterior");
+            var fasePosterior = concursoFasesRepository
+                .SingleOrDefault(x => x.IdConcurso == entity.IdConcurso && x.NumeroFase == (entity.NumeroFase + 1));
+            if (fasePosterior != null && fasePosterior.DataInicio > entity.DataInicio)
+                throw new BusinessException($"Não é possível salvar porque a data de início da fase deve ser igual ou inferior à '{faseAnterior.DataInicio:dd/MM/yyyy}'");
         }
 
         private int GerarNumeroFase(long idConcurso)
         {
             int quantidadeFases = concursoFasesRepository.Filter(x => x.IdConcurso == idConcurso).Count();
-            return quantidadeFases++;
+            quantidadeFases++;
+            return quantidadeFases;
         }
     }
 }
