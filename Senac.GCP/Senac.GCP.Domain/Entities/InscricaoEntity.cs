@@ -41,5 +41,6 @@ namespace Senac.GCP.Domain.Entities
         [NotMapped]
         [Dependency(NameForeignKey = nameof(IdConcursoCargo))]
         public ConcursoCargoEntity ConcursoCargo { get; set; }
+        
     }
 }

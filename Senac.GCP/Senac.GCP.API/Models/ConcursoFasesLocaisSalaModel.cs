@@ -1,6 +1,5 @@
 ﻿using Senac.GCP.API.Models.Base;
-using Senac.GCP.Domain.Attributes;
-using Senac.GCP.Domain.Enums;
+using Senac.GCP.Domain.Exceptions;
 using System.ComponentModel.DataAnnotations;
 
 namespace Senac.GCP.API.Models
@@ -14,9 +13,16 @@ namespace Senac.GCP.API.Models
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo 'Descrição' deve ser informado obrigatoriamente.")]
         public string Descricao { get; set; }
 
-        //verificar quais tratamentos devo fazer aqui
+        [Range(minimum: 1, maximum: int.MaxValue, ErrorMessage = "Quantidade inválida de carteiras")]
         public int QuantidadeDeCarteiras { get; set; }
+
+        [Range(minimum: 1, maximum: int.MaxValue, ErrorMessage = "Quantidade inválida de carteiras (PCD)")]
         public int QuantidadeDeCarteirasPcd { get; set; }
 
+        public override void OnValidate()
+        {
+            if (QuantidadeDeCarteiras == 0 && QuantidadeDeCarteirasPcd == 0)
+                throw new BusinessException("É necessário ter no mínimo 1 (uma) carteira para uso normal ou 1 (uma) para uso PCD");
+        }
     }
 }

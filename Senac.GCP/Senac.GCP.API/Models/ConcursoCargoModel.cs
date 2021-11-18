@@ -13,7 +13,7 @@ namespace Senac.GCP.API.Models
 
         public int QuantidadeVagasPCD { get; set; }
 
-        public override void AdditionalValidations()
+        public override void OnValidate()
         {
             if (QuantidadeVagas< 0 || QuantidadeVagasPCD < 0)
                 throw new BusinessException("O valor inserido em uma das colunas de quantidade é inferior a 0 ");

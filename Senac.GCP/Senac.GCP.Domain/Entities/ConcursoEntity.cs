@@ -5,6 +5,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Senac.GCP.Domain.Entities
 {
+    [Constraint(Name = "FkInstituicaoSolicitante", ErrorMessage = "O 'ID da Instituicao Solicitante' não é válido ou não foi atribuído corretamente")]
+    [Constraint(Name = "FkInstituicaoOrganizadora", ErrorMessage = "O 'ID da Instituicao Organizadora' não é válido ou não foi atribuído corretamente")]
+    [Constraint(Name = "UkCodigo", ErrorMessage = "O 'ID do Codigo' não é válido ou não foi atribuído corretamente")]
+
     public sealed class ConcursoEntity : Entity
     {
         [NotUpdated]
