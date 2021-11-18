@@ -6,24 +6,26 @@ using Senac.GCP.Domain.Services.Base;
 using Senac.GCP.Domain.Services.Interfaces;
 using System;
 using System.Text;
+using Senac.GCP.Domain.Exceptions;
 
 namespace Senac.GCP.Domain.Services.Implementations
 {
     public sealed class InscricaoService : Service<InscricaoEntity>, IInscricaoService
     {
         private readonly IInscricaoRepository inscricaoRepository;
+        private readonly IConcursoCargoRepository concursoCargoRepository;
 
-        public InscricaoService(IInscricaoRepository inscricaoRepository, IConcursoRepository concursoRepository, IHttpContextAccessor httpContextAccessor)
+    public InscricaoService(IInscricaoRepository inscricaoRepository, IConcursoCargoRepository concursoCargoRepository, IHttpContextAccessor httpContextAccessor)
             : base(inscricaoRepository, httpContextAccessor)
         {
             this.inscricaoRepository = inscricaoRepository;
+            this.concursoCargoRepository = concursoCargoRepository;
         }
-
         public override void BeforePost(InscricaoEntity entity)
         {
+            ValidarDatas(entity);
             GerarNumeroInscricao(entity);
             entity.Situacao = SituacaoInscricaoEnum.AguardandoPagamento;
-            entity.DataInscricao = DateTime.Now;
         }
 
         private void GerarNumeroInscricao(InscricaoEntity entity)
@@ -48,5 +50,23 @@ namespace Senac.GCP.Domain.Services.Implementations
 
             } while (true);
         }
+  
+        public void ValidarDatas(InscricaoEntity entity)
+        {
+            var concurso = concursoCargoRepository.GetByIdWithDependencies(entity.IdConcursoCargo).Concurso;
+
+            if (entity.DataInscricao < concurso.DataInicioInscricao)
+                throw new BusinessException("A data de inscriçao não pode ser inferior a data de início do concurso!");
+
+            if (entity.DataInscricao > concurso.DataFinalInscricao)
+                throw new BusinessException("A data de inscriçao não pode ser superior a data final de incrição do concurso!");
+
+            if (entity.DataPagamento < concurso.DataInicioInscricao)
+                throw new BusinessException("A data de pagamento não pode ser inferior a data de incrição!");
+
+            if (entity.DataPagamento > concurso.DataFinalInscricao)
+                throw new BusinessException("A data de pagamento não pode ser superior a data final de incrição!");
+        }
+
     }
 }

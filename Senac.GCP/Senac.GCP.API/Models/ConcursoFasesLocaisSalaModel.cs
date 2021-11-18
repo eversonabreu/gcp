@@ -1,6 +1,4 @@
 ﻿using Senac.GCP.API.Models.Base;
-using Senac.GCP.Domain.Attributes;
-using Senac.GCP.Domain.Enums;
 using Senac.GCP.Domain.Exceptions;
 using System.ComponentModel.DataAnnotations;
 

@@ -1,9 +1,12 @@
 ﻿using Senac.GCP.API.Models.Base;
 using Senac.GCP.Domain.Attributes;
+using Senac.GCP.Domain.Entities;
 using Senac.GCP.Domain.Enums;
+using Senac.GCP.Domain.Exceptions;
 using Senac.GCP.Domain.Extensions;
 using System;
 using System.ComponentModel.DataAnnotations;
+
 
 namespace Senac.GCP.API.Models
 {
@@ -35,10 +38,5 @@ namespace Senac.GCP.API.Models
         [Range(minimum: 1, maximum: 2, ErrorMessage = "Tipo de pagamento da inscrição é inválida")]
         public TipoPagamentoEnum? TipoPagamento { get; set; }
 
-        //validar se as datas são iguais ou maiores que a data de início do concurso
-        //validar dar se as datas são iguais ou menores que a data de finalização de inscrição do concurso
-        //validar se data a data de recusa da inscrição é igual ou superior a data de inscrição
-        //validar se data a data de pagamento é igual ou superior a data de inscrição
-        
     }
 }
