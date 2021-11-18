@@ -17,12 +17,18 @@ namespace Senac.GCP.API.Controllers.Base
         protected Token Token { get; private set; }
         private readonly IService<TEntity> service;
         private readonly IRepository<TEntity> repository;
+        private ISolicitacaoIsencaoInscricaoService solicitacaoIsencaoInscricaoService;
 
         public Controller(IService<TEntity> service)
         {
             this.service = service;
             repository = service.GetRepository();
             ValidarToken(service.GetHttpContext());
+        }
+
+        public Controller(ISolicitacaoIsencaoInscricaoService solicitacaoIsencaoInscricaoService)
+        {
+            this.solicitacaoIsencaoInscricaoService = solicitacaoIsencaoInscricaoService;
         }
 
         private static Token GetDataToken(HttpContext httpContext)
