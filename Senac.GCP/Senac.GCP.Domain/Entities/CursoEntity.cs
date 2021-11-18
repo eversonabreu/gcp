@@ -1,7 +1,5 @@
 ﻿using Senac.GCP.Domain.Attributes;
 using Senac.GCP.Domain.Entities.Base;
-using Senac.GCP.Domain.Enums;
-using System;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace Senac.GCP.Domain.Entities
 {
@@ -11,6 +9,7 @@ namespace Senac.GCP.Domain.Entities
         public string Descricao { get; set; }
 
         public int Codigo { get; set; }
+
         public long IdNivelEscolaridade { get; set; }
 
         [NotMapped]

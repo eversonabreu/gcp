@@ -20,3 +20,4 @@ namespace Senac.GCP.API.Models
         public long IdArquivo { get; set; }
     }
 }
+//Validar se a data é superior a data final de inscrição do concurso

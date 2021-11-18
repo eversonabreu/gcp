@@ -1,4 +1,5 @@
 ﻿using Senac.GCP.API.Models.Base;
+using Senac.GCP.Domain.Attributes;
 using Senac.GCP.Domain.Exceptions;
 using Senac.GCP.Domain.Extensions;
 using System;
@@ -16,6 +17,7 @@ namespace Senac.GCP.API.Models
 
         public byte[] Conteudo { get; set; }
 
+        [DateOnly]
         public DateTime DataUpload { get; set; }
 
         public override void AdditionalValidations()
@@ -25,7 +27,8 @@ namespace Senac.GCP.API.Models
             Extensao = nome.GetFileExtension();
 
             if (Conteudo is null || Conteudo.Length == 0)
-                throw new BusinessException("O arquivo deve ser enviado obrigatóriamente");
+                throw new BusinessException("O arquivo deve ser enviado obrigatóriamente");         
+
         }
     }
 }

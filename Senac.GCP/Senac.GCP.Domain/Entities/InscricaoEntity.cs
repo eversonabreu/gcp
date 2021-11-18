@@ -18,7 +18,6 @@ namespace Senac.GCP.Domain.Entities
         public DateTime DataInscricao { get; set; }
 
         [NotUpdated]
-        [NotMapped]
         public string NumeroInscricao { get; set; }
 
         public SituacaoInscricaoEnum Situacao { get; set; }
@@ -27,13 +26,13 @@ namespace Senac.GCP.Domain.Entities
 
         public string MotivoRecusaInscricao { get; set; }
 
-        public DateTime DataRecusaInscricao { get; set; }
+        public DateTime? DataRecusaInscricao { get; set; }
 
-        public decimal ValorPago { get; set; }
+        public decimal? ValorPago { get; set; }
 
-        public DateTime DataPagamento { get; set; }
+        public DateTime? DataPagamento { get; set; }
         
-        public TipoPagamentoEnum TipoPagamento { get; set; }
+        public TipoPagamentoEnum? TipoPagamento { get; set; }
 
         [NotMapped]
         [Dependency(NameForeignKey = nameof(IdPessoa))]

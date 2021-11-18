@@ -9,8 +9,16 @@ namespace Senac.GCP.Domain.Entities
 
     public sealed class  ConcursoFaseCargoEntity: Entity
     {
+        public long IdCargo { get; set; }
+
         public long IdConcursoCargo { get; set; }
 
-        public long IdConcursoFase { get; set; }
+        [NotMapped]
+        [Dependency(NameForeignKey = nameof(IdConcursoCargo))]
+        public ConcursoCargoEntity concursoCargo { get; set; }
+
+        [NotMapped]
+        [Dependency(NameForeignKey = nameof(IdCargo))]
+        public CargoEntity cargo { get; set; }
     }
 }

@@ -21,28 +21,32 @@ namespace Senac.GCP.Domain.Services.Implementations
 
         public override void BeforePost(InscricaoEntity entity)
         {
-            while (true)
-            {
-                string numeroInscricao = GerarNumeroInscricao();
-
-                if (numeroInscricao == entity.NumeroInscricao) continue;
-
-                else entity.NumeroInscricao = numeroInscricao; break;
-            }
+            GerarNumeroInscricao(entity);
             entity.Situacao = SituacaoInscricaoEnum.AguardandoPagamento;
+            entity.DataInscricao = DateTime.Now;
         }
 
-        private string GerarNumeroInscricao()
+        private void GerarNumeroInscricao(InscricaoEntity entity)
         {
-            var num = new StringBuilder();
-            num.Append("1");
-            for (int i = 0; i < 7; i++)
+            do
             {
-                var random = new Random();
-                num.Append(random.Next(0, 10));
-            }
+                var num = new StringBuilder();
+                num.Append('1');
 
-            return num.ToString();
+                for (int aux = 0; aux < 8; aux++)
+                {
+                    var random = new Random();
+                    num.Append(random.Next(0, 10));
+                }
+
+                string numeroInscricao = num.ToString();
+                if (inscricaoRepository.SingleOrDefault(x => x.NumeroInscricao == numeroInscricao) is null)
+                {
+                    entity.NumeroInscricao = numeroInscricao;
+                    break;
+                }
+
+            } while (true);
         }
     }
 }
