@@ -87,7 +87,7 @@ namespace Senac.GCP.API.Models
         public string EnderecoCEP { get; set; }
 
 
-        public override void AdditionalValidations()
+        public override void OnValidate()
         {
             if (Genero != 'F' && Genero != 'M')
                 throw new BusinessException("O Gênero informado é inválido. Deve ser 'F' para 'Feminino' ou 'M' para 'Masculino'");
