@@ -14,7 +14,7 @@ namespace Senac.GCP.API.Models.Base
     {
         public long? Id { get; set; }
 
-        public virtual void AdditionalValidations() { }
+        public virtual void OnValidate() { }
 
         public TEntity ToEntity<TEntity>(long idValue)
         {
@@ -90,7 +90,7 @@ namespace Senac.GCP.API.Models.Base
 
             ApplyAttributeDateOnly(model);
             ApplyAttributeStringOptions(model);
-            model.AdditionalValidations();
+            model.OnValidate();
         }
 
         private static void ApplyAttributeDateOnly(Model model)

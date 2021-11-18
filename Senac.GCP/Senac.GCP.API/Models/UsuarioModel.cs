@@ -27,7 +27,7 @@ namespace Senac.GCP.API.Models
 
         public bool Ativo { get; set; }
 
-        public override void AdditionalValidations()
+        public override void OnValidate()
         {
             if (!ValidadorCPF.Validar(CPF, out string cpf))
             {

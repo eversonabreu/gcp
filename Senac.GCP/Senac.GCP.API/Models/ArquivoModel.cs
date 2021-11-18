@@ -20,7 +20,7 @@ namespace Senac.GCP.API.Models
         [DateOnly]
         public DateTime DataUpload { get; set; }
 
-        public override void AdditionalValidations()
+        public override void OnValidate()
         {
             string nome = Nome;
             Nome = nome.GetFileName();
