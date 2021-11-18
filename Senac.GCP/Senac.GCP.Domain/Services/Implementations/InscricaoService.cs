@@ -15,9 +15,7 @@ namespace Senac.GCP.Domain.Services.Implementations
         private readonly IInscricaoRepository inscricaoRepository;
         private readonly IConcursoCargoRepository concursoCargoRepository;
 
-        public InscricaoService(IInscricaoRepository inscricaoRepository,
-            IHttpContextAccessor httpContextAccessor,
-            IConcursoCargoRepository concursoCargoRepository)
+    public InscricaoService(IInscricaoRepository inscricaoRepository, IConcursoCargoRepository concursoCargoRepository, IHttpContextAccessor httpContextAccessor)
             : base(inscricaoRepository, httpContextAccessor)
         {
             this.inscricaoRepository = inscricaoRepository;

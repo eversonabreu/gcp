@@ -37,6 +37,7 @@ namespace Senac.GCP.API.Models
 
         [Range(minimum: 1, maximum: 2, ErrorMessage = "Tipo de pagamento da inscrição é inválida")]
         public TipoPagamentoEnum? TipoPagamento { get; set; }
+<<<<<<< HEAD
         public override void AdditionalValidations()
         {
             if (DataRecusaInscricao < DataInscricao)
@@ -45,5 +46,13 @@ namespace Senac.GCP.API.Models
             if (DataPagamento < DataInscricao)
                 throw new BusinessException("A data de pagamento não pode ser inferior a data de inscrição!");
         }
+=======
+
+        //validar se as datas são iguais ou maiores que a data de início do concurso
+        //validar dar se as datas são iguais ou menores que a data de finalização de inscrição do concurso
+        //validar se data a data de recusa da inscrição é igual ou superior a data de inscrição
+        //validar se data a data de pagamento é igual ou superior a data de inscrição
+        
+>>>>>>> c5faeef1cd7a7268addf4c09ed4fb7a440f53bde
     }
 }

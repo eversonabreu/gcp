@@ -43,7 +43,7 @@ namespace Senac.GCP.Tests
             var result = arquivoService.ObterTamanhoEmMegaBytes(arquivo);
 
             //assert
-            BusinessException.Equals(tamanhoEsperado, result);
+            BusinessException.Equals(tamanhoEsperado, arquivo);
         }
     }    
 }
