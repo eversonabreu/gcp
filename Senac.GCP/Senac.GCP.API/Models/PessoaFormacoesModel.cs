@@ -13,7 +13,7 @@ namespace Senac.GCP.API.Models
         [DateOnly]
         public DateTime AnoConclusao { get; set; }
 
-        public override void AdditionalValidations()
+        public override void OnValidate()
         {
             if (AnoConclusao.Year < DateTime.Now.Year)
                 throw new Exception("O ano de conclusão informado não é válido. Ele é menor que o ano atual.");

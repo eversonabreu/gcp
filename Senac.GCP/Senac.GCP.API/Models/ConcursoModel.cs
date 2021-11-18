@@ -54,7 +54,7 @@ namespace Senac.GCP.API.Models
 
         public string Observacoes { get; set; }
 
-        public override void AdditionalValidations()
+        public override void OnValidate()
         {
             if (!DataEhValida(DataInicioInscricao, DateTime.Today))
                 throw new BusinessException("A Data de Inicio da Inscrição Não Pode Ser Menor Que a Data Corrente");
