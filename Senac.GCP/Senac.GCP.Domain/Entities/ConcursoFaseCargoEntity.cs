@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Senac.GCP.Domain.Entities
 {
     [Constraint(Name = "UkConcursoCargo", ErrorMessage = "O 'Id Concurso Cargo' não é válido ou não foi atribuído corretamente")]
-    [Constraint(Name = "UkCargo", ErrorMessage = "O 'Id Concurso Fase' não é válido ou não foi atribuído corretamente")]
+    [Constraint(Name = "UkCargo", ErrorMessage = "Não é possível salvar, porque já existe um registro para este concurso com esta pessoa")]
 
     public sealed class  ConcursoFaseCargoEntity: Entity
     {
@@ -15,10 +15,10 @@ namespace Senac.GCP.Domain.Entities
 
         [NotMapped]
         [Dependency(NameForeignKey = nameof(IdConcursoCargo))]
-        public ConcursoCargoEntity concursoCargo { get; set; }
+        public ConcursoCargoEntity ConcursoCargo { get; set; }
 
         [NotMapped]
         [Dependency(NameForeignKey = nameof(IdCargo))]
-        public CargoEntity cargo { get; set; }
+        public CargoEntity Cargo { get; set; }
     }
 }

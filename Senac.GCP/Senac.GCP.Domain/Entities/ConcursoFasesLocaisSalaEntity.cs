@@ -4,8 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Senac.GCP.Domain.Entities
 {
-    [Constraint(Name = "FkConcursosFasesLocaisSalaIdConcursosFasesLocais", 
-        ErrorMessage = "A sala não é valida para a fase local deste concurso .")]
+    [Constraint(Name = "FkConcursosFasesLocaisSalaIdConcursosFasesLocais", ErrorMessage = "A sala não é valida para a fase local deste concurso .")]
     public sealed class ConcursoFasesLocaisSalaEntity : Entity
     {
         public long IdConcursoFasesLocais { get; set; }
