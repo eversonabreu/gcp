@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Senac.GCP.Domain.Entities
 {
+    
     public sealed class ConcursoFasesEntity : Entity
     {
         [NotUpdated]
