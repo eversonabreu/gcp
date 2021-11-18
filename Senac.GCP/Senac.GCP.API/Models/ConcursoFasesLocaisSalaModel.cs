@@ -22,7 +22,7 @@ namespace Senac.GCP.API.Models
         public override void AdditionalValidations()
         {
             if (QuantidadeDeCarteiras < 0 || QuantidadeDeCarteirasPcd < 0)
-                throw new BusinessException("O valor inserido em uma das colunas de quantidade é inferior a 0 ");
+                throw new BusinessException("O valor inserido em uma das colunas de quantidade é inferior a 0 ");        
 
             if (QuantidadeDeCarteiras == 0 && QuantidadeDeCarteirasPcd == 0)
                 throw new BusinessException("Os valores inseridos não correspondem a uma quantidade de carteiras valida, pois não ha carteiras ");
