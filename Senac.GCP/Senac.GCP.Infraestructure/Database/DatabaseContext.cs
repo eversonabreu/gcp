@@ -23,7 +23,7 @@ namespace Senac.GCP.Infraestructure.Database
 
         public DbSet<NacionalidadeEntity> Nacionalidade { get; set; }
 
-        public DbSet<ConcursoEntity> concurso { get; set; }
+        public DbSet<ConcursoEntity> Concurso { get; set; }
 
         public DbSet<ConcursoFasesEntity> ConcursoFases { get; set; }
 
