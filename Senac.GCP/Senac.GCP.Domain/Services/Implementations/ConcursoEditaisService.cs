@@ -17,6 +17,11 @@ namespace Senac.GCP.Domain.Services.Implementations
             this.concursoRepository = concursoRepository;
         }
 
+        public override void BeforePost(ConcursoEditaisEntity entity)
+        {
+            VerificarSeDataEditalEMaiorQueDataFinalInscricao(entity);
+        }
+
         private void VerificarSeDataEditalEMaiorQueDataFinalInscricao(ConcursoEditaisEntity entity)
         {
             var dataFinalInscricaoConcurso = concursoRepository.GetByIdWithDependencies(entity.IdConcurso).DataFinalInscricao;
