@@ -16,8 +16,9 @@ namespace Senac.GCP.Tests
         public void Post_Test()
         {
             var mockConcursoEditaisRepository = new Mock<IConcursoEditaisRepository>();
+            var mockConcursoRepository = new Mock<IConcursoRepository>();
             var ConcursoEditaisService = new ConcursoEditaisService(mockConcursoEditaisRepository.Object,
-                UtilsTest.GetHttpContextAccessor());
+                mockConcursoRepository.Object, UtilsTest.GetHttpContextAccessor());
             var ConcursoEditaisController = new ConcursoEditaisController(ConcursoEditaisService);
 
             var model = new ConcursoEditaisModel
@@ -36,8 +37,9 @@ namespace Senac.GCP.Tests
         public void Post_Descricao_Test()
         {
             var mockConcursoEditaisRepository = new Mock<IConcursoEditaisRepository>();
+            var mockConcursoRepository = new Mock<IConcursoRepository>();
             var ConcursoEditaisService = new ConcursoEditaisService(mockConcursoEditaisRepository.Object,
-                UtilsTest.GetHttpContextAccessor());
+                mockConcursoRepository.Object, UtilsTest.GetHttpContextAccessor());
             var ConcursoEditaisController = new ConcursoEditaisController(ConcursoEditaisService);
 
             var model = new ConcursoEditaisModel
@@ -56,9 +58,10 @@ namespace Senac.GCP.Tests
         public void Put_Test()
         {
             var mockConcursoEditaisRepository = new Mock<IConcursoEditaisRepository>();
+            var mockConcursoRepository = new Mock<IConcursoRepository>();
             mockConcursoEditaisRepository.Setup(x => x.GetById(1)).Returns(new ConcursoEditaisEntity());
             var ConcursoEditaisService = new ConcursoEditaisService(mockConcursoEditaisRepository.Object,
-                UtilsTest.GetHttpContextAccessor());
+                mockConcursoRepository.Object, UtilsTest.GetHttpContextAccessor());
             var ConcursoEditaisController = new ConcursoEditaisController(ConcursoEditaisService);
 
             var model = new ConcursoEditaisModel
@@ -77,8 +80,9 @@ namespace Senac.GCP.Tests
         public void DeleteById_Test()
         {
             var mockConcursoEditaisRepository = new Mock<IConcursoEditaisRepository>();
+            var mockConcursoRepository = new Mock<IConcursoRepository>();
             var ConcursoEditaisService = new ConcursoEditaisService(mockConcursoEditaisRepository.Object,
-                UtilsTest.GetHttpContextAccessor());
+                mockConcursoRepository.Object, UtilsTest.GetHttpContextAccessor());
             var ConcursoEditaisController = new ConcursoEditaisController(ConcursoEditaisService);
 
             ConcursoEditaisController.DeleteById(1);

@@ -11,10 +11,21 @@ namespace Senac.GCP.Domain.Services.Implementations
     {
         private readonly IConcursoRepository concursoRepository;
 
-        public ConcursoEditaisService(IConcursoEditaisRepository concursoEditaisRepository, IConcursoRepository concursoRepository, IHttpContextAccessor httpContextAccessor)
+        public ConcursoEditaisService(IConcursoEditaisRepository concursoEditaisRepository, 
+            IConcursoRepository concursoRepository, IHttpContextAccessor httpContextAccessor)
             : base(concursoEditaisRepository, httpContextAccessor)
         {
             this.concursoRepository = concursoRepository;
+        }
+
+        public override void BeforePost(ConcursoEditaisEntity entity)
+        {
+            VerificarSeDataEditalEMaiorQueDataFinalInscricao(entity);
+        }
+
+        public override void BeforePut(ConcursoEditaisEntity entity)
+        {
+            VerificarSeDataEditalEMaiorQueDataFinalInscricao(entity);
         }
 
         private void VerificarSeDataEditalEMaiorQueDataFinalInscricao(ConcursoEditaisEntity entity)
