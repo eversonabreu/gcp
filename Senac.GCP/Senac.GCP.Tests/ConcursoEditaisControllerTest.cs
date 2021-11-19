@@ -45,7 +45,7 @@ namespace Senac.GCP.Tests
             var model = new ConcursoEditaisModel
             {
                 DataEdital = new DateTime(2021, 08, 05),
-                //Descricao = "Nao pode parar",
+                Descricao = "Nao pode parar",
                 IdConcurso = 1,
                 IdArquivo = 2
 
