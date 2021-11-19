@@ -40,5 +40,5 @@ namespace Senac.GCP.API.IoC
             services.AddTransient<IConcursoFaseCargoRepository, ConcursoFaseCargoRepository>();
             services.AddTransient<IIntegrantesComissaoOrganizacaoRepository, IntegrantesComissaoOrganizacaoRepository>();
         }
-    } 
+    }
 }

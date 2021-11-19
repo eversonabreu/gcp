@@ -59,7 +59,7 @@ namespace Senac.GCP.Tests
             var mockNacionalidadeRepository = new Mock<INacionalidadeRepository>();
 
             mockPessoaRepository.Setup(x => x.GetById(idPessoa)).Returns(new PessoaEntity { ChaveAcesso = chaveAcessoAtual });
-            
+
             var pessoaService = new PessoaService(mockPessoaRepository.Object,
                 UtilsTest.GetHttpContextAccessor(), UtilsTest.GetEmailService(), mockNacionalidadeRepository.Object);
 
@@ -76,7 +76,7 @@ namespace Senac.GCP.Tests
             var mockNacionalidadeRepository = new Mock<INacionalidadeRepository>();
 
             mockPessoaRepository.Setup(x => x.GetById(idPessoa)).Returns(new PessoaEntity { ChaveAcesso = "gjhgjhgjgh" });
-            
+
             var pessoaService = new PessoaService(mockPessoaRepository.Object,
                 UtilsTest.GetHttpContextAccessor(), UtilsTest.GetEmailService(), mockNacionalidadeRepository.Object);
 
@@ -92,7 +92,7 @@ namespace Senac.GCP.Tests
             var mockNacionalidadeRepository = new Mock<INacionalidadeRepository>();
 
             mockPessoaRepository.Setup(x => x.GetById(1)).Returns(new PessoaEntity());
-            
+
             var pessoaService = new PessoaService(mockPessoaRepository.Object,
                 UtilsTest.GetHttpContextAccessor(), UtilsTest.GetEmailService(), mockNacionalidadeRepository.Object);
 

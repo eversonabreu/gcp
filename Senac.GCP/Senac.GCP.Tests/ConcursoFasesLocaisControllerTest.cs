@@ -5,7 +5,6 @@ using Senac.GCP.Domain.Entities;
 using Senac.GCP.Domain.Exceptions;
 using Senac.GCP.Domain.Repositories;
 using Senac.GCP.Domain.Services.Implementations;
-using Senac.GCP.Domain.Utils;
 using Xunit;
 
 namespace Senac.GCP.Tests
@@ -77,7 +76,7 @@ namespace Senac.GCP.Tests
             var model = new ConcursoFasesLocaisModel
             {
                 IdConcursoFases = 1,
-               // NomeLocal = "Nao pode parar ",
+                // NomeLocal = "Nao pode parar ",
                 EnderecoRua = "Leonel",
                 EnderecoNumero = "123",
                 EnderecoBairro = "Favela Venceu",
@@ -308,7 +307,7 @@ namespace Senac.GCP.Tests
 
             };
 
-           ConcursoFasesLocaisController.Put(model);
+            ConcursoFasesLocaisController.Put(model);
         }
 
         [Fact]

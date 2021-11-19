@@ -6,9 +6,12 @@ using Senac.GCP.Domain.Entities;
 namespace Senac.GCP.API.Controllers
 {
     [Route("solicitacao-isencao-inscricao")]
-    public sealed class SolicitacaoIsencaoInscricaoController : Controller<SolicitacaoIsencaoInscricaoModel, SolicitacaoIsencaoInscricaoEntity>
+    public sealed class SolicitacaoIsencaoInscricaoController
+        : Controller<SolicitacaoIsencaoInscricaoModel, SolicitacaoIsencaoInscricaoEntity>
     {
-        public SolicitacaoIsencaoInscricaoController(ISolicitacaoIsencaoInscricaoService solicitacaoIsencaoInscricaoService) : base(solicitacaoIsencaoInscricaoService)
+        public SolicitacaoIsencaoInscricaoController(
+            ISolicitacaoIsencaoInscricaoService solicitacaoIsencaoInscricaoService)
+            : base(solicitacaoIsencaoInscricaoService)
         {
         }
     }

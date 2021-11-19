@@ -1,6 +1,9 @@
-﻿namespace Senac.GCP.API.Controllers
+﻿using Senac.GCP.Domain.Entities;
+using Senac.GCP.Domain.Services.Base;
+
+namespace Senac.GCP.API.Controllers
 {
-    public interface ISolicitacaoIsencaoInscricaoService
+    public interface ISolicitacaoIsencaoInscricaoService : IService<SolicitacaoIsencaoInscricaoEntity>
     {
     }
 }

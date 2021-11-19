@@ -7,7 +7,7 @@ namespace Senac.GCP.Domain.Entities
     [Constraint(Name = "UkConcursoCargo", ErrorMessage = "O 'Id Concurso Cargo' não é válido ou não foi atribuído corretamente")]
     [Constraint(Name = "UkCargo", ErrorMessage = "Não é possível salvar, porque já existe um registro para este concurso com esta pessoa")]
 
-    public sealed class  ConcursoFaseCargoEntity: Entity
+    public sealed class ConcursoFaseCargoEntity : Entity
     {
         public long IdCargo { get; set; }
 

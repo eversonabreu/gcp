@@ -6,7 +6,7 @@ namespace Senac.GCP.Infraestructure.Database.Repositories
 {
     public sealed class SolicitacaoIsencaoInscricaoRepository : Repository<SolicitacaoIsencaoInscricaoEntity>, ISolicitacaoIsencaoInscricaoRepository
     {
-        public SolicitacaoIsencaoInscricaoRepository(DatabaseContext databaseContext) : base(databaseContext) 
+        public SolicitacaoIsencaoInscricaoRepository(DatabaseContext databaseContext) : base(databaseContext)
         {
 
         }

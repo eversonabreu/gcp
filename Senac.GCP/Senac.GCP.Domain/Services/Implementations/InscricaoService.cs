@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Senac.GCP.Domain.Entities;
 using Senac.GCP.Domain.Enums;
+using Senac.GCP.Domain.Exceptions;
 using Senac.GCP.Domain.Repositories;
 using Senac.GCP.Domain.Services.Base;
 using Senac.GCP.Domain.Services.Interfaces;
 using System;
 using System.Text;
-using Senac.GCP.Domain.Exceptions;
 
 namespace Senac.GCP.Domain.Services.Implementations
 {
@@ -15,8 +15,8 @@ namespace Senac.GCP.Domain.Services.Implementations
         private readonly IInscricaoRepository inscricaoRepository;
         private readonly IConcursoCargoRepository concursoCargoRepository;
 
-    public InscricaoService(IInscricaoRepository inscricaoRepository, IConcursoCargoRepository concursoCargoRepository, IHttpContextAccessor httpContextAccessor)
-            : base(inscricaoRepository, httpContextAccessor)
+        public InscricaoService(IInscricaoRepository inscricaoRepository, IConcursoCargoRepository concursoCargoRepository, IHttpContextAccessor httpContextAccessor)
+                : base(inscricaoRepository, httpContextAccessor)
         {
             this.inscricaoRepository = inscricaoRepository;
             this.concursoCargoRepository = concursoCargoRepository;
@@ -50,7 +50,7 @@ namespace Senac.GCP.Domain.Services.Implementations
 
             } while (true);
         }
-  
+
         public void ValidarDatas(InscricaoEntity entity)
         {
             var concurso = concursoCargoRepository.GetByIdWithDependencies(entity.IdConcursoCargo).Concurso;
