@@ -7,3 +7,6 @@ CREATE table IntegrantesComissaoOrganizacao
 	constraint FKIntegrantesComissaoOrganizacaoConcurso Foreign Key (IdConcurso) references Concurso (Id),
 	constraint FKIntegrantesComissaoOrganizacaoUsuario Foreign Key (IdUsuario) references Usuario (Id)
 );
+
+create unique index IdxIntegrantesComissao
+ on IntegrantesComissaoOrganizacao (IdConcurso, IdUsuario);
