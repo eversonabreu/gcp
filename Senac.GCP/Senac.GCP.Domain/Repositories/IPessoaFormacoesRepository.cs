@@ -5,5 +5,6 @@ namespace Senac.GCP.Domain.Repositories
 {
     public interface IPessoaFormacoesRepository : IRepository<PessoaFormacoesEntity>
     {
+
     }
 }
