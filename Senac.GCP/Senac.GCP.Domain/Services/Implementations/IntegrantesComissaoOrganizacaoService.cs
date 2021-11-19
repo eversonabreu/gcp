@@ -15,11 +15,8 @@ namespace Senac.GCP.Domain.Services.Implementations
         public IntegrantesComissaoOrganizacaoService(IIntegrantesComissaoOrganizacaoRepository integrantesComissaoOrganizacaoRepository, IHttpContextAccessor httpContextAccessor)
             : base(integrantesComissaoOrganizacaoRepository, httpContextAccessor)
         {
-<<<<<<< HEAD
 
-=======
             this.integrantesComissaoOrganizacaoRepository = integrantesComissaoOrganizacaoRepository;
->>>>>>> aac83f7870f99183bed08f4d03e112d8f75d973b
         }
 
         public bool VerificarExistenciaIntegrantes(long idConcurso)

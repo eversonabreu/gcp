@@ -5,6 +5,5 @@ namespace Senac.GCP.Domain.Services.Interfaces
 {
     public interface ISolicitacaoIsencaoInscricaoService : IService<SolicitacaoIsencaoInscricaoEntity>
     {
-
     }
 }
