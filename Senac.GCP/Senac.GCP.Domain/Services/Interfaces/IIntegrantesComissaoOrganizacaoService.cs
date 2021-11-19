@@ -5,6 +5,8 @@ namespace Senac.GCP.Domain.Services.Interfaces
 {
     public interface IIntegrantesComissaoOrganizacaoService : IService<IntegrantesComissaoOrganizacaoRepository>
     {
-        bool VerificarExistenciaIntegrantes(long idConcurso);
+        bool VerificarExistenciaDeIntegrantesPorInscricao(long idInscricao);
+
+        void EnviarNotificacaoSobrePedidoDeSolicitacaoDeIsencao(long idInscricao);
     }
 }

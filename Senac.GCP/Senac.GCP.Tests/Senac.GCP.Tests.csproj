@@ -23,7 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Senac.GCP.API\Senac.GCP.API.csproj" />
     <ProjectReference Include="..\Senac.GCP.Domain\Senac.GCP.Domain.csproj" />
-    <ProjectReference Include="..\Senac.GCP.Infraestructure\Senac.GCP.Infraestructure.csproj" />
+    <ProjectReference Include="..\Senac.GCP.Infrastructure\Senac.GCP.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
