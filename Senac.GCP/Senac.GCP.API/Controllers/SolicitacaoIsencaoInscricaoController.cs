@@ -10,6 +10,7 @@ namespace Senac.GCP.API.Controllers
     public sealed class SolicitacaoIsencaoInscricaoController
         : Controller<SolicitacaoIsencaoInscricaoModel, SolicitacaoIsencaoInscricaoEntity>
     {
+
         public SolicitacaoIsencaoInscricaoController(
             ISolicitacaoIsencaoInscricaoService solicitacaoIsencaoInscricaoService)
             : base(solicitacaoIsencaoInscricaoService)

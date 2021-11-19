@@ -11,19 +11,26 @@ namespace Senac.GCP.Domain.Services.Implementations
     public sealed class IntegrantesComissaoOrganizacaoService : Service<IntegrantesComissaoOrganizacaoEntity>, IIntegrantesComissaoOrganizacaoService
     {
         private readonly IIntegrantesComissaoOrganizacaoRepository integrantesComissaoOrganizacaoRepository;
+        private readonly IInscricaoRepository inscricaoRepository;
 
-        public IntegrantesComissaoOrganizacaoService(IIntegrantesComissaoOrganizacaoRepository integrantesComissaoOrganizacaoRepository, IHttpContextAccessor httpContextAccessor)
+        public IntegrantesComissaoOrganizacaoService(IIntegrantesComissaoOrganizacaoRepository integrantesComissaoOrganizacaoRepository,
+            IInscricaoRepository inscricaoRepository,
+            IHttpContextAccessor httpContextAccessor)
             : base(integrantesComissaoOrganizacaoRepository, httpContextAccessor)
         {
             this.integrantesComissaoOrganizacaoRepository = integrantesComissaoOrganizacaoRepository;
+            this.inscricaoRepository = inscricaoRepository;
         }
 
-        public bool VerificarExistenciaIntegrantes(long idConcurso)
+        public bool VerificarExistenciaDeIntegrantesPorInscricao(long idInscricao)
         {
-            var integrantes = integrantesComissaoOrganizacaoRepository.Filter(x => x.IdConcurso == idConcurso).ToList().Count();
-            if (integrantes>0) return true;
-            else return false;
+            var concursoCargo = inscricaoRepository.GetByIdWithDependencies(idInscricao).ConcursoCargo;
+            return integrantesComissaoOrganizacaoRepository.Filter(x => x.IdConcurso == concursoCargo.IdConcurso).Any();
         }
 
+        public void EnviarNotificacaoSobrePedidoDeSolicitacaoDeIsencao(long idInscricao)
+        {
+
+        }
     }
 }
