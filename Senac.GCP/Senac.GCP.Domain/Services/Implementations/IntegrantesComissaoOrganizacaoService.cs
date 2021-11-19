@@ -4,11 +4,12 @@ using Senac.GCP.Domain.Repositories;
 using Senac.GCP.Domain.Services.Base;
 using Senac.GCP.Domain.Services.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Senac.GCP.Domain.Services.Implementations
 {
-    public sealed class IntegrantesComissaoOrganizacaoService : Service<IntegrantesComissaoOrganizacaoEntity>, IIntegrantesComissaoOrganizacaoService
+    public sealed class IntegrantesComissaoOrganizacaoService : Service<IntegrantesComissaoOrganizacaoRepository>, IIntegrantesComissaoOrganizacaoService
     {
         private readonly IIntegrantesComissaoOrganizacaoRepository integrantesComissaoOrganizacaoRepository;
 
@@ -18,13 +19,9 @@ namespace Senac.GCP.Domain.Services.Implementations
             this.integrantesComissaoOrganizacaoRepository = integrantesComissaoOrganizacaoRepository;
         }
 
-        public bool VerificarExistenciaIntegrantes(long idConcurso)
-        {
-            var integrantes = integrantesComissaoOrganizacaoRepository.Filter(x => x.IdConcurso == idConcurso).ToList().Count();
-            if (integrantes>0) return true;
-            else return false;
-        }
 
-    }
+
+           
+        }
 }
 

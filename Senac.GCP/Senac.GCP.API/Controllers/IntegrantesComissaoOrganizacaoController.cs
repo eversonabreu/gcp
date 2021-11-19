@@ -8,7 +8,7 @@ using Senac.GCP.Domain.Services.Interfaces;
 namespace Senac.GCP.API.Controllers
 {
     [Route("integrantes-comissao-organizacao")]
-    public sealed class IntegrantesComissaoOrganizacaoController : Controller<IntegrantesComissaoOrganizacaoModel, IntegrantesComissaoOrganizacaoEntity>
+    public sealed class IntegrantesComissaoOrganizacaoController : Controller<IntegrantesComissaoOrganizacaoModel, IntegrantesComissaoOrganizacaoRepository>
     {
         private readonly IIntegrantesComissaoOrganizacaoService integrantesComissaoOrganizacaoService;
         public IntegrantesComissaoOrganizacaoController(IIntegrantesComissaoOrganizacaoService integrantesComissaoOrganizacaoService) : base(integrantesComissaoOrganizacaoService)

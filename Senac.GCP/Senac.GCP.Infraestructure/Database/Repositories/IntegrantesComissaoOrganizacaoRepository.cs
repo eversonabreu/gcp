@@ -4,7 +4,7 @@ using Senac.GCP.Infraestructure.Database.Repositories.Base;
 
 namespace Senac.GCP.Infraestructure.Database.Repositories
 {
-    public sealed class IntegrantesComissaoOrganizacaoRepository : Repository<IntegrantesComissaoOrganizacaoEntity>, IIntegrantesComissaoOrganizacaoRepository
+    public sealed class IntegrantesComissaoOrganizacaoRepository : Repository<Domain.Entities.IntegrantesComissaoOrganizacaoRepository>, IIntegrantesComissaoOrganizacaoRepository
     {
         public IntegrantesComissaoOrganizacaoRepository(DatabaseContext databaseContext) : base(databaseContext)
         {
