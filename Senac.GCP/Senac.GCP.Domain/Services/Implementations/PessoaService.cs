@@ -17,9 +17,9 @@ namespace Senac.GCP.Domain.Services.Implementations
         private readonly IPessoaRepository pessoaRepository;
         private readonly INacionalidadeRepository nacionalidadeRepository;
 
-        public PessoaService(IPessoaRepository pessoaRepository, 
-            IHttpContextAccessor httpContextAccessor, 
-            IEmailService emailService, 
+        public PessoaService(IPessoaRepository pessoaRepository,
+            IHttpContextAccessor httpContextAccessor,
+            IEmailService emailService,
             INacionalidadeRepository nacionalidadeRepository)
             : base(pessoaRepository, httpContextAccessor)
         {
@@ -44,7 +44,7 @@ namespace Senac.GCP.Domain.Services.Implementations
             if (!EnviarEmailUsuarioComChaveDeAcesso(entity))
             {
                 pessoaRepository.DeleteById(entity.Id);
-                    throw new SendEmailException("Não foi possível inserir esta pessoa porque ocorreu um problema no envio de e-mail de sua senha");
+                throw new SendEmailException("Não foi possível inserir esta pessoa porque ocorreu um problema no envio de e-mail de sua senha");
             }
         }
 

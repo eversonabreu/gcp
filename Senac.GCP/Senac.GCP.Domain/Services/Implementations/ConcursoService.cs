@@ -30,7 +30,7 @@ namespace Senac.GCP.Domain.Services.Implementations
             int numeroConcurso = int.Parse($"{anoCorrente}{numeroAleatorioValor}");
             return numeroConcurso;
         }
- 
+
         public override void BeforePost(ConcursoEntity entity)
         {
             entity.Numero = GerarCodigoConcurso();
@@ -48,7 +48,7 @@ namespace Senac.GCP.Domain.Services.Implementations
                 .Filter(x => x.IdConcurso == idConcurso)
                 .Sum(x => x.PercentualVagas);
             int totalPercentualDeVagas = percentualQuantidadeVagasAmplaConcorrencia + totalPercentualDeVagasCotistas;
-            
+
             return totalPercentualDeVagas;
         }
 

@@ -11,7 +11,7 @@ namespace Senac.GCP.Domain.Services.Implementations
     {
         private readonly IConcursoRepository concursoRepository;
 
-        public ConcursoEditaisService(IConcursoEditaisRepository concursoEditaisRepository, 
+        public ConcursoEditaisService(IConcursoEditaisRepository concursoEditaisRepository,
             IConcursoRepository concursoRepository, IHttpContextAccessor httpContextAccessor)
             : base(concursoEditaisRepository, httpContextAccessor)
         {

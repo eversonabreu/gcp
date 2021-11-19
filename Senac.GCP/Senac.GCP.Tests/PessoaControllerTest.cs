@@ -17,7 +17,7 @@ namespace Senac.GCP.Tests
             var mockPessoaRepository = new Mock<IPessoaRepository>();
             var mockNacionalidadeRepository = new Mock<INacionalidadeRepository>();
 
-            mockNacionalidadeRepository.Setup(x => x.GetById(1)).Returns(new NacionalidadeEntity { Nome = "Brasileiro(a)"});
+            mockNacionalidadeRepository.Setup(x => x.GetById(1)).Returns(new NacionalidadeEntity { Nome = "Brasileiro(a)" });
 
             var pessoaService = new PessoaService
             (
@@ -285,8 +285,8 @@ namespace Senac.GCP.Tests
             var pessoaService = new PessoaService
             (
                 mockPessoaRepository.Object,
-                UtilsTest.GetHttpContextAccessor(), 
-                UtilsTest.GetEmailService(), 
+                UtilsTest.GetHttpContextAccessor(),
+                UtilsTest.GetEmailService(),
                 mockNacionalidadeRepository.Object
             );
             var pessoaController = new PessoaController(pessoaService);
@@ -329,8 +329,8 @@ namespace Senac.GCP.Tests
             var pessoaService = new PessoaService
             (
                 mockPessoaRepository.Object,
-                UtilsTest.GetHttpContextAccessor(), 
-                UtilsTest.GetEmailService(), 
+                UtilsTest.GetHttpContextAccessor(),
+                UtilsTest.GetEmailService(),
                 mockNacionalidadeRepository.Object
             );
             var pessoaController = new PessoaController(pessoaService);
@@ -369,12 +369,12 @@ namespace Senac.GCP.Tests
             var mockNacionalidadeRepository = new Mock<INacionalidadeRepository>();
 
             mockNacionalidadeRepository.Setup(x => x.GetById(1)).Returns(new NacionalidadeEntity());
-            
+
             var pessoaService = new PessoaService
             (
                 mockPessoaRepository.Object,
-                UtilsTest.GetHttpContextAccessor(), 
-                UtilsTest.GetEmailService(), 
+                UtilsTest.GetHttpContextAccessor(),
+                UtilsTest.GetEmailService(),
                 mockNacionalidadeRepository.Object
             );
             var pessoaController = new PessoaController(pessoaService);

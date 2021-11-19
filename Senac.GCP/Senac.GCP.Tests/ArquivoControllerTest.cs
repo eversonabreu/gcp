@@ -86,7 +86,7 @@ namespace Senac.GCP.Tests
 
             //actual and assert
             Assert.Throws<BusinessException>(() => arquivoController.Post(model));
-            
+
             //Assert.Throws<> => É chamado para testar os erros. sendo o segundo passo para testar o método. 
             //<BusinessException> => testa os erros esperados qual são voids "erros sem retorno"
             //assert => valida as informações do método, caso seja void, o passo actual e assert atuam juntamente.
@@ -103,7 +103,7 @@ namespace Senac.GCP.Tests
 
             var model = new ArquivoModel
             {
-                Conteudo = new byte [10]
+                Conteudo = new byte[10]
             };
 
             Assert.Throws<BusinessException>(() => arquivoController.Post(model));
@@ -220,10 +220,10 @@ namespace Senac.GCP.Tests
                 UtilsTest.GetHttpContextAccessor());
             var arquivoController = new ArquivoController(ArquivoService);
 
-             var model = new ArquivoModel
-             {
-                 Nome = "Manuel.pdf"
-             };
+            var model = new ArquivoModel
+            {
+                Nome = "Manuel.pdf"
+            };
 
             Assert.Throws<BusinessException>(() => arquivoController.Put(model));
         }
@@ -252,7 +252,7 @@ namespace Senac.GCP.Tests
         [Fact]
         public void DeleteById_Test()
         {
-            var mockArquivoRepository = new Mock<IArquivoRepository>();            
+            var mockArquivoRepository = new Mock<IArquivoRepository>();
             var ArquivoService = new ArquivoService(mockArquivoRepository.Object,
                 UtilsTest.GetHttpContextAccessor());
             var ArquivoController = new ArquivoController(ArquivoService);

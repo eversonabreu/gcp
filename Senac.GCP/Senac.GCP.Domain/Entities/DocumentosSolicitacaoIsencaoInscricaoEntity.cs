@@ -9,11 +9,11 @@ namespace Senac.GCP.Domain.Entities
     {
         public long IdSolicitacaoIsencaoInscricao { get; set; }
 
-        public long IdArquivo { get; set; }       
-        
+        public long IdArquivo { get; set; }
+
         public long IdTipoSolicitacaoIsencaoInscricao { get; set; }
 
-       
+
         [Dependency(NameForeignKey = nameof(IdSolicitacaoIsencaoInscricao))]
         public SolicitacaoIsencaoInscricaoEntity SolicitacaoIsencaoInscricao { get; set; }
 
