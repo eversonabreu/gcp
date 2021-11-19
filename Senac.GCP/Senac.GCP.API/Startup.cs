@@ -9,7 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Senac.GCP.API.IoC;
 using Senac.GCP.Domain.Repositories.Base;
-using Senac.GCP.Infraestructure.Database;
+using Senac.GCP.Infrastructure.Database;
 using System;
 
 namespace Senac.GCP.API
