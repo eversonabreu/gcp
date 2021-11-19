@@ -11,7 +11,7 @@ namespace Senac.GCP.Domain.Services.Implementations
         public IntegrantesComissaoOrganizacaoService(IIntegrantesComissaoOrganizacaoRepository integrantesComissaoOrganizacaoRepository, IHttpContextAccessor httpContextAccessor)
             : base(integrantesComissaoOrganizacaoRepository, httpContextAccessor)
         {
+
         }
     }
 }
-
