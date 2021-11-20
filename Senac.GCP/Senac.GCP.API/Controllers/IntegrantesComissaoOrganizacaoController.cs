@@ -2,7 +2,6 @@
 using Senac.GCP.API.Controllers.Base;
 using Senac.GCP.API.Models;
 using Senac.GCP.Domain.Entities;
-using Senac.GCP.Domain.Services.Implementations;
 using Senac.GCP.Domain.Services.Interfaces;
 
 namespace Senac.GCP.API.Controllers
@@ -17,8 +16,8 @@ namespace Senac.GCP.API.Controllers
         }
 
         [HttpGet]
-        [Route("verificar-integrantes")]
-        public bool VerificarExistenciaIntegrantes(long idConcurso)
-            => integrantesComissaoOrganizacaoService.VerificarExistenciaDeIntegrantesPorInscricao(idConcurso);
+        [Route("verificar-existencia-integrantes-por-inscricao")]
+        public bool VerificarExistenciaDeIntegrantesPorInscricao(long idInscricao)
+            => integrantesComissaoOrganizacaoService.VerificarExistenciaDeIntegrantesPorInscricao(idInscricao);
     }
 }
