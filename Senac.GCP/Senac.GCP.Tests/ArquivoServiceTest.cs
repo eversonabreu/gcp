@@ -1,11 +1,7 @@
 ﻿using Moq;
-using Senac.GCP.API.Controllers;
-using Senac.GCP.API.Models;
 using Senac.GCP.Domain.Exceptions;
 using Senac.GCP.Domain.Repositories;
 using Senac.GCP.Domain.Services.Implementations;
-using Senac.GCP.Domain.Services.Interfaces;
-using System;
 using Xunit;
 
 namespace Senac.GCP.Tests
@@ -36,12 +32,12 @@ namespace Senac.GCP.Tests
             const int tamanhoEsperado = 11534380;
 
             var mockRepositorioArquivo = new Mock<IArquivoRepository>();
-            var arquivoService = new ArquivoService(mockRepositorioArquivo.Object, 
+            var arquivoService = new ArquivoService(mockRepositorioArquivo.Object,
                 UtilsTest.GetHttpContextAccessor());
             var arquivo = new byte[tamanhoEsperado];
 
             //assert
             Assert.Throws<BusinessException>(() => arquivoService.ObterTamanhoEmMegaBytes(arquivo));
         }
-    }    
+    }
 }

@@ -2,6 +2,6 @@
 {
     public static class DecimalExtensions
     {
-        public const double MaxValueToDouble = (double) decimal.MaxValue;
+        public const double MaxValueToDouble = (double)decimal.MaxValue;
     }
 }

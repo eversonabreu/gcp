@@ -31,7 +31,7 @@ namespace Senac.GCP.Domain.Entities
         public decimal? ValorPago { get; set; }
 
         public DateTime? DataPagamento { get; set; }
-        
+
         public TipoPagamentoEnum? TipoPagamento { get; set; }
 
         [NotMapped]
@@ -41,6 +41,6 @@ namespace Senac.GCP.Domain.Entities
         [NotMapped]
         [Dependency(NameForeignKey = nameof(IdConcursoCargo))]
         public ConcursoCargoEntity ConcursoCargo { get; set; }
-        
+
     }
 }

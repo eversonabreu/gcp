@@ -1,6 +1,5 @@
 ﻿using Senac.GCP.API.Models.Base;
 using Senac.GCP.Domain.Attributes;
-using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Senac.GCP.API.Models
