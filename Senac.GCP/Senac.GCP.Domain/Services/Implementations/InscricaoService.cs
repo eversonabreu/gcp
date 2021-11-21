@@ -3,6 +3,7 @@ using Senac.GCP.Domain.Dtos;
 using Senac.GCP.Domain.Entities;
 using Senac.GCP.Domain.Enums;
 using Senac.GCP.Domain.Exceptions;
+using Senac.GCP.Domain.Notifications;
 using Senac.GCP.Domain.Repositories;
 using Senac.GCP.Domain.Services.Base;
 using Senac.GCP.Domain.Services.Interfaces;
@@ -17,18 +18,21 @@ namespace Senac.GCP.Domain.Services.Implementations
         private readonly IConcursoCargoRepository concursoCargoRepository;
         private readonly IConcursoRepository concursoRepository;
         private readonly ISolicitacaoIsencaoInscricaoRepository solicitacaoIsencaoInscricaoRepository;
+        private readonly IEmailService emailService;
 
         public InscricaoService(IInscricaoRepository inscricaoRepository,
             IConcursoCargoRepository concursoCargoRepository,
             IHttpContextAccessor httpContextAccessor,
             ISolicitacaoIsencaoInscricaoRepository solicitacaoIsencaoInscricaoRepository,
-            IConcursoRepository concursoRepository)
+            IConcursoRepository concursoRepository,
+            IEmailService emailService)
                 : base(inscricaoRepository, httpContextAccessor)
         {
             this.inscricaoRepository = inscricaoRepository;
             this.concursoCargoRepository = concursoCargoRepository;
             this.solicitacaoIsencaoInscricaoRepository = solicitacaoIsencaoInscricaoRepository;
             this.concursoRepository = concursoRepository;
+            this.emailService = emailService;
         }
 
         public override void BeforePost(InscricaoEntity entity)
@@ -124,8 +128,25 @@ namespace Senac.GCP.Domain.Services.Implementations
             inscricao.TipoPagamento = (TipoPagamentoEnum)tipoPagamento;
             inscricao.ValorPago = valorPagamentoDto.Valor.Value;
             inscricaoRepository.Update(inscricao);
+            EnviarEmailNotificandoPagamentoRealizado(idInscricao, tipoPagamento);
         }
         //criar um metodo para envio de email notificando que o pagamento foi realizado com sucesso
         //mandar a ficha de inscrição (no futuro).
+
+        public bool EnviarEmailNotificandoPagamentoRealizado(long idInscricao, int tipoDePagamento)
+        {
+            var inscricao = inscricaoRepository.GetByIdWithDependencies(idInscricao);
+            var tipoPagamento = (TipoPagamentoEnum)tipoDePagamento;
+            var pessoa = inscricao.Pessoa;
+
+            var envioEmail = emailService
+                             .WithTitle("GCP - Pagamento realizado com sucesso")
+                             .WithBody(@$"<h4>Prezado(a): <b>{pessoa.Nome} com número de inscrição de: 
+                                        {inscricao}</b>, informamos o pagamento da sua inscrição 
+                                        via {tipoPagamento}</h4><br/>", true)
+                             .WithRecipient(pessoa.Email)
+                             .Send();
+            return envioEmail;
+        }
     }
 }
