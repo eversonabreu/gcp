@@ -108,6 +108,20 @@ namespace Senac.GCP.Domain.Services.Implementations
             return valorPagamentoInscricaoDto;
         }
 
+        public void IsentarValorDeInscricao(long idInscricao)
+        {
+            var inscricao = inscricaoRepository.GetById(idInscricao);
+
+            if (inscricao.Situacao != SituacaoInscricaoEnum.AguardandoPagamento)
+                throw new BusinessException("Não é possível realizar esta operação porque a inscrição não possui pagamento pendente. Entre em contato com o suporte técnico.");
+
+            inscricao.DataPagamento = null;
+            inscricao.TipoPagamento = null;
+            inscricao.ValorPago = null;
+            inscricao.Situacao = SituacaoInscricaoEnum.Isento;
+            inscricaoRepository.Update(inscricao);
+        }
+
         public void EfetuarPagamento(long idInscricao, int tipoPagamento)
         {
             if (tipoPagamento != 1 && tipoPagamento != 2)
@@ -124,9 +138,14 @@ namespace Senac.GCP.Domain.Services.Implementations
                                                 Aguarde a resposta da equipe de organização do concurso.");
 
             var inscricao = inscricaoRepository.GetById(idInscricao);
+
+            if (inscricao.Situacao != SituacaoInscricaoEnum.AguardandoPagamento)
+                throw new BusinessException("Não é possível efetuar o pagamento porque a inscrição não possui pagamento pendente. Entre em contato com o suporte técnico.");
+
             inscricao.DataPagamento = DateTime.Now;
             inscricao.TipoPagamento = (TipoPagamentoEnum)tipoPagamento;
             inscricao.ValorPago = valorPagamentoDto.Valor.Value;
+            inscricao.Situacao = SituacaoInscricaoEnum.Pago;
             inscricaoRepository.Update(inscricao);
             EnviarEmailNotificandoPagamentoRealizado(idInscricao, tipoPagamento);
         }

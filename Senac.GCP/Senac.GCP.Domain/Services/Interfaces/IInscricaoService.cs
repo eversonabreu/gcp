@@ -9,5 +9,7 @@ namespace Senac.GCP.Domain.Services.Interfaces
         ValorPagamentoInscricaoDto ObterValorPagamento(long idInscricao);
 
         void EfetuarPagamento(long idInscricao, int tipoPagamento);
+
+        void IsentarValorDeInscricao(long idInscricao);
     }
 }

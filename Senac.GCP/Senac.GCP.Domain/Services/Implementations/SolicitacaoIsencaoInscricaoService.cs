@@ -14,15 +14,17 @@ namespace Senac.GCP.Domain.Services.Implementations
     {
         private readonly IIntegrantesComissaoOrganizacaoService integrantesComissaoOrganizacaoService;
         private readonly ISolicitacaoIsencaoInscricaoRepository solicitacaoIsencaoInscricaoRepository;
+        private readonly IInscricaoService inscricaoService;
 
         public SolicitacaoIsencaoInscricaoService(ISolicitacaoIsencaoInscricaoRepository solicitacaoIsencaoInscricaoRepository,
             IHttpContextAccessor httpContextAccessor, 
-            IIntegrantesComissaoOrganizacaoService integrantesComissaoOrganizacaoService
-            )
+            IIntegrantesComissaoOrganizacaoService integrantesComissaoOrganizacaoService,
+            IInscricaoService inscricaoService)
             : base(solicitacaoIsencaoInscricaoRepository, httpContextAccessor)
         {
             this.integrantesComissaoOrganizacaoService = integrantesComissaoOrganizacaoService;
             this.solicitacaoIsencaoInscricaoRepository = solicitacaoIsencaoInscricaoRepository;
+            this.inscricaoService = inscricaoService;
         }
 
         public override void AfterPost(SolicitacaoIsencaoInscricaoEntity entity)
@@ -53,11 +55,18 @@ namespace Senac.GCP.Domain.Services.Implementations
             solicitacaoIsencaoInscricaoRepository.Update(solicitacaoIsencaoInscricao);
 
             if (pedidoSolicitacaoIsencaoInscricaoDto.Aprovado)
+            {
+                if (inscricaoService.ObterValorPagamento(pedidoSolicitacaoIsencaoInscricaoDto.IdInscricao).InscricaoIsenta)
+                    inscricaoService.IsentarValorDeInscricao(pedidoSolicitacaoIsencaoInscricaoDto.IdInscricao);
+
                 EnviarNotificacaoPedidoDeSolicitacaoDeIsencaoAprovada(pedidoSolicitacaoIsencaoInscricaoDto.IdPessoa,
                     pedidoSolicitacaoIsencaoInscricaoDto.IdInscricao);
+            }
             else
+            {
                 EnviarNotificacaoPedidoDeSolicitacaoDeIsencaoReprovada(pedidoSolicitacaoIsencaoInscricaoDto.IdPessoa,
                     pedidoSolicitacaoIsencaoInscricaoDto.IdInscricao, pedidoSolicitacaoIsencaoInscricaoDto.MotivoReprovacao);
+            }
         }
 
         private void EnviarNotificacaoPedidoDeSolicitacaoDeIsencaoAprovada(long idPessoa, long idInscricao)
