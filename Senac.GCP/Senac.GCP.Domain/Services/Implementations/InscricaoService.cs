@@ -15,13 +15,11 @@ namespace Senac.GCP.Domain.Services.Implementations
     public sealed class InscricaoService : Service<InscricaoEntity>, IInscricaoService
     {
         private readonly IInscricaoRepository inscricaoRepository;
-        private readonly IConcursoCargoRepository concursoCargoRepository;
         private readonly IConcursoRepository concursoRepository;
         private readonly ISolicitacaoIsencaoInscricaoRepository solicitacaoIsencaoInscricaoRepository;
         private readonly IEmailService emailService;
 
         public InscricaoService(IInscricaoRepository inscricaoRepository,
-            IConcursoCargoRepository concursoCargoRepository,
             IHttpContextAccessor httpContextAccessor,
             ISolicitacaoIsencaoInscricaoRepository solicitacaoIsencaoInscricaoRepository,
             IConcursoRepository concursoRepository,
@@ -29,7 +27,6 @@ namespace Senac.GCP.Domain.Services.Implementations
                 : base(inscricaoRepository, httpContextAccessor)
         {
             this.inscricaoRepository = inscricaoRepository;
-            this.concursoCargoRepository = concursoCargoRepository;
             this.solicitacaoIsencaoInscricaoRepository = solicitacaoIsencaoInscricaoRepository;
             this.concursoRepository = concursoRepository;
             this.emailService = emailService;
@@ -67,7 +64,7 @@ namespace Senac.GCP.Domain.Services.Implementations
 
         public void ValidarDatas(InscricaoEntity entity)
         {
-            var concurso = concursoCargoRepository.GetByIdWithDependencies(entity.IdConcursoCargo).Concurso;
+            var concurso = concursoRepository.ObterConcursoPorInscricao(entity.Id);
 
             if (entity.DataInscricao < concurso.DataInicioInscricao)
                 throw new BusinessException("A data de inscriçao não pode ser inferior a data de início do concurso!");
@@ -83,7 +80,7 @@ namespace Senac.GCP.Domain.Services.Implementations
         }
 
         public ValorPagamentoInscricaoDto ObterValorPagamento(long idInscricao)
-        {      
+        {
             var valorPagamentoInscricaoDto = new ValorPagamentoInscricaoDto();
             var valorInscricao = concursoRepository.GetById(idInscricao).ValorInscricao;
             var solicitacaoIsencaoInscricao = solicitacaoIsencaoInscricaoRepository
@@ -149,23 +146,19 @@ namespace Senac.GCP.Domain.Services.Implementations
             inscricaoRepository.Update(inscricao);
             EnviarEmailNotificandoPagamentoRealizado(idInscricao, tipoPagamento);
         }
-        //criar um metodo para envio de email notificando que o pagamento foi realizado com sucesso
-        //mandar a ficha de inscrição (no futuro).
 
-        public bool EnviarEmailNotificandoPagamentoRealizado(long idInscricao, int tipoDePagamento)
+        private void EnviarEmailNotificandoPagamentoRealizado(long idInscricao, int tipoDePagamento)
         {
-            var inscricao = inscricaoRepository.GetByIdWithDependencies(idInscricao);
+            var inscricao = inscricaoRepository.GetById(idInscricao);
             var tipoPagamento = (TipoPagamentoEnum)tipoDePagamento;
             var pessoa = inscricao.Pessoa;
 
-            var envioEmail = emailService
-                             .WithTitle("GCP - Pagamento realizado com sucesso")
-                             .WithBody(@$"<h4>Prezado(a): <b>{pessoa.Nome} com número de inscrição de: 
-                                        {inscricao}</b>, informamos o pagamento da sua inscrição 
-                                        via {tipoPagamento}</h4><br/>", true)
-                             .WithRecipient(pessoa.Email)
-                             .Send();
-            return envioEmail;
+            emailService.WithTitle("GCP - Pagamento realizado com sucesso")
+                        .WithBody(@$"<h4>Prezado(a): <b>{pessoa.Nome} com número de inscrição de: 
+                                   {inscricao}</b>, informamos que recebemos o pagamento da sua inscrição 
+                                   via {tipoPagamento}</h4><br/>", true)
+                        .WithRecipient(pessoa.Email)
+                        .Send();
         }
     }
 }

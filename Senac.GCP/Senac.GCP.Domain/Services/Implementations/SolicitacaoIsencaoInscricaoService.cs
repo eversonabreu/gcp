@@ -20,7 +20,6 @@ namespace Senac.GCP.Domain.Services.Implementations
         private readonly IInscricaoRepository inscricaoRepository;
         private readonly IEmailService emailService;
         private readonly IConcursoRepository concursoRepository;
-        private readonly IConcursoCargoRepository concursoCargoRepository;
 
         public SolicitacaoIsencaoInscricaoService(ISolicitacaoIsencaoInscricaoRepository solicitacaoIsencaoInscricaoRepository,
             IHttpContextAccessor httpContextAccessor,
@@ -29,8 +28,7 @@ namespace Senac.GCP.Domain.Services.Implementations
             IInscricaoService inscricaoService,
             IPessoaRepository pessoaRepository,
             IInscricaoRepository inscricaoRepository,
-            IConcursoRepository concursoRepository,
-            IConcursoCargoRepository concursoCargoRepository)
+            IConcursoRepository concursoRepository)
             : base(solicitacaoIsencaoInscricaoRepository, httpContextAccessor)
         {
             this.pessoaRepository = pessoaRepository;
@@ -40,7 +38,6 @@ namespace Senac.GCP.Domain.Services.Implementations
             this.inscricaoRepository = inscricaoRepository;
             this.emailService = emailService;
             this.concursoRepository = concursoRepository;
-            this.concursoCargoRepository = concursoCargoRepository;
         }
 
         public override void AfterPost(SolicitacaoIsencaoInscricaoEntity entity)
@@ -89,8 +86,7 @@ namespace Senac.GCP.Domain.Services.Implementations
         {
             var pessoa = pessoaRepository.GetByIdWithDependencies(idPessoa);
             var inscricao = inscricaoRepository.GetByIdWithDependencies(idInscricao);
-            var concursoCargo = concursoCargoRepository.GetById(inscricao.IdConcursoCargo);
-            var concurso = concursoRepository.GetById(concursoCargo.IdConcurso);
+            var concurso = concursoRepository.ObterConcursoPorInscricao(idInscricao);
 
             var envioEmail = emailService
                              .WithTitle("GCP - Pedido de Solicitação de Isenção Aprovado")
@@ -109,8 +105,7 @@ namespace Senac.GCP.Domain.Services.Implementations
         {
             var pessoa = pessoaRepository.GetByIdWithDependencies(idPessoa);
             var inscricao = inscricaoRepository.GetByIdWithDependencies(idInscricao);
-            var concursoCargo = concursoCargoRepository.GetById(inscricao.IdConcursoCargo);
-            var concurso = concursoRepository.GetById(concursoCargo.IdConcurso);
+            var concurso = concursoRepository.ObterConcursoPorInscricao(idInscricao);
 
             var envioEmail = emailService
                              .WithTitle("GCP - Pedido de Solicitação de Isenção Reprovado")
