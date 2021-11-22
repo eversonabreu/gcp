@@ -19,7 +19,6 @@ namespace Senac.GCP.Domain.Services.Implementations
         private readonly IPessoaRepository pessoaRepository;
         private readonly IInscricaoRepository inscricaoRepository;
         private readonly IEmailService emailService;
-        private readonly IConcursoRepository concursoRepository;
         private readonly IConcursoCargoRepository concursoCargoRepository;
 
         public SolicitacaoIsencaoInscricaoService(ISolicitacaoIsencaoInscricaoRepository solicitacaoIsencaoInscricaoRepository,
@@ -29,7 +28,6 @@ namespace Senac.GCP.Domain.Services.Implementations
             IInscricaoService inscricaoService,
             IPessoaRepository pessoaRepository,
             IInscricaoRepository inscricaoRepository,
-            IConcursoRepository concursoRepository,
             IConcursoCargoRepository concursoCargoRepository)
             : base(solicitacaoIsencaoInscricaoRepository, httpContextAccessor)
         {
@@ -39,7 +37,6 @@ namespace Senac.GCP.Domain.Services.Implementations
             this.inscricaoService = inscricaoService;
             this.inscricaoRepository = inscricaoRepository;
             this.emailService = emailService;
-            this.concursoRepository = concursoRepository;
             this.concursoCargoRepository = concursoCargoRepository;
         }
 

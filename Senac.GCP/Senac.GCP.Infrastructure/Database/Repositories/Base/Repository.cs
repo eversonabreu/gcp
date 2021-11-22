@@ -115,9 +115,9 @@ namespace Senac.GCP.Infrastructure.Database.Repositories.Base
 
         private IEnumerable<TEntity> Filter(Expression<Func<TEntity, bool>> expression, bool loadDependencies)
         {
-            var entities = dbSet.Where(expression)?.ToList();
+            var entities = dbSet.Where(expression).ToList();
 
-            if (entities?.Any() ?? false && loadDependencies)
+            if (entities.Any() && loadDependencies)
             {
                 foreach (var entity in entities)
                 {
@@ -135,7 +135,7 @@ namespace Senac.GCP.Infrastructure.Database.Repositories.Base
         public (IEnumerable<TEntity> Data, int Count) FilterWithPagination(string expression, string sort = null, uint page = 0, uint limit = 10, bool loadDependencies = false)
         {
             var data = dbSet.Where(expression);
-            int count = data?.Count() ?? 0;
+            int count = data.Count();
 
             if (!string.IsNullOrWhiteSpace(sort) && count > 0)
             {
@@ -145,18 +145,15 @@ namespace Senac.GCP.Infrastructure.Database.Repositories.Base
             if (limit > 0)
             {
                 int skip = (int)(page * limit);
-                data = data?.Skip(skip).Take((int)limit);
+                data = data.Skip(skip).Take((int)limit);
             }
 
-            if (data != null)
+            var dataList = data.ToList();
+            if (loadDependencies)
             {
-                var dataList = data.ToList();
-                if (loadDependencies)
+                foreach (var entity in dataList)
                 {
-                    foreach (var entity in dataList)
-                    {
-                        LoadDependencies(entity);
-                    }
+                    LoadDependencies(entity);
                 }
             }
 
