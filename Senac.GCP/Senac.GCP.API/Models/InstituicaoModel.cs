@@ -58,7 +58,7 @@ namespace Senac.GCP.API.Models
         [StringOptions(TrimSpace = TrimSpaceEnum.Both)]
         public string Telefone { get; set; }
 
-        public override void AdditionalValidations()
+        public override void OnValidate()
         {
             if (!ValidadorCNPJ.Validar(CNPJ, out string cnpj))
             {

@@ -17,7 +17,7 @@ namespace Senac.GCP.API.Models
 
         public long IdConcurso { get; set; }
 
-        public override void AdditionalValidations()
+        public override void OnValidate()
         {
             if (DataInicio > DataTermino)
                 throw new BusinessException("A data de inicio não pode ser superior a data de término!");
