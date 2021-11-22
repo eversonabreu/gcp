@@ -13,6 +13,6 @@ namespace Senac.GCP.API.Models
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "O campo 'IdSolicitacaoIsencaoInscricao' não foi preenchido")]
         [StringOptions(TrimSpace = TrimSpaceEnum.Both, AlterCase = AlterCaseEnum.Upper)]
-        public long IdSolicitacaoIsencaoInscricao{ get; set; }
+        public long IdSolicitacaoIsencaoInscricao { get; set; }
     }
 }

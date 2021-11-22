@@ -1,13 +1,14 @@
 ﻿using Senac.GCP.Domain.Attributes;
 using Senac.GCP.Domain.Entities.Base;
+using Senac.GCP.Domain.Enums;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Senac.GCP.Domain.Entities
 {
-    [Constraint(Name = "UKSolicitacaoIsencaoInscricaoIdInscricao", ErrorMessage = "Não é possível salvar, porque já existe um registro nesta inscrição")]
-    [Constraint(Name = "FKIdInscricao", ErrorMessage = "a inscriçao não é válida ou não foi atribuído corretamente")]
-    [Constraint(Name = "FKTipoSolicitacaoIsencaoInscricao", ErrorMessage = "O tipo de solicitação de isenção da inscrição não é válido ou não foi atribuído corretamente")]
+    [Constraint(Name = "UKSolicitacaoIsencaoInscricaoIdInscricao", ErrorMessage = "Não é possível salvar, porque já existe uma solicitação de isenção de inscrição.")]
+    [Constraint(Name = "FKIdInscricao", ErrorMessage = "a inscriçao não é válida ou não foi atribuída corretamente.")]
+    [Constraint(Name = "FKTipoSolicitacaoIsencaoInscricao", ErrorMessage = "O tipo de solicitação de isenção da inscrição não é válido ou não foi atribuída corretamente.")]
     public sealed class SolicitacaoIsencaoInscricaoEntity : Entity
     {
         public long IdInscricao { get; set; }
@@ -16,11 +17,11 @@ namespace Senac.GCP.Domain.Entities
 
         public DateTime DataSolicitacao { get; set; }
 
-        public int SituacaoSolicitacao { get; set; }
+        public SituacaoSolicitacaoIsencaoInscricaoEnum SituacaoSolicitacao { get; set; }
 
         public DateTime? DataRespostaSolicitacao { get; set; }
 
-        public string MotivoRecusaSolicitacaoIsensaoInscricao { get; set; }
+        public string MotivoRecusaSolicitacaoIsencaoInscricao { get; set; }
 
         [NotMapped]
         [Dependency(NameForeignKey = nameof(IdInscricao))]
@@ -29,5 +30,6 @@ namespace Senac.GCP.Domain.Entities
         [NotMapped]
         [Dependency(NameForeignKey = nameof(IdTipoSolicitacaoIsencaoInscricao))]
         public TipoSolicitacaoIsencaoInscricaoEntity TipoSolicitacaoIsencaoInscricao { get; set; }
+        public string MotivoRecusaSolicitacaoIsensaoInscricao { get; internal set; }
     }
 }

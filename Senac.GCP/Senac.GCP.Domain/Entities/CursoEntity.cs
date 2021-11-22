@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Senac.GCP.Domain.Entities
 {
     [Constraint(Name = "FkCursoNivelEscolaridade", ErrorMessage = "O nivel escolaridade não foi atribuído corretamente")]
-    public sealed class  CursoEntity: Entity
+    public sealed class CursoEntity : Entity
     {
         public string Descricao { get; set; }
 

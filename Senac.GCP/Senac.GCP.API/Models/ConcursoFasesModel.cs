@@ -2,7 +2,6 @@
 using Senac.GCP.Domain.Attributes;
 using Senac.GCP.Domain.Exceptions;
 using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace Senac.GCP.API.Models
 {

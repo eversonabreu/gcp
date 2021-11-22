@@ -4,6 +4,7 @@ using System;
 
 namespace Senac.GCP.Domain.Entities
 {
+
     public sealed class ArquivoEntity : Entity
     {
         public string Nome { get; set; }
