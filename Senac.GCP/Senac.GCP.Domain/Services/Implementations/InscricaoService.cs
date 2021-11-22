@@ -5,6 +5,7 @@ using Senac.GCP.Domain.Enums;
 using Senac.GCP.Domain.Exceptions;
 using Senac.GCP.Domain.Notifications;
 using Senac.GCP.Domain.Repositories;
+using Senac.GCP.Domain.Repositories.Base;
 using Senac.GCP.Domain.Services.Base;
 using Senac.GCP.Domain.Services.Interfaces;
 using System;
@@ -30,6 +31,10 @@ namespace Senac.GCP.Domain.Services.Implementations
             this.solicitacaoIsencaoInscricaoRepository = solicitacaoIsencaoInscricaoRepository;
             this.concursoRepository = concursoRepository;
             this.emailService = emailService;
+        }
+
+        public InscricaoService(IRepository<InscricaoEntity> repository, IHttpContextAccessor httpContextAccessor) : base(repository, httpContextAccessor)
+        {
         }
 
         public override void BeforePost(InscricaoEntity entity)

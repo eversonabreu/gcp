@@ -61,7 +61,7 @@ namespace Senac.GCP.Domain.Services.Implementations
             solicitacaoIsencaoInscricao.SituacaoSolicitacao = pedidoSolicitacaoIsencaoInscricaoDto.Aprovado
                 ? SituacaoSolicitacaoIsencaoInscricaoEnum.Aprovado
                 : SituacaoSolicitacaoIsencaoInscricaoEnum.Recusado;
-            solicitacaoIsencaoInscricao.MotivoRecusaSolicitacaoIsensaoInscricao = pedidoSolicitacaoIsencaoInscricaoDto.Aprovado
+            solicitacaoIsencaoInscricao.MotivoRecusaSolicitacaoIsencaoInscricao = pedidoSolicitacaoIsencaoInscricaoDto.Aprovado
                 ? null
                 : pedidoSolicitacaoIsencaoInscricaoDto.MotivoReprovacao;
 
@@ -84,7 +84,7 @@ namespace Senac.GCP.Domain.Services.Implementations
 
         private void EnviarNotificacaoPedidoDeSolicitacaoDeIsencaoAprovada(long idPessoa, long idInscricao)
         {
-            var pessoa = pessoaRepository.GetByIdWithDependencies(idPessoa);
+            var pessoa = pessoaRepository.GetById(idPessoa);
             var inscricao = inscricaoRepository.GetByIdWithDependencies(idInscricao);
             var concurso = concursoRepository.ObterConcursoPorInscricao(idInscricao);
 
@@ -97,7 +97,8 @@ namespace Senac.GCP.Domain.Services.Implementations
                              .Send();
             if (!envioEmail)
             {
-                throw new SendEmailException("Não foi possível enviar o e-mail.");
+                throw new SendEmailException(@"A resposta ao pedido de solitação foi processada com sucesso,  
+                                    porém houve uma falha ao enviar o e-mail de resposta da solicitação de isenção.");
             }
         }
 
@@ -116,7 +117,8 @@ namespace Senac.GCP.Domain.Services.Implementations
                              .Send();
             if (!envioEmail)
             {
-                throw new SendEmailException("Não foi possível enviar o e-mail.");
+                throw new SendEmailException(@"A resposta ao pedido de solitação foi processada com sucesso,  
+                                    porém houve uma falha ao enviar o e-mail de resposta da solicitação de isenção.");
             }
         }
     }
