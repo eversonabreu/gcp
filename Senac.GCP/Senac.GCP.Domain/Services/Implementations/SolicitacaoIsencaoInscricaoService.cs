@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Senac.GCP.Domain.Dtos;
 using Senac.GCP.Domain.Entities;
 using Senac.GCP.Domain.Enums;
 using Senac.GCP.Domain.Exceptions;
@@ -34,6 +35,11 @@ namespace Senac.GCP.Domain.Services.Implementations
 
             entity.DataSolicitacao = DateTime.Now;
             entity.SituacaoSolicitacao = SituacaoSolicitacaoIsencaoInscricaoEnum.EmAnalise;
+        }
+
+        public void ResponderPedidoDeIsencao(PedidoSolicitacaoIsencaoInscricaoDto pedidoSolicitacaoIsencaoInscricaoDto)
+        {
+            throw new NotImplementedException();
         }
     }
 }

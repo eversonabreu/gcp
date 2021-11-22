@@ -59,6 +59,6 @@ namespace Senac.GCP.Infrastructure.Database
 
         public DbSet<CargoFormacoesEntity> CargoFormacoes { get; set; }
 
-        public DbSet<IntegrantesComissaoOrganizacaoEntity> IntegrantesComissaoOrganizacao { get; set; }
+        public DbSet<IntegrantesComissaoOrganizacaoRepository> IntegrantesComissaoOrganizacao { get; set; }
     }
 }

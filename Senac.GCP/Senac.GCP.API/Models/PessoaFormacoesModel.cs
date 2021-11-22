@@ -1,5 +1,6 @@
 ﻿using Senac.GCP.API.Models.Base;
 using Senac.GCP.Domain.Attributes;
+using Senac.GCP.Domain.Exceptions;
 using System;
 
 namespace Senac.GCP.API.Models
@@ -16,7 +17,7 @@ namespace Senac.GCP.API.Models
         public override void OnValidate()
         {
             if (AnoConclusao.Year < DateTime.Now.Year)
-                throw new Exception("O ano de conclusão informado não é válido. Ele é menor que o ano atual.");
+                throw new BusinessException("O ano de conclusão informado não é válido. Ele é menor que o ano atual.");
         }
     }
 }

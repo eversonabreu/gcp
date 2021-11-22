@@ -4,12 +4,13 @@ using Senac.GCP.Domain.Notifications;
 using Senac.GCP.Domain.Repositories;
 using Senac.GCP.Domain.Services.Base;
 using Senac.GCP.Domain.Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Senac.GCP.Domain.Services.Implementations
 {
-    public sealed class IntegrantesComissaoOrganizacaoService : Service<IntegrantesComissaoOrganizacaoEntity>, IIntegrantesComissaoOrganizacaoService
+    public sealed class IntegrantesComissaoOrganizacaoService : Service<IntegrantesComissaoOrganizacaoRepository>, IIntegrantesComissaoOrganizacaoService
     {
         private readonly IIntegrantesComissaoOrganizacaoRepository integrantesComissaoOrganizacaoRepository;
         private readonly IInscricaoRepository inscricaoRepository;
@@ -29,7 +30,7 @@ namespace Senac.GCP.Domain.Services.Implementations
             this.usuarioRepository = usuarioRepository;
 
         }
-        public IEnumerable<IntegrantesComissaoOrganizacaoEntity> Teste(long idInscricao)
+        public IEnumerable<IntegrantesComissaoOrganizacaoRepository> Teste(long idInscricao)
         {
             var concursoCargo = inscricaoRepository.GetByIdWithDependencies(idInscricao).ConcursoCargo;
             return integrantesComissaoOrganizacaoRepository.Filter(x => x.IdConcurso == concursoCargo.IdConcurso);
