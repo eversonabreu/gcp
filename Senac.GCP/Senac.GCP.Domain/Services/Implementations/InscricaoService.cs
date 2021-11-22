@@ -165,6 +165,11 @@ namespace Senac.GCP.Domain.Services.Implementations
                                         via {tipoPagamento}</h4><br/>", true)
                              .WithRecipient(pessoa.Email)
                              .Send();
+            if (!envioEmail)
+            {
+                throw new SendEmailException("Não foi possível enviar o email de confirmação");
+            }
+
             return envioEmail;
         }
     }
