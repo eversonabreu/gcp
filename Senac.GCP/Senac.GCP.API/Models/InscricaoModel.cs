@@ -37,7 +37,7 @@ namespace Senac.GCP.API.Models
 
         [Range(minimum: 1, maximum: 2, ErrorMessage = "Tipo de pagamento da inscrição é inválida")]
         public TipoPagamentoEnum? TipoPagamento { get; set; }
-
+        
         public override void OnValidate()
         {
             if (DataRecusaInscricao < DataInscricao)
