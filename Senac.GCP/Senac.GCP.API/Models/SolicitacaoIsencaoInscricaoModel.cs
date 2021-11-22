@@ -18,6 +18,6 @@ namespace Senac.GCP.API.Models
 
         public DateTime? DataRespostaSolicitacao { get; set; }
 
-        public string MotivoRecusaSolicitacaoIsensaoInscricao { get; set; }
+        public string MotivoRecusaSolicitacaoIsencaoInscricao { get; set; }
     }
 }

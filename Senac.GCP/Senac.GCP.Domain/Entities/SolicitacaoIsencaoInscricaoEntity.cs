@@ -21,7 +21,7 @@ namespace Senac.GCP.Domain.Entities
 
         public DateTime? DataRespostaSolicitacao { get; set; }
 
-        public string MotivoRecusaSolicitacaoIsensaoInscricao { get; set; }
+        public string MotivoRecusaSolicitacaoIsencaoInscricao { get; set; }
 
         [NotMapped]
         [Dependency(NameForeignKey = nameof(IdInscricao))]

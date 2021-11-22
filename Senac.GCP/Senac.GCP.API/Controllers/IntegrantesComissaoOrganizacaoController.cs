@@ -18,7 +18,7 @@ namespace Senac.GCP.API.Controllers
 
         [HttpGet]
         [Route("verificar-integrantes")]
-        public bool VerificarExistenciaIntegrantes(long idConcurso)
-            => integrantesComissaoOrganizacaoService.VerificarExistenciaDeIntegrantesPorInscricao(idConcurso);
+        public bool VerificarExistenciaDeIntegrantesPorInscricao(long idInscricao)
+            => integrantesComissaoOrganizacaoService.VerificarExistenciaDeIntegrantesPorInscricao(idInscricao);
     }
 }

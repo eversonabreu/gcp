@@ -6,7 +6,7 @@ Create Table SolicitacaoIsencaoInscricao
 	SituacaoSolicitacao INT NOT NULL,
 	IdTipoSolicitacaoIsencaoInscricao bigint NOT NULL,
 	DataRespostaSolicitacao datetime,
-	MotivoRecusaSolicitacaoIsencao text,
+	MotivoRecusaSolicitacaoIsencaoInscricao text,
 	CONSTRAINT PkSolicitacaoIsencaoInscricao PRIMARY KEY (Id),
 	CONSTRAINT FkSolicitacaoIsencaoInscricaoIdInscricao FOREIGN KEY (IdInscricao) REFERENCES Inscricao(Id),
 	CONSTRAINT UKSolicitacaoIsencaoInscricaoIdInscricao UNIQUE (IdInscricao),
