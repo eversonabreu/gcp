@@ -5,8 +5,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Senac.GCP.Domain.Entities
 {
+
     [Constraint(Name = "FkConcursoFasesConcurso", ErrorMessage = "O campo 'Id Concurso' não é válido ou não foi atribuído corretamente.")]
     [Constraint(Name = "UkConcursoFases", ErrorMessage = "Não é possível salvar, porque já existe um registro para este concurso com esse Numero Fase.")]
+
     public sealed class ConcursoFasesEntity : Entity
     {
         [NotUpdated]

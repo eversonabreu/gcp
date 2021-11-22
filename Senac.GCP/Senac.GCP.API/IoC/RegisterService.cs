@@ -2,7 +2,7 @@
 using Senac.GCP.Domain.Notifications;
 using Senac.GCP.Domain.Services.Implementations;
 using Senac.GCP.Domain.Services.Interfaces;
-using Senac.GCP.Infraestructure.Notifications;
+using Senac.GCP.Infrastructure.Notifications;
 
 namespace Senac.GCP.API.IoC
 {
@@ -32,7 +32,7 @@ namespace Senac.GCP.API.IoC
             services.AddScoped<ICargoFormacoesService, CargoFormacoesService>();
             services.AddScoped<IConcursoFaseCargoService, ConcursoFaseCargoService>();
             services.AddScoped<IIntegrantesComissaoOrganizacaoService, IntegrantesComissaoOrganizacaoService>();
-
+            services.AddScoped<ISolicitacaoIsencaoInscricaoService, SolicitacaoIsencaoInscricaoService>();
         }
     }
 }

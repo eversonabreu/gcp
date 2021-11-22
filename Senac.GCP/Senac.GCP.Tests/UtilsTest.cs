@@ -2,7 +2,7 @@
 using Senac.GCP.API;
 using Senac.GCP.Domain.Notifications;
 using Senac.GCP.Domain.Utils;
-using Senac.GCP.Infraestructure.Notifications;
+using Senac.GCP.Infrastructure.Notifications;
 using System;
 using System.Text.Json;
 

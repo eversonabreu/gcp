@@ -20,9 +20,9 @@ namespace Senac.GCP.Tests
         public void Post_Arquivo_Test()
         {
             var mockArquivoRepository = new Mock<IArquivoRepository>();
-            var ArquivoService = new ArquivoService(mockArquivoRepository.Object,
+            var arquivoService = new ArquivoService(mockArquivoRepository.Object,
                 UtilsTest.GetHttpContextAccessor());
-            var arquivoController = new ArquivoController(ArquivoService);
+            var arquivoController = new ArquivoController(arquivoService);
 
             var model = new ArquivoModel
             {
@@ -38,9 +38,9 @@ namespace Senac.GCP.Tests
         public void Post_Arquivo_Sem_Conteudo_Test()
         {
             var mockArquivoRepository = new Mock<IArquivoRepository>();
-            var ArquivoService = new ArquivoService(mockArquivoRepository.Object,
+            var arquivoService = new ArquivoService(mockArquivoRepository.Object,
                 UtilsTest.GetHttpContextAccessor());
-            var arquivoController = new ArquivoController(ArquivoService);
+            var arquivoController = new ArquivoController(arquivoService);
 
             var model = new ArquivoModel
             {
@@ -55,9 +55,9 @@ namespace Senac.GCP.Tests
         public void Post_Arquivo_Com_Conteudo_Vazio_Test()
         {
             var mockArquivoRepository = new Mock<IArquivoRepository>();
-            var ArquivoService = new ArquivoService(mockArquivoRepository.Object,
+            var arquivoService = new ArquivoService(mockArquivoRepository.Object,
                 UtilsTest.GetHttpContextAccessor());
-            var arquivoController = new ArquivoController(ArquivoService);
+            var arquivoController = new ArquivoController(arquivoService);
 
             var model = new ArquivoModel
             {
@@ -74,9 +74,9 @@ namespace Senac.GCP.Tests
         {
             //arrange
             var mockArquivoRepository = new Mock<IArquivoRepository>();
-            var ArquivoService = new ArquivoService(mockArquivoRepository.Object,
+            var arquivoService = new ArquivoService(mockArquivoRepository.Object,
                 UtilsTest.GetHttpContextAccessor());
-            var arquivoController = new ArquivoController(ArquivoService);
+            var arquivoController = new ArquivoController(arquivoService);
 
             var model = new ArquivoModel
             {
@@ -86,7 +86,7 @@ namespace Senac.GCP.Tests
 
             //actual and assert
             Assert.Throws<BusinessException>(() => arquivoController.Post(model));
-            
+
             //Assert.Throws<> => É chamado para testar os erros. sendo o segundo passo para testar o método. 
             //<BusinessException> => testa os erros esperados qual são voids "erros sem retorno"
             //assert => valida as informações do método, caso seja void, o passo actual e assert atuam juntamente.
@@ -97,13 +97,13 @@ namespace Senac.GCP.Tests
         public void Post_Arquivo_Sem_Nome_Test()
         {
             var mockArquivoRepository = new Mock<IArquivoRepository>();
-            var ArquivoService = new ArquivoService(mockArquivoRepository.Object,
+            var arquivoService = new ArquivoService(mockArquivoRepository.Object,
                 UtilsTest.GetHttpContextAccessor());
-            var arquivoController = new ArquivoController(ArquivoService);
+            var arquivoController = new ArquivoController(arquivoService);
 
             var model = new ArquivoModel
             {
-                Conteudo = new byte [10]
+                Conteudo = new byte[10]
             };
 
             Assert.Throws<BusinessException>(() => arquivoController.Post(model));
@@ -114,9 +114,9 @@ namespace Senac.GCP.Tests
         public void Post_Arquivo_Com_Nome_Excedendo_225Caracteres_Test()
         {
             var mockArquivoRepository = new Mock<IArquivoRepository>();
-            var ArquivoService = new ArquivoService(mockArquivoRepository.Object,
+            var arquivoService = new ArquivoService(mockArquivoRepository.Object,
                 UtilsTest.GetHttpContextAccessor());
-            var arquivoController = new ArquivoController(ArquivoService);
+            var arquivoController = new ArquivoController(arquivoService);
 
             var model = new ArquivoModel
             {
@@ -137,9 +137,9 @@ namespace Senac.GCP.Tests
         {
             var mockArquivoRepository = new Mock<IArquivoRepository>();
             mockArquivoRepository.Setup(x => x.GetById(1)).Returns(new ArquivoEntity());
-            var ArquivoService = new ArquivoService(mockArquivoRepository.Object,
+            var arquivoService = new ArquivoService(mockArquivoRepository.Object,
                 UtilsTest.GetHttpContextAccessor());
-            var arquivoController = new ArquivoController(ArquivoService);
+            var arquivoController = new ArquivoController(arquivoService);
 
             var model = new ArquivoModel
             {
@@ -157,9 +157,9 @@ namespace Senac.GCP.Tests
         {
             var mockArquivoRepository = new Mock<IArquivoRepository>();
             mockArquivoRepository.Setup(x => x.GetById(1)).Returns(new ArquivoEntity());
-            var ArquivoService = new ArquivoService(mockArquivoRepository.Object,
+            var arquivoService = new ArquivoService(mockArquivoRepository.Object,
                 UtilsTest.GetHttpContextAccessor());
-            var arquivoController = new ArquivoController(ArquivoService);
+            var arquivoController = new ArquivoController(arquivoService);
 
             var model = new ArquivoModel
             {
@@ -176,9 +176,9 @@ namespace Senac.GCP.Tests
         {
             var mockArquivoRepository = new Mock<IArquivoRepository>();
             mockArquivoRepository.Setup(x => x.GetById(1)).Returns(new ArquivoEntity());
-            var ArquivoService = new ArquivoService(mockArquivoRepository.Object,
+            var arquivoService = new ArquivoService(mockArquivoRepository.Object,
                 UtilsTest.GetHttpContextAccessor());
-            var arquivoController = new ArquivoController(ArquivoService);
+            var arquivoController = new ArquivoController(arquivoService);
 
             var model = new ArquivoModel
             {
@@ -197,9 +197,9 @@ namespace Senac.GCP.Tests
         {
             var mockArquivoRepository = new Mock<IArquivoRepository>();
             mockArquivoRepository.Setup(x => x.GetById(1)).Returns(new ArquivoEntity());
-            var ArquivoService = new ArquivoService(mockArquivoRepository.Object,
+            var arquivoService = new ArquivoService(mockArquivoRepository.Object,
                 UtilsTest.GetHttpContextAccessor());
-            var arquivoController = new ArquivoController(ArquivoService);
+            var arquivoController = new ArquivoController(arquivoService);
 
             var model = new ArquivoModel
             {
@@ -216,14 +216,14 @@ namespace Senac.GCP.Tests
         {
             var mockArquivoRepository = new Mock<IArquivoRepository>();
             mockArquivoRepository.Setup(x => x.GetById(1)).Returns(new ArquivoEntity());
-            var ArquivoService = new ArquivoService(mockArquivoRepository.Object,
+            var arquivoService = new ArquivoService(mockArquivoRepository.Object,
                 UtilsTest.GetHttpContextAccessor());
-            var arquivoController = new ArquivoController(ArquivoService);
+            var arquivoController = new ArquivoController(arquivoService);
 
-             var model = new ArquivoModel
-             {
-                 Nome = "Manuel.pdf"
-             };
+            var model = new ArquivoModel
+            {
+                Nome = "Manuel.pdf"
+            };
 
             Assert.Throws<BusinessException>(() => arquivoController.Put(model));
         }
@@ -234,9 +234,9 @@ namespace Senac.GCP.Tests
         {
             var mockArquivoRepository = new Mock<IArquivoRepository>();
             mockArquivoRepository.Setup(x => x.GetById(1)).Returns(new ArquivoEntity());
-            var ArquivoService = new ArquivoService(mockArquivoRepository.Object,
+            var arquivoService = new ArquivoService(mockArquivoRepository.Object,
                 UtilsTest.GetHttpContextAccessor());
-            var arquivoController = new ArquivoController(ArquivoService);
+            var arquivoController = new ArquivoController(arquivoService);
 
             var model = new ArquivoModel
             {
@@ -250,14 +250,14 @@ namespace Senac.GCP.Tests
         //----------
         //TesteDelete
         [Fact]
-        public void DeleteById_Test()
+        public void DeleteByIdArquivo_Test()
         {
-            var mockArquivoRepository = new Mock<IArquivoRepository>();            
-            var ArquivoService = new ArquivoService(mockArquivoRepository.Object,
+            var mockArquivoRepository = new Mock<IArquivoRepository>();
+            var arquivoService = new ArquivoService(mockArquivoRepository.Object,
                 UtilsTest.GetHttpContextAccessor());
-            var ArquivoController = new ArquivoController(ArquivoService);
+            var arquivoController = new ArquivoController(arquivoService);
 
-            ArquivoController.DeleteById(1);
+            arquivoController.DeleteById(1);
         }
     }
 }

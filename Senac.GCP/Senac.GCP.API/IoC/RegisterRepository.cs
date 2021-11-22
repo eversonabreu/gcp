@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Senac.GCP.Domain.Repositories;
-using Senac.GCP.Infraestructure.Database.Repositories;
+using Senac.GCP.Infrastructure.Database.Repositories;
 
 namespace Senac.GCP.API.IoC
 {
@@ -40,5 +40,5 @@ namespace Senac.GCP.API.IoC
             services.AddTransient<IConcursoFaseCargoRepository, ConcursoFaseCargoRepository>();
             services.AddTransient<IIntegrantesComissaoOrganizacaoRepository, IntegrantesComissaoOrganizacaoRepository>();
         }
-    } 
+    }
 }

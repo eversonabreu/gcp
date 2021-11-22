@@ -14,7 +14,7 @@ namespace Senac.GCP.Domain.Services.Implementations
         private readonly IConcursoTipoCotasRepository concursoTipoCotasRepository;
         private readonly IConcursoRepository concursoRepository;
 
-        public ConcursoTipoCotasService(IConcursoTipoCotasRepository concursoTipoCotasRepository, 
+        public ConcursoTipoCotasService(IConcursoTipoCotasRepository concursoTipoCotasRepository,
             IHttpContextAccessor httpContextAccessor,
             IConcursoRepository concursoRepository)
             : base(concursoTipoCotasRepository, httpContextAccessor)
@@ -22,7 +22,7 @@ namespace Senac.GCP.Domain.Services.Implementations
             this.concursoTipoCotasRepository = concursoTipoCotasRepository;
             this.concursoRepository = concursoRepository;
         }
- 
+
         public override void BeforePost(ConcursoTipoCotasEntity entity)
         {
             ValidarPercentualDeVagas(entity);
@@ -48,7 +48,7 @@ namespace Senac.GCP.Domain.Services.Implementations
 
             int totalPercentualDeVagasCotistas = vagasCotistas.Sum(x => x.PercentualVagas);
 
-            int totalPercentualDeVagas = totalPercentualDeVagasAmplaConcorrencia 
+            int totalPercentualDeVagas = totalPercentualDeVagasAmplaConcorrencia
                 + totalPercentualDeVagasCotistas
                 + entity.PercentualVagas;
 
