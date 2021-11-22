@@ -3,6 +3,7 @@ using Senac.GCP.Domain.Dtos;
 using Senac.GCP.Domain.Entities;
 using Senac.GCP.Domain.Enums;
 using Senac.GCP.Domain.Exceptions;
+using Senac.GCP.Domain.Notifications;
 using Senac.GCP.Domain.Repositories;
 using Senac.GCP.Domain.Services.Base;
 using Senac.GCP.Domain.Services.Interfaces;
@@ -15,16 +16,31 @@ namespace Senac.GCP.Domain.Services.Implementations
         private readonly IIntegrantesComissaoOrganizacaoService integrantesComissaoOrganizacaoService;
         private readonly ISolicitacaoIsencaoInscricaoRepository solicitacaoIsencaoInscricaoRepository;
         private readonly IInscricaoService inscricaoService;
+        private readonly IPessoaRepository pessoaRepository;
+        private readonly IInscricaoRepository inscricaoRepository;
+        private readonly IEmailService emailService;
+        private readonly IConcursoRepository concursoRepository;
+        private readonly IConcursoCargoRepository concursoCargoRepository;
 
         public SolicitacaoIsencaoInscricaoService(ISolicitacaoIsencaoInscricaoRepository solicitacaoIsencaoInscricaoRepository,
-            IHttpContextAccessor httpContextAccessor, 
+            IHttpContextAccessor httpContextAccessor,
+            IEmailService emailService,
             IIntegrantesComissaoOrganizacaoService integrantesComissaoOrganizacaoService,
-            IInscricaoService inscricaoService)
+            IInscricaoService inscricaoService,
+            IPessoaRepository pessoaRepository,
+            IInscricaoRepository inscricaoRepository,
+            IConcursoRepository concursoRepository,
+            IConcursoCargoRepository concursoCargoRepository)
             : base(solicitacaoIsencaoInscricaoRepository, httpContextAccessor)
         {
-            this.integrantesComissaoOrganizacaoService = integrantesComissaoOrganizacaoService;
+            this.pessoaRepository = pessoaRepository;
             this.solicitacaoIsencaoInscricaoRepository = solicitacaoIsencaoInscricaoRepository;
+            this.integrantesComissaoOrganizacaoService = integrantesComissaoOrganizacaoService;
             this.inscricaoService = inscricaoService;
+            this.inscricaoRepository = inscricaoRepository;
+            this.emailService = emailService;
+            this.concursoRepository = concursoRepository;
+            this.concursoCargoRepository = concursoCargoRepository;
         }
 
         public override void AfterPost(SolicitacaoIsencaoInscricaoEntity entity)
@@ -71,12 +87,42 @@ namespace Senac.GCP.Domain.Services.Implementations
 
         private void EnviarNotificacaoPedidoDeSolicitacaoDeIsencaoAprovada(long idPessoa, long idInscricao)
         {
+            var pessoa = pessoaRepository.GetByIdWithDependencies(idPessoa);
+            var inscricao = inscricaoRepository.GetByIdWithDependencies(idInscricao);
+            var concursoCargo = concursoCargoRepository.GetById(inscricao.IdConcursoCargo);
+            var concurso = concursoRepository.GetById(concursoCargo.IdConcurso);
 
+            var envioEmail = emailService
+                             .WithTitle("GCP - Pedido de Solicitação de Isenção Aprovado")
+                             .WithBody(@$"<h4>Prezado(a): <b>{pessoa.Nome}</b>, seu pedido de solicitação 
+                                          de isenção da inscrição {inscricao.NumeroInscricao}, do concurso: {concurso.Numero},
+                                          foi <b>APROVADO</b>.</h4><br>", true)
+                             .WithRecipient(pessoa.Email)
+                             .Send();
+            if (!envioEmail)
+            {
+                throw new SendEmailException("Não foi possível enviar o e-mail.");
+            }
         }
 
         private void EnviarNotificacaoPedidoDeSolicitacaoDeIsencaoReprovada(long idPessoa, long idInscricao, string motivoReprovacao)
         {
+            var pessoa = pessoaRepository.GetByIdWithDependencies(idPessoa);
+            var inscricao = inscricaoRepository.GetByIdWithDependencies(idInscricao);
+            var concursoCargo = concursoCargoRepository.GetById(inscricao.IdConcursoCargo);
+            var concurso = concursoRepository.GetById(concursoCargo.IdConcurso);
 
+            var envioEmail = emailService
+                             .WithTitle("GCP - Pedido de Solicitação de Isenção Reprovado")
+                             .WithBody(@$"<h4>Prezado(a): <b>{pessoa.Nome}</b>, seu pedido de solicitação 
+                                          de isenção da inscrição {inscricao.NumeroInscricao}, do concurso {concurso.Numero},
+                                          infelizmente foi <b>Reprovado</b> pelo motivo de: {motivoReprovacao}.</h4><br>", true)
+                             .WithRecipient(pessoa.Email)
+                             .Send();
+            if (!envioEmail)
+            {
+                throw new SendEmailException("Não foi possível enviar o e-mail.");
+            }
         }
     }
 }
