@@ -73,13 +73,13 @@ namespace Senac.GCP.Domain.Services.Implementations
                 throw new BusinessException("A data de inscriçao não pode ser inferior a data de início do concurso!");
 
             if (entity.DataInscricao > concurso.DataFinalInscricao)
-                throw new BusinessException("A data de inscriçao não pode ser superior a data final de inscrição do concurso!");
+                throw new BusinessException("A data de inscriçao não pode ser superior a data final de incrição do concurso!");
 
             if (entity.DataPagamento < concurso.DataInicioInscricao)
-                throw new BusinessException("A data de pagamento não pode ser inferior a data de inscrição!");
+                throw new BusinessException("A data de pagamento não pode ser inferior a data de incrição!");
 
             if (entity.DataPagamento > concurso.DataFinalInscricao)
-                throw new BusinessException("A data de pagamento não pode ser superior a data final de inscrição!");
+                throw new BusinessException("A data de pagamento não pode ser superior a data final de incrição!");
         }
 
         public ValorPagamentoInscricaoDto ObterValorPagamento(long idInscricao)
@@ -166,9 +166,7 @@ namespace Senac.GCP.Domain.Services.Implementations
                              .WithRecipient(pessoa.Email)
                              .Send();
             if (!envioEmail)
-            {
                 throw new SendEmailException("Não foi possível enviar o email de confirmação");
-            }
 
             return envioEmail;
         }
