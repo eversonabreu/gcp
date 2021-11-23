@@ -4,9 +4,9 @@ using Senac.GCP.Domain.Notifications;
 using Senac.GCP.Domain.Repositories;
 using Senac.GCP.Domain.Services.Base;
 using Senac.GCP.Domain.Services.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Senac.GCP.Domain.Services.Implementations
 {
@@ -16,11 +16,15 @@ namespace Senac.GCP.Domain.Services.Implementations
         private readonly IInscricaoRepository inscricaoRepository;
         private readonly IEmailService emailService;
         private readonly IUsuarioRepository usuarioRepository;
+        private readonly IConcursoRepository concursoRepository;
+        private readonly ITipoSolicitacaoIsencaoInscricaoRepository tipoSolicitacaoIsencaoInscricaoRepository;
 
         public IntegrantesComissaoOrganizacaoService(IIntegrantesComissaoOrganizacaoRepository integrantesComissaoOrganizacaoRepository,
             IInscricaoRepository inscricaoRepository,
             IEmailService emailService,
             IUsuarioRepository usuarioRepository,
+            IConcursoRepository concursoRepository,
+            ITipoSolicitacaoIsencaoInscricaoRepository tipoSolicitacaoIsencaoInscricaoRepository,
             IHttpContextAccessor httpContextAccessor)
             : base(integrantesComissaoOrganizacaoRepository, httpContextAccessor)
         {
@@ -28,33 +32,36 @@ namespace Senac.GCP.Domain.Services.Implementations
             this.inscricaoRepository = inscricaoRepository;
             this.emailService = emailService;
             this.usuarioRepository = usuarioRepository;
-
+            this.concursoRepository = concursoRepository;
+            this.tipoSolicitacaoIsencaoInscricaoRepository = tipoSolicitacaoIsencaoInscricaoRepository;
         }
-        public IEnumerable<IntegrantesComissaoOrganizacaoRepository> Teste(long idInscricao)
+
+        private IEnumerable<IntegrantesComissaoOrganizacaoRepository> ObterIntegrantes(long idInscricao)
         {
             var concursoCargo = inscricaoRepository.GetByIdWithDependencies(idInscricao).ConcursoCargo;
             return integrantesComissaoOrganizacaoRepository.Filter(x => x.IdConcurso == concursoCargo.IdConcurso);
         }
 
-        public bool VerificarExistenciaDeIntegrantesPorInscricao(long idInscricao) => Teste(idInscricao).Any();
+        public bool VerificarExistenciaDeIntegrantesPorInscricao(long idInscricao) => ObterIntegrantes(idInscricao).Any();
 
-        public void EnviarNotificacaoSobrePedidoDeSolicitacaoDeIsencao(long idInscricao)
+        public async Task EnviarNotificacaoSobrePedidoDeSolicitacaoDeIsencaoAsync(long idInscricao)
         {
-            var teste = Teste(idInscricao).ToList();
-            var inscritos = inscricaoRepository.GetById(idInscricao);
-
-
-            foreach (var x in teste)
+            var integrantes = ObterIntegrantes(idInscricao);
+            var inscrito = inscricaoRepository.GetById(idInscricao);
+            var porcentagemIsencao = tipoSolicitacaoIsencaoInscricaoRepository.ObterPercentualDeIsencaoPorInscricao(idInscricao);
+            var concurso = concursoRepository.ObterConcursoPorInscricao(idInscricao);
+            
+            foreach (var item in integrantes)
             {
-                var integrantes = usuarioRepository.GetById(x.IdUsuario);
+                var integrante = usuarioRepository.GetById(item.IdUsuario);
 
-                emailService
-                             .WithTitle("GCP - Avaliação da solicitação para isenção do valor da inscrição")
-                             .WithBody(@$"<h4>Prezado(a): <b>{integrantes.Nome}</b>, o inscrito(a): <b>{inscritos.Pessoa.Nome}</b> solicitou uma isenção 
-                              para a inscrição de número: <b>{inscritos.NumeroInscricao}, do concurso: <b>{inscritos.ConcursoCargo.IdConcurso}</b> . favor avaliar os documentos 
-                              anexados pelo mesmo. </b></b>.</h4><br/>", true)
-                             .WithRecipient(integrantes.Email)
-                             .Send();
+                await emailService.WithTitle("GCP - Avaliação da solicitação para isenção do valor da inscrição")
+                                  .WithBody(@$"<h4>Prezado(a): <b>{integrante.Nome}</b>, foi solicitado por: <b>{inscrito.Pessoa.Nome}</b> com
+                                   inscrição de número: <b>{inscrito.NumeroInscricao}</b>, em <b>{inscrito.DataInscricao}, a isenção do valor 
+                                   da inscrição para o concurso de número <b>{concurso.Numero}</b>. O tipo de solicitação de isenção escolhido, 
+                                   refere-se à <b>{porcentagemIsencao}</b> do valor total da inscrição. Favor avaliar os documento(s) informados pela pessoa.</h4><br/>", true)
+                                  .WithRecipient(integrante.Email)
+                                  .SendAsync();
             }
         }
     }
