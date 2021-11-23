@@ -4,7 +4,6 @@ using Senac.GCP.Domain.Exceptions;
 using Senac.GCP.Domain.Repositories;
 using Senac.GCP.Domain.Services.Base;
 using Senac.GCP.Domain.Services.Interfaces;
-using System;
 using System.Linq;
 
 namespace Senac.GCP.Domain.Services.Implementations

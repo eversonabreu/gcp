@@ -40,11 +40,6 @@ namespace Senac.GCP.Domain.Services.Implementations
             this.concursoRepository = concursoRepository;
         }
 
-        public override void AfterPost(SolicitacaoIsencaoInscricaoEntity entity)
-        {
-            integrantesComissaoOrganizacaoService.EnviarNotificacaoSobrePedidoDeSolicitacaoDeIsencao(entity.IdInscricao);
-        }
-
         public override void BeforePost(SolicitacaoIsencaoInscricaoEntity entity)
         {
             if (!integrantesComissaoOrganizacaoService.VerificarExistenciaDeIntegrantesPorInscricao(entity.IdInscricao))

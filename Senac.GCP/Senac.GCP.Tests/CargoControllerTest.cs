@@ -5,7 +5,6 @@ using Senac.GCP.Domain.Entities;
 using Senac.GCP.Domain.Exceptions;
 using Senac.GCP.Domain.Repositories;
 using Senac.GCP.Domain.Services.Implementations;
-using System;
 using Xunit;
 
 namespace Senac.GCP.Tests
@@ -42,7 +41,7 @@ namespace Senac.GCP.Tests
             var cargoController = new CargoController(cargoService);
 
             var model = new CargoModel
-            {                
+            {
                 IdNivelEscolaridade = 1,
                 Codigo = 1,
             };
@@ -86,7 +85,7 @@ namespace Senac.GCP.Tests
 
             var model = new CargoModel
             {
-                Id = 1,                
+                Id = 1,
                 IdNivelEscolaridade = 1,
                 Codigo = 1,
             };

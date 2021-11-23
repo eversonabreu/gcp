@@ -57,7 +57,7 @@ namespace Senac.GCP.Tests
             mockConcursoTipoCotasRepository.Setup(y => y.Filter(x => x.IdConcurso == entity.IdConcurso))
                 .Returns(new List<ConcursoTipoCotasEntity>()
             {
-                new ConcursoTipoCotasEntity 
+                new ConcursoTipoCotasEntity
                 {
                     PercentualVagas = 10
                 }

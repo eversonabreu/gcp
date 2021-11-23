@@ -50,7 +50,7 @@ namespace Senac.GCP.Domain.Services.Implementations
             var inscrito = inscricaoRepository.GetById(idInscricao);
             var porcentagemIsencao = tipoSolicitacaoIsencaoInscricaoRepository.ObterPercentualDeIsencaoPorInscricao(idInscricao);
             var concurso = concursoRepository.ObterConcursoPorInscricao(idInscricao);
-            
+
             foreach (var item in integrantes)
             {
                 var integrante = usuarioRepository.GetById(item.IdUsuario);

@@ -26,7 +26,7 @@ namespace Senac.GCP.Tests
                 IdPessoa = 1,
                 IdConcursoCargo = 5,
                 DataInscricao = DateTime.Now,
-                Situacao = (Domain.Enums.SituacaoInscricaoEnum) 2,
+                Situacao = (Domain.Enums.SituacaoInscricaoEnum)2,
                 ParticiparComoCotista = false,
                 MotivoRecusaInscricao = "nenhum",
                 DataRecusaInscricao = DateTime.Now.AddDays(3)

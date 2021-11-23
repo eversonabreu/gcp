@@ -15,10 +15,10 @@ namespace Senac.GCP.Infrastructure.Database.Repositories
         public ConcursoEntity ObterConcursoPorInscricao(long idInscricao)
         {
             var concurso = (from con in databaseContext.Concurso
-                               join car in databaseContext.ConcursoCargo on con.Id equals car.IdConcurso
-                               join ins in databaseContext.Inscricao on car.Id equals ins.IdConcursoCargo
-                               where ins.Id == idInscricao
-                               select con
+                            join car in databaseContext.ConcursoCargo on con.Id equals car.IdConcurso
+                            join ins in databaseContext.Inscricao on car.Id equals ins.IdConcursoCargo
+                            where ins.Id == idInscricao
+                            select con
                             )
                            .FirstOrDefault();
 
