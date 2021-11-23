@@ -5,7 +5,6 @@ using Senac.GCP.Domain.Entities;
 using Senac.GCP.Domain.Exceptions;
 using Senac.GCP.Domain.Repositories;
 using Senac.GCP.Domain.Services.Implementations;
-using System;
 using Xunit;
 
 namespace Senac.GCP.Tests
@@ -42,12 +41,29 @@ namespace Senac.GCP.Tests
             var cargoController = new CargoController(cargoService);
 
             var model = new CargoModel
-            {                
+            {
                 IdNivelEscolaridade = 1,
                 Codigo = 1,
             };
 
             Assert.Throws<BusinessException>(() => cargoController.Post(model));
+        }
+
+            //test2
+        [Fact]
+        public void Post_Cargo_Sem_IdNivelEscolaridade_Test()
+        {
+            var mockCargoRepository = new Mock<ICargoRepository>();
+            var cargoService = new CargoService(mockCargoRepository.Object,
+                UtilsTest.GetHttpContextAccessor());
+            var cargoController = new CargoController(cargoService);
+
+            var model = new CargoModel
+            {
+                Descricao = "Professor",                
+            };
+
+            cargoController.Post(model);
         }
 
         //-------------------
@@ -67,11 +83,11 @@ namespace Senac.GCP.Tests
             {
                 Id = 1,
                 Descricao = "Professor",
-                IdNivelEscolaridade = 1,
+                
                 Codigo = 1,
             };
 
-            cargoController.Put(model);
+            Assert.Throws<BusinessException> (() => cargoController.Put(model));
         }
 
         //teste2Put
@@ -86,7 +102,7 @@ namespace Senac.GCP.Tests
 
             var model = new CargoModel
             {
-                Id = 1,                
+                Id = 1,
                 IdNivelEscolaridade = 1,
                 Codigo = 1,
             };

@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Senac.GCP.Domain.Entities;
+using Senac.GCP.Domain.Exceptions;
 using Senac.GCP.Domain.Repositories;
 using Senac.GCP.Domain.Services.Base;
 using Senac.GCP.Domain.Services.Interfaces;
-using System;
 using System.Linq;
 
 namespace Senac.GCP.Domain.Services.Implementations
@@ -38,6 +38,7 @@ namespace Senac.GCP.Domain.Services.Implementations
         {
             int totalPercentualDeVagasAmplaConcorrencia =
                 concursoRepository.GetById(entity.IdConcurso).PercentualQuantidadeVagasAmplaConcorrencia;
+
             var vagasCotistas = concursoTipoCotasRepository
                 .Filter(x => x.IdConcurso == entity.IdConcurso);
 
@@ -51,7 +52,7 @@ namespace Senac.GCP.Domain.Services.Implementations
                 + entity.PercentualVagas;
 
             if (totalPercentualDeVagas > 100)
-                throw new Exception("Não é possível salvar porque o percentual de vagas do concurso (ampla concorrência mais vagas para cotistas) ultrapassa 100%");
+                throw new BusinessException("Não é possível salvar porque o percentual de vagas do concurso (ampla concorrência mais vagas para cotistas) ultrapassa 100%");
         }
     }
 }
