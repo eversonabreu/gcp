@@ -50,6 +50,23 @@ namespace Senac.GCP.Tests
             Assert.Throws<BusinessException>(() => cargoController.Post(model));
         }
 
+            //test2
+        [Fact]
+        public void Post_Cargo_Sem_IdNivelEscolaridade_Test()
+        {
+            var mockCargoRepository = new Mock<ICargoRepository>();
+            var cargoService = new CargoService(mockCargoRepository.Object,
+                UtilsTest.GetHttpContextAccessor());
+            var cargoController = new CargoController(cargoService);
+
+            var model = new CargoModel
+            {
+                Descricao = "Professor",                
+            };
+
+            cargoController.Post(model);
+        }
+
         //-------------------
         //Teste de Put 
 
@@ -67,11 +84,11 @@ namespace Senac.GCP.Tests
             {
                 Id = 1,
                 Descricao = "Professor",
-                IdNivelEscolaridade = 1,
+                
                 Codigo = 1,
             };
 
-            cargoController.Put(model);
+            Assert.Throws<BusinessException> (() => cargoController.Put(model));
         }
 
         //teste2Put
