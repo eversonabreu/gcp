@@ -5,5 +5,6 @@ namespace Senac.GCP.Domain.Repositories
 {
     public interface ITipoSolicitacaoIsencaoInscricaoRepository : IRepository<TipoSolicitacaoIsencaoInscricaoEntity>
     {
+        decimal ObterPercentualDeIsencaoPorInscricao(long idInscricao);
     }
 }

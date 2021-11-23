@@ -12,7 +12,6 @@ namespace Senac.GCP.Tests
 {
     public sealed class PessoaFormacoesControllerTest
     {
-
         //Testes de post
 
         //teste1
@@ -51,6 +50,68 @@ namespace Senac.GCP.Tests
             };
 
             Assert.Throws<BusinessException>(() => pessoaFormacoesController.Post(model));
+        }
+
+
+        // Testes Put
+
+        //Teste1
+        [Fact]
+        public void Put_PessoaFormacoes_Test()
+        {
+            var mockPessoaFormacoesRepository = new Mock<IPessoaFormacoesRepository>();
+            var PessoaFormacoesService = new PessoaFormacoesService(mockPessoaFormacoesRepository.Object,
+                UtilsTest.GetHttpContextAccessor());
+            var pessoaFormacoesController = new PessoaFormacoesController(PessoaFormacoesService);
+
+            var model = new PessoaFormacoesModel
+            {
+                Id = 1,
+                IdPessoa = 1,
+                IdCurso = 1,
+                AnoConclusao = new DateTime(2023, 08, 04)
+            };
+
+            pessoaFormacoesController.Put(model);
+        }
+
+        //Teste2
+        [Fact]
+        public void Put_PessoaFormacoes_Com_Ano_Invalido_Test()
+        {
+            var mockPessoaFormacoesRepository = new Mock<IPessoaFormacoesRepository>();
+            var PessoaFormacoesService = new PessoaFormacoesService(mockPessoaFormacoesRepository.Object,
+                UtilsTest.GetHttpContextAccessor());
+            var pessoaFormacoesController = new PessoaFormacoesController(PessoaFormacoesService);
+
+            var model = new PessoaFormacoesModel
+            {
+                Id = 1,
+                IdPessoa = 1,
+                IdCurso = 1,
+                AnoConclusao = new DateTime(2020, 08, 04)
+            };
+
+            Assert.Throws<BusinessException>(() => pessoaFormacoesController.Put(model));
+        }
+
+        //Teste Delete
+        [Fact]
+        public void DeleteById_Test()
+        {
+            var mockPessoaFormacoesRepository = new Mock<IPessoaFormacoesRepository>();
+            var mockNacionalidadeRepository = new Mock<INacionalidadeRepository>();
+
+            mockPessoaFormacoesRepository.Setup(x => x.GetById(1)).Returns(new PessoaFormacoesEntity());
+
+            var pessoaFormacoesService = new PessoaFormacoesService
+            (
+                mockPessoaFormacoesRepository.Object,
+                UtilsTest.GetHttpContextAccessor()
+            );
+            var pessoaFormacoesController = new PessoaFormacoesController(pessoaFormacoesService);
+
+            pessoaFormacoesController.DeleteById(1);
         }
     }
 }
