@@ -5,5 +5,8 @@ namespace Senac.GCP.Domain.Repositories
 {
     public interface IConcursoCargoCandidatoLocalRepository : IRepository<ConcursoCargoCandidatoLocalEntity>
     {
+        int ObterQuantidadeAlocadosPorLocal(long idConcursoFasesLocais);
+
+        int ObterQuantidadeAlocadosPorLocalPCD(long idConcursoFasesLocais);
     }
 }

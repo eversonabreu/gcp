@@ -13,14 +13,14 @@ namespace Senac.GCP.Domain.Entities
     {
         public long IdInscricao { get; set; }
 
-        public long IdIdConcursoFasesLocais { get; set; }
+        public long IdConcursoFasesLocais { get; set; }
 
         [NotMapped]
         [Dependency(NameForeignKey = nameof(IdInscricao))]
         public InscricaoEntity Inscricao { get; set; }
 
         [NotMapped]
-        [Dependency(NameForeignKey = nameof(IdIdConcursoFasesLocais))]
+        [Dependency(NameForeignKey = nameof(IdConcursoFasesLocais))]
         public ConcursoFasesLocaisEntity ConcursoFaseLocais { get; set; }
 
     }
