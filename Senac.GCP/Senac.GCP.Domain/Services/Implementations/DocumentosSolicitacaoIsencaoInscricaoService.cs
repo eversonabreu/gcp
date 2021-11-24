@@ -36,13 +36,14 @@ namespace Senac.GCP.Domain.Services.Implementations
 
         public override void BeforePost(DocumentosSolicitacaoIsencaoInscricaoEntity entity)
         {
-            var teste = solicitacaoIsencaoInscricaoRepository.GetByIdWithDependencies(entity.IdSolicitacaoIsencaoInscricao).IdInscricao;
+            var inscrito = solicitacaoIsencaoInscricaoRepository.GetByIdWithDependencies(entity.IdSolicitacaoIsencaoInscricao).IdInscricao;
+
             if (arquivoRepository.ObterDocumentos(entity.IdSolicitacaoIsencaoInscricao) == true)
                    throw new BusinessException($"Você já anexou documento(s) para o pedido de solicitação de isenção de inscrição.");
 
             if (entity.SolicitacaoIsencaoInscricao.SituacaoSolicitacao == SituacaoSolicitacaoIsencaoInscricaoEnum.EmAnalise)
             {
-                integrantesComissaoOrganizacaoService.EnviarNotificacaoSobrePedidoDeSolicitacaoDeIsencaoAsync(teste);
+                integrantesComissaoOrganizacaoService.EnviarNotificacaoSobrePedidoDeSolicitacaoDeIsencaoAsync(inscrito);
             }
 
             else
