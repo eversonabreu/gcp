@@ -5,5 +5,6 @@ namespace Senac.GCP.Domain.Repositories
 {
     public interface IArquivoRepository : IRepository<ArquivoEntity>
     {
+        bool ObterDocumentos(long idSolicitacaoIsencaoInscricao);
     }
 }
