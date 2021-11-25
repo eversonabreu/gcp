@@ -13,7 +13,7 @@ namespace Senac.GCP.Domain.Entities
 
         public long IdCurso { get; set; }
 
-        public DateTime AnoConclusao { get; set; }
+        public int AnoConclusao { get; set; }
 
         [NotMapped]
         [Dependency(NameForeignKey = nameof(IdPessoa))]

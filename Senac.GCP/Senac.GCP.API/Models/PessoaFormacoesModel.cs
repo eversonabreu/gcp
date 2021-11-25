@@ -1,5 +1,4 @@
 ﻿using Senac.GCP.API.Models.Base;
-using Senac.GCP.Domain.Attributes;
 using Senac.GCP.Domain.Exceptions;
 using System;
 
@@ -11,13 +10,12 @@ namespace Senac.GCP.API.Models
 
         public long IdCurso { get; set; }
 
-        [DateOnly]
-        public DateTime AnoConclusao { get; set; }
+        public int AnoConclusao { get; set; }
 
         public override void OnValidate()
         {
-            if (AnoConclusao.Year < DateTime.Now.Year)
-                throw new BusinessException("O ano de conclusão informado não é válido. Ele é menor que o ano atual.");
+            if (AnoConclusao > DateTime.Now.Year)
+                throw new BusinessException("O ano de conclusão informado não é válido. Ele é maior que o ano atual.");
         }
     }
 }
