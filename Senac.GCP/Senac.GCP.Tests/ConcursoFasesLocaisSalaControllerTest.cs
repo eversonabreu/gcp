@@ -17,7 +17,7 @@ namespace Senac.GCP.Tests
 
         //teste1
         [Fact]
-        public void Post_Concurso_Fases_Locais_Sala_Test()
+        public void Post_ConcursoFasesLocaisSala_Test()
         {
             var mockConcursoFasesLocaisSalaRepository = new Mock<IConcursoFasesLocaisSalaRepository>();
             var concursoFasesLocaisSalaService = new ConcursoFasesLocaisSalaService(mockConcursoFasesLocaisSalaRepository.Object,
@@ -37,7 +37,7 @@ namespace Senac.GCP.Tests
 
         //teste1Put
         [Fact]
-        public void Put_Arquivo_Test()
+        public void Put_ConcursoFasesLocaisSala_Arquivo_Test()
         {
             var mockConcursoFasesLocaisSalaRepository = new Mock<IConcursoFasesLocaisSalaRepository>();
             mockConcursoFasesLocaisSalaRepository.Setup(x => x.GetById(1)).Returns(new ConcursoFasesLocaisSalaEntity());
