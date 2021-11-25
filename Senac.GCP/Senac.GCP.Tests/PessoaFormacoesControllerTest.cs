@@ -27,7 +27,7 @@ namespace Senac.GCP.Tests
             {
                 IdPessoa = 1,
                 IdCurso = 1,
-                AnoConclusao = new DateTime(2022, 08, 04),
+                AnoConclusao = 2022,
             };
 
             pessoaFormacoesController.Post(model);
@@ -46,7 +46,7 @@ namespace Senac.GCP.Tests
             {
                 IdPessoa = 1,
                 IdCurso = 1,
-                AnoConclusao = new DateTime(2020, 08, 04),
+                AnoConclusao = 2022,
             };
 
             Assert.Throws<BusinessException>(() => pessoaFormacoesController.Post(model));
@@ -69,7 +69,7 @@ namespace Senac.GCP.Tests
                 Id = 1,
                 IdPessoa = 1,
                 IdCurso = 1,
-                AnoConclusao = new DateTime(2023, 08, 04)
+                AnoConclusao = 2022
             };
 
             pessoaFormacoesController.Put(model);
@@ -89,7 +89,7 @@ namespace Senac.GCP.Tests
                 Id = 1,
                 IdPessoa = 1,
                 IdCurso = 1,
-                AnoConclusao = new DateTime(2020, 08, 04)
+                AnoConclusao = 2022
             };
 
             Assert.Throws<BusinessException>(() => pessoaFormacoesController.Put(model));

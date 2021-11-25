@@ -2,7 +2,7 @@ CREATE TABLE PessoaFormacoes (
 Id BIGINT NOT NULL IDENTITY(1, 1),
 IdPessoa BIGINT NOT NULL,
 IdCurso BIGINT NOT NULL,
-AnoConclusao DATE NOT NULL
+AnoConclusao int NOT NULL
 
 CONSTRAINT PKPessoaFormacoes PRIMARY KEY (Id),
 CONSTRAINT FKPessoaFormacoesIdPessoa FOREIGN KEY (IdPessoa) REFERENCES Pessoa(Id),
