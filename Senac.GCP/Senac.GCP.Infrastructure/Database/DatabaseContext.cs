@@ -61,10 +61,8 @@ namespace Senac.GCP.Infrastructure.Database
 
         public DbSet<IntegrantesComissaoOrganizacaoRepository> IntegrantesComissaoOrganizacao { get; set; }
 
-<<<<<<< HEAD
         public DbSet<ConcursoCargoCandidatoLocalEntity> ConcursoCargoCandidatoLocal { get; set; }
-=======
+
         public DbSet<DocumentosSolicitacaoIsencaoInscricaoEntity> DocumentosSolicitacaoIsencaoInscricao { get; set; }
->>>>>>> 5b7b3349886f91f8a5f922e37f714a8de3a85994
     }
 }

@@ -21,8 +21,6 @@ namespace Senac.GCP.Tests
 
             var model = new InscricaoModel
             {
-
-
                 IdPessoa = 1,
                 IdConcursoCargo = 5,
                 DataInscricao = DateTime.Now,

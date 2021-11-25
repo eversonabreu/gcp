@@ -83,11 +83,30 @@ namespace Senac.GCP.Tests
             {
                 Id = 1,
                 Descricao = "Professor",
-                
+                IdNivelEscolaridade = 1,
                 Codigo = 1,
             };
 
-            Assert.Throws<BusinessException> (() => cargoController.Put(model));
+            cargoController.Put(model);
+        }
+
+        [Fact]
+        public void Put_Cargo_Sem_IdNivelEscolaridade_Test()
+        {
+            var mockCargoRepository = new Mock<ICargoRepository>();
+            mockCargoRepository.Setup(x => x.GetById(1)).Returns(new CargoEntity());
+            var cargoService = new CargoService(mockCargoRepository.Object,
+                UtilsTest.GetHttpContextAccessor());
+            var cargoController = new CargoController(cargoService);
+
+            var model = new CargoModel
+            {
+                Id = 1,
+                Descricao = "Professor",
+                Codigo = 1
+            };
+
+            Assert.Throws<BusinessException>(() => cargoController.Put(model));
         }
 
         //teste2Put
@@ -113,7 +132,7 @@ namespace Senac.GCP.Tests
         //----------
         //TesteDelete
         [Fact]
-        public void DeleteByIdCargo_Test()
+        public void DeleteById_Cargo_Test()
         {
             var mockCargoRepository = new Mock<ICargoRepository>();
             var cargoService = new CargoService(mockCargoRepository.Object,

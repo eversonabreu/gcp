@@ -40,7 +40,7 @@ namespace Senac.GCP.Tests
         }
 
         [Fact]
-        public void Post_Com_Percentual_Acima_Do_Permitido_Test()
+        public void Post_ConcursoTipoCotas_Com_Percentual_Acima_Do_Permitido_Test()
         {
             var model = new ConcursoTipoCotasModel
             {

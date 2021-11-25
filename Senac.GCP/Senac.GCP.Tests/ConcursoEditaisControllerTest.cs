@@ -17,8 +17,13 @@ namespace Senac.GCP.Tests
         {
             var mockConcursoEditaisRepository = new Mock<IConcursoEditaisRepository>();
             var mockConcursoRepository = new Mock<IConcursoRepository>();
-            var ConcursoEditaisService = new ConcursoEditaisService(mockConcursoEditaisRepository.Object,
-                mockConcursoRepository.Object, UtilsTest.GetHttpContextAccessor());
+            
+            var ConcursoEditaisService = new ConcursoEditaisService
+            (
+                mockConcursoEditaisRepository.Object,
+                mockConcursoRepository.Object, 
+                UtilsTest.GetHttpContextAccessor()
+            );
             var ConcursoEditaisController = new ConcursoEditaisController(ConcursoEditaisService);
 
             var model = new ConcursoEditaisModel
@@ -26,8 +31,7 @@ namespace Senac.GCP.Tests
                 DataEdital = new DateTime(2021, 08, 05),
                 Descricao = "Nao pode parar",
                 IdConcurso = 1,
-                IdArquivo = 2
-
+                IdArquivo = 1
             };
 
             ConcursoEditaisController.Post(model);
