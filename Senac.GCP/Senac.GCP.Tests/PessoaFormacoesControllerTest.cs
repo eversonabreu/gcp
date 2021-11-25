@@ -33,23 +33,6 @@ namespace Senac.GCP.Tests
             pessoaFormacoesController.Post(model);
         }
 
-        //[Fact]
-        //public void Post_PessoaFormacoes_Com_IdPessoa_Invalido_Test()
-        //{
-        //    var mockPessoaFormacoesRepository = new Mock<IPessoaFormacoesRepository>();
-        //    var PessoaFormacoesService = new PessoaFormacoesService(mockPessoaFormacoesRepository.Object,
-        //        UtilsTest.GetHttpContextAccessor());
-        //    var pessoaFormacoesController = new PessoaFormacoesController(PessoaFormacoesService);
-        //
-        //    var model = new PessoaFormacoesModel
-        //    {
-        //        IdCurso = 1,
-        //        AnoConclusao = new DateTime(2022, 08, 04),
-        //    };
-        //
-        //    Assert.Throws<Exception>(() => pessoaFormacoesController.Post(model));
-        //}
-
         //teste2
         [Fact]
         public void Post_PessoaFormacoes_Com_Ano_Invalido_Test()
