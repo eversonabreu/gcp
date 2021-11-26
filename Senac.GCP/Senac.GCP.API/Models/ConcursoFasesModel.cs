@@ -7,6 +7,8 @@ namespace Senac.GCP.API.Models
 {
     public sealed class ConcursoFasesModel : Model
     {
+        public int NumeroFase { get; set; }
+
         //ConstraintAttribute[]
         [DateOnly]
         public DateTime DataInicio { get; set; }
