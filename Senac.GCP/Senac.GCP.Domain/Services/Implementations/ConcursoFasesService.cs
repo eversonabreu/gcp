@@ -58,8 +58,8 @@ namespace Senac.GCP.Domain.Services.Implementations
         private void VerificarSeFaseIniciaAntesDoPeriodoFinalDeInscricaoDoConcurso(ConcursoFasesEntity entity)
         {
             var dataFinalInscricaoConcurso = concursoRepository.GetById(entity.IdConcurso).DataFinalInscricao;
-            if (entity.DataInicio <= dataFinalInscricaoConcurso)
-                throw new BusinessException("A data de inicio deve ser superior a data final de inscrição do concurso");
+            if (entity.DataInicio >= dataFinalInscricaoConcurso)
+                throw new BusinessException("A data de inicio deve ser inferior a data final de inscrição do concurso");
         }
 
         private void ValidarIntervalosDaFase(ConcursoFasesEntity entity)
