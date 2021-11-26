@@ -66,5 +66,7 @@ namespace Senac.GCP.Infrastructure.Database
         public DbSet<DocumentosSolicitacaoIsencaoInscricaoEntity> DocumentosSolicitacaoIsencaoInscricao { get; set; }
 
         public DbSet<NivelEscolaridadeEntity> NivelEscolaridade { get; set; }
+
+        public DbSet<ConcursoTipoCotasEntity> concursoTipoCotas { get; set; }
     }
 }
