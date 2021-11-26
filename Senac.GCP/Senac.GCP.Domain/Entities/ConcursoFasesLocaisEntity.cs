@@ -35,6 +35,6 @@ namespace Senac.GCP.Domain.Entities
 
         [NotMapped]
         [Dependency(NameForeignKey = nameof(IdMunicipioEndereco))]
-        public MunicipioEntity MucipioEndereco { get; set; }
+        public MunicipioEntity MunicipioEndereco { get; set; }
     }
 }
