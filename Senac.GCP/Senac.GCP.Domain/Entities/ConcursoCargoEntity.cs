@@ -6,6 +6,7 @@ namespace Senac.GCP.Domain.Entities
 {
     [Constraint(Name = "FkIdCargo", ErrorMessage = "O 'Id Cargo' não é válido ou não foi atribuído corretamente")]
     [Constraint(Name = "FkIdConcurso", ErrorMessage = "O 'Id Concurso' não é válido ou não foi atribuído corretamente")]
+    [Constraint(Name = "IdxConcursoCargo", ErrorMessage = "Este cargo já foi associado ao concurso")]
 
     public sealed class ConcursoCargoEntity : Entity
     {

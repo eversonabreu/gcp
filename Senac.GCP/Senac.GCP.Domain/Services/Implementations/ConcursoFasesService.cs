@@ -24,8 +24,8 @@ namespace Senac.GCP.Domain.Services.Implementations
         public override void BeforePost(ConcursoFasesEntity entity)
         {
             VerificarSeFaseIniciaAntesDoPeriodoFinalDeInscricaoDoConcurso(entity);
-            ValidarIntervalosDaFase(entity);
             entity.NumeroFase = GerarNumeroFase(entity.IdConcurso);
+            ValidarIntervalosDaFase(entity);
         }
 
         public override void BeforePut(ConcursoFasesEntity entity)
@@ -57,22 +57,23 @@ namespace Senac.GCP.Domain.Services.Implementations
 
         private void VerificarSeFaseIniciaAntesDoPeriodoFinalDeInscricaoDoConcurso(ConcursoFasesEntity entity)
         {
-            var dataFinalInscricaoConcurso = concursoRepository.GetById(entity.IdConcurso).DataFinalInscricao;
-            if (entity.DataInicio >= dataFinalInscricaoConcurso)
-                throw new BusinessException("A data de inicio deve ser inferior a data final de inscrição do concurso");
+            var concurso = concursoRepository.GetById(entity.IdConcurso);
+
+            if (entity.DataInicio <= concurso.DataFinalInscricao)
+                throw new BusinessException("A data de inicio da fase deve ser superior a data final de inscrição do concurso");
         }
 
         private void ValidarIntervalosDaFase(ConcursoFasesEntity entity)
         {
             var faseAnterior = concursoFasesRepository
                 .SingleOrDefault(x => x.IdConcurso == entity.IdConcurso && x.NumeroFase == (entity.NumeroFase - 1));
-            if (faseAnterior != null && faseAnterior.DataTermino < entity.DataInicio)
+            if (faseAnterior != null && faseAnterior.DataTermino > entity.DataInicio)
                 throw new BusinessException($"Não é possível salvar porque a data de início da fase deve ser igual ou superior à '{faseAnterior.DataTermino:dd/MM/yyyy}'");
 
             var fasePosterior = concursoFasesRepository
                 .SingleOrDefault(x => x.IdConcurso == entity.IdConcurso && x.NumeroFase == (entity.NumeroFase + 1));
-            if (fasePosterior != null && fasePosterior.DataInicio > entity.DataInicio)
-                throw new BusinessException($"Não é possível salvar porque a data de início da fase deve ser igual ou inferior à '{faseAnterior.DataInicio:dd/MM/yyyy}'");
+            if (fasePosterior != null && fasePosterior.DataInicio < entity.DataTermino)
+                throw new BusinessException($"Não é possível salvar porque a data de término da fase deve ser igual ou inferior à '{fasePosterior.DataInicio:dd/MM/yyyy}'");
         }
 
         private int GerarNumeroFase(long idConcurso)

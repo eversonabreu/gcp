@@ -11,6 +11,7 @@ namespace Senac.GCP.Domain.Entities
 
     public sealed class ConcursoFasesEntity : Entity
     {
+        [NotUpdated]
         public int NumeroFase { get; set; }
 
         public DateTime DataInicio { get; set; }

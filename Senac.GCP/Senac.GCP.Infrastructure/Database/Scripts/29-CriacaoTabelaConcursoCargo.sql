@@ -9,3 +9,5 @@ CONSTRAINT FkIdCargo FOREIGN KEY(IdCargo) REFERENCES Cargo(Id),
 CONSTRAINT FkIdConcurso FOREIGN KEY(IdConcurso) REFERENCES Concurso(Id)
 
 );
+
+create unique index IdxConcursoCargo on ConcursoCargo (IdCargo, IdConcurso);

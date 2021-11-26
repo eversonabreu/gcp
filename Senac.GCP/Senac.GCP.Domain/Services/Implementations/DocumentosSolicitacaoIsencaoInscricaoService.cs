@@ -39,7 +39,7 @@ namespace Senac.GCP.Domain.Services.Implementations
             var repository = GetRepository();
             long idInscricao = repository.GetByIdWithDependencies(entity.Id).SolicitacaoIsencaoInscricao.IdInscricao;
             if (repository.Filter(x => x.IdSolicitacaoIsencaoInscricao == entity.IdSolicitacaoIsencaoInscricao).Count() == 1)
-                Task.Run(() => integrantesComissaoOrganizacaoService.EnviarNotificacaoSobrePedidoDeSolicitacaoDeIsencaoAsync(idInscricao));
+                integrantesComissaoOrganizacaoService.EnviarNotificacaoSobrePedidoDeSolicitacaoDeIsencao(idInscricao);
         }
     }
 }

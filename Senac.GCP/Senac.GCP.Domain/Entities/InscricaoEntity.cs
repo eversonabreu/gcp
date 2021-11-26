@@ -20,6 +20,7 @@ namespace Senac.GCP.Domain.Entities
         [NotUpdated]
         public string NumeroInscricao { get; set; }
 
+        [NotUpdated]
         public SituacaoInscricaoEnum Situacao { get; set; }
 
         public bool ParticiparComoCotista { get; set; }

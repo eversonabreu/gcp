@@ -25,8 +25,6 @@ namespace Senac.GCP.Domain.Services.Implementations
         public override void BeforePost(ConcursoTipoCotasEntity entity)
         {
             ValidarPercentualDeVagas(entity);
-            int percentualVagas = 0;
-            entity.PercentualVagas = percentualVagas;
         }
 
         public override void BeforePut(ConcursoTipoCotasEntity entity)

@@ -30,6 +30,5 @@ namespace Senac.GCP.Domain.Entities
         [NotMapped]
         [Dependency(NameForeignKey = nameof(IdTipoSolicitacaoIsencaoInscricao))]
         public TipoSolicitacaoIsencaoInscricaoEntity TipoSolicitacaoIsencaoInscricao { get; set; }
-        public string MotivoRecusaSolicitacaoIsensaoInscricao { get; internal set; }
     }
 }

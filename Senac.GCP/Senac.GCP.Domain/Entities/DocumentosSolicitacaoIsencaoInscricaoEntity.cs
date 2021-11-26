@@ -1,5 +1,6 @@
 ﻿using Senac.GCP.Domain.Attributes;
 using Senac.GCP.Domain.Entities.Base;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Senac.GCP.Domain.Entities
 {
@@ -11,18 +12,12 @@ namespace Senac.GCP.Domain.Entities
 
         public long IdArquivo { get; set; }
 
-        public long IdTipoSolicitacaoIsencaoInscricao { get; set; }
-
-
+        [NotMapped]
         [Dependency(NameForeignKey = nameof(IdSolicitacaoIsencaoInscricao))]
         public SolicitacaoIsencaoInscricaoEntity SolicitacaoIsencaoInscricao { get; set; }
 
-
+        [NotMapped]
         [Dependency(NameForeignKey = nameof(IdArquivo))]
         public ArquivoEntity Arquivo { get; set; }
-
-
-        [Dependency(NameForeignKey = nameof(IdTipoSolicitacaoIsencaoInscricao))]
-        public TipoSolicitacaoIsencaoInscricaoEntity TipoSolicitacaoIsencaoInscricao { get; set; }
     }
 }

@@ -8,6 +8,6 @@ namespace Senac.GCP.Domain.Services.Interfaces
     {
         bool VerificarExistenciaDeIntegrantesPorInscricao(long idInscricao);
 
-        Task EnviarNotificacaoSobrePedidoDeSolicitacaoDeIsencaoAsync(long idInscricao);
+        void EnviarNotificacaoSobrePedidoDeSolicitacaoDeIsencao(long idInscricao);
     }
 }

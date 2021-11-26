@@ -18,9 +18,6 @@ namespace Senac.GCP.API.Models
         [DateOnly]
         public DateTime DataInscricao { get; set; }
 
-        [Range(minimum: 1, maximum: 4, ErrorMessage = "Situação de inscrição inválida")]
-        public SituacaoInscricaoEnum Situacao { get; set; }
-
         public bool ParticiparComoCotista { get; set; }
 
         public string MotivoRecusaInscricao { get; set; }

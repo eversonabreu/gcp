@@ -19,18 +19,21 @@ namespace Senac.GCP.Domain.Services.Implementations
         private readonly IConcursoRepository concursoRepository;
         private readonly ISolicitacaoIsencaoInscricaoRepository solicitacaoIsencaoInscricaoRepository;
         private readonly IEmailService emailService;
+        private readonly IConcursoCargoRepository concursoCargoRepository;
 
         public InscricaoService(IInscricaoRepository inscricaoRepository,
             IHttpContextAccessor httpContextAccessor,
             ISolicitacaoIsencaoInscricaoRepository solicitacaoIsencaoInscricaoRepository,
             IConcursoRepository concursoRepository,
-            IEmailService emailService)
+            IEmailService emailService,
+            IConcursoCargoRepository concursoCargoRepository)
                 : base(inscricaoRepository, httpContextAccessor)
         {
             this.inscricaoRepository = inscricaoRepository;
             this.solicitacaoIsencaoInscricaoRepository = solicitacaoIsencaoInscricaoRepository;
             this.concursoRepository = concursoRepository;
             this.emailService = emailService;
+            this.concursoCargoRepository = concursoCargoRepository;
         }
 
         public InscricaoService(IRepository<InscricaoEntity> repository, IHttpContextAccessor httpContextAccessor) : base(repository, httpContextAccessor)
@@ -69,7 +72,7 @@ namespace Senac.GCP.Domain.Services.Implementations
 
         public void ValidarDatas(InscricaoEntity entity)
         {
-            var concurso = concursoRepository.ObterConcursoPorInscricao(entity.Id);
+            var concurso = concursoCargoRepository.GetByIdWithDependencies(entity.IdConcursoCargo).Concurso;
 
             if (entity.DataInscricao < concurso.DataInicioInscricao)
                 throw new BusinessException("A data de inscriçao não pode ser inferior a data de início do concurso!");
@@ -87,7 +90,7 @@ namespace Senac.GCP.Domain.Services.Implementations
         public ValorPagamentoInscricaoDto ObterValorPagamento(long idInscricao)
         {
             var valorPagamentoInscricaoDto = new ValorPagamentoInscricaoDto();
-            var valorInscricao = concursoRepository.GetById(idInscricao).ValorInscricao;
+            var valorInscricao = concursoRepository.ObterConcursoPorInscricao(idInscricao).ValorInscricao;
             var solicitacaoIsencaoInscricao = solicitacaoIsencaoInscricaoRepository
                 .SingleOrDefaultWithDependencies(x => x.IdInscricao == idInscricao);
 
@@ -154,15 +157,14 @@ namespace Senac.GCP.Domain.Services.Implementations
 
         private void EnviarEmailNotificandoPagamentoRealizado(long idInscricao, int tipoDePagamento)
         {
-            var inscricao = inscricaoRepository.GetById(idInscricao);
+            var inscricao = inscricaoRepository.GetByIdWithDependencies(idInscricao);
             var tipoPagamento = (TipoPagamentoEnum)tipoDePagamento;
-            var pessoa = inscricao.Pessoa;
 
             emailService.WithTitle("GCP - Pagamento realizado com sucesso")
-                        .WithBody(@$"<h4>Prezado(a): <b>{pessoa.Nome} com número de inscrição de: 
-                                   {inscricao}</b>, informamos que recebemos o pagamento da sua inscrição 
+                        .WithBody(@$"<h4>Prezado(a): <b>{inscricao.Pessoa.Nome} com número de inscrição de: 
+                                   {inscricao.NumeroInscricao}</b>, informamos que recebemos o pagamento da sua inscrição 
                                    via {tipoPagamento}</h4><br/>", true)
-                        .WithRecipient(pessoa.Email)
+                        .WithRecipient(inscricao.Pessoa.Email)
                         .Send();
         }
     }

@@ -110,25 +110,6 @@ namespace Senac.GCP.Infrastructure.Notifications
             return result;
         }
 
-        public async Task<bool> SendAsync()
-        {
-            bool result = false;
-
-            try
-            {
-                var (smtpClient, mailMessage) = GetSmtpClientAndMailMessage();
-                await smtpClient.SendMailAsync(mailMessage);
-                result = true;
-            }
-            catch (Exception exc)
-            {
-                Console.WriteLine($"Erro ao enviar e-mail assíncrono: '{exc.Message}'.");
-            }
-
-            ClearFields();
-            return result;
-        }
-
         private (SmtpClient smtpClient, MailMessage mailMessage) GetSmtpClientAndMailMessage()
         {
             if (string.IsNullOrWhiteSpace(title))

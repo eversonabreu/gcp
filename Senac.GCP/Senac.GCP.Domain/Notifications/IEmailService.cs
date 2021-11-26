@@ -26,7 +26,5 @@ namespace Senac.GCP.Domain.Notifications
         IEmailService RemoveAllAttachments();
 
         bool Send();
-
-        Task<bool> SendAsync();
     }
 }
