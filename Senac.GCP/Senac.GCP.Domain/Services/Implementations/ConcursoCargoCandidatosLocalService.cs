@@ -44,23 +44,23 @@ namespace Senac.GCP.Domain.Services.Implementations
                 throw new BusinessException("Não existem salas disponíveis no local selecionado");
 
             var concursoCargoCandidatoLocalRepository = (IConcursoCargoCandidatoLocalRepository)GetRepository();
-            bool localEstaTotalAlocado;
+            bool localEstaTotalmenteAlocado;
 
             if (inscricao.Pessoa.PCD)
             {
 
                 int quantidadeCarteirasPCD = salas.Sum(x => x.QuantidadeDeCarteirasPcd);
-                localEstaTotalAlocado = concursoCargoCandidatoLocalRepository
+                localEstaTotalmenteAlocado = concursoCargoCandidatoLocalRepository
                     .ObterQuantidadeAlocadosPorLocalPCD(idConcursoFasesLocais) == quantidadeCarteirasPCD;
             }
             else
             {
                 int quantidadeCarteirasNormais = salas.Sum(x => x.QuantidadeDeCarteiras);
-                localEstaTotalAlocado = concursoCargoCandidatoLocalRepository
+                localEstaTotalmenteAlocado = concursoCargoCandidatoLocalRepository
                     .ObterQuantidadeAlocadosPorLocal(idConcursoFasesLocais) == quantidadeCarteirasNormais;
             }
 
-            if (localEstaTotalAlocado)
+            if (localEstaTotalmenteAlocado)
                 throw new BusinessException("O local selecionado não possui mais vagas disponíveis. Selecione outro local.");
 
             VincularLocalFase(idInscricao, idConcursoFasesLocais);
@@ -80,8 +80,6 @@ namespace Senac.GCP.Domain.Services.Implementations
             concursoCargoCandidatoLocalRepository.Add(concursoCargoCandidatoLocal);
 
             EnviarEmailDeConfirmacaoDaSelecao(idInscricao);
-
-            //fazer um método para envio de e-mail avisando a pessoa que a seleção ocorreu com sucesso!
         }
 
         private void EnviarEmailDeConfirmacaoDaSelecao(long idPessoa)
