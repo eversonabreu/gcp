@@ -15,5 +15,7 @@ namespace Senac.GCP.Domain.Entities
         [NotMapped]
         [Dependency(NameForeignKey = nameof(IdNivelEscolaridade))]
         public NivelEscolaridadeEntity NivelEscolaridade { get; set; }
+
+
     }
 }

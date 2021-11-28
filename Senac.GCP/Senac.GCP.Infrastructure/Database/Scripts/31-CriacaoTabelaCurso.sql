@@ -9,3 +9,4 @@ constraint PKCurso primary key (Id)
 );
 alter table Curso
 add constraint FkCursoNivelEscolaridade foreign key (IdNivelEscolaridade) references NivelEscolaridade(id);
+create unique index UkCursoNivelEscolaridade on Curso (Codigo);

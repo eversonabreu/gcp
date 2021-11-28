@@ -13,9 +13,5 @@ namespace Senac.GCP.Domain.Entities
         public string Descricao { get; set; }
 
         public string DeclaracaoCiencia { get; set; }
-
-        [NotMapped]
-        [Dependency(NameForeignKey = nameof(Codigo))]
-        public CargoEntity Codigoo { get; set; }
     }
 }
