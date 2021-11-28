@@ -85,10 +85,15 @@ namespace Senac.GCP.Domain.Services.Implementations
         private void EnviarEmailDeConfirmacaoDaSelecao(long idPessoa)
         {
             var pessoa = inscricaoRepository.GetByIdWithDependencies(idPessoa).Pessoa;
+            var local = concursoFasesLocaisSalaRepository.GetById(idPessoa).ConcursoFasesLocais;
             var envioEmail = emailService
                              .WithTitle("GCP - Confirmação da seleção do local")
                              .WithBody(@$"<h4>Prezado(a): <b>{pessoa.Nome}</b>, sua seleção do local da prova 
-                                          foi confirmada com sucesso", true)
+                                       foi confirmada com sucesso:
+                                       Local: {local.NomeLocal}
+                                       Endereço: {local.EnderecoRua}, {local.EnderecoNumero} - Bairro: {local.EnderecoBairro}
+                                       CEP: {local.EnderecoCEP}
+                                       Complemento: {local.EnderecoComplemento}", true)
                              .WithRecipient(pessoa.Email)
                              .Send();
             if (!envioEmail)
