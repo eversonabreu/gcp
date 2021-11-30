@@ -82,6 +82,12 @@ namespace Senac.GCP.Domain.Services.Implementations
             EnviarEmailDeConfirmacaoDaSelecao(idInscricao);
         }
 
+        //precisa verificar o que é pessoal é (PCD/AMPLA...)
+        //if PCD, pegar somente sala com quantidade PCD > 0
+        //If normal, pegar somente sala com quantidade normal > 0
+        //e fazer o vinculo com o local da primeira sala
+        //ajustar o e-mail
+
         private void EnviarEmailDeConfirmacaoDaSelecao(long idPessoa)
         {
             var pessoa = inscricaoRepository.GetByIdWithDependencies(idPessoa).Pessoa;
